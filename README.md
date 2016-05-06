@@ -11,6 +11,6 @@ Code for the Cross-platform MS Graph session at
 ### Code
 
 ##Contacts
-Andrew Coates
+[Andrew Coates](https://github.com/coatsy)
 
-Simon Jäger
+[Simon Jäger](https://github.com/simonjaeger)
