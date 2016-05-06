@@ -32,3 +32,11 @@ This will be a session demonstrating the use of the Microsoft Graph from a cross
 * As a mobile user I want to have the UI displayed in my language
 * As an administrator I want to create a group
 * As an administrator I want to adminster (add, remove) users in a group
+
+##More Ideas/Thoughts
+* Demo: Show new Application Registration Portal
+* Presentation: Converged Auth vs AAD + Live Auth
+* Presentation (/Demo): Windows Bridge for iOS (do we consider this x-plat?)
+* On REST vs SDK discussion: Fiddler demo of OAuth flow?
+* Which level would we target? If more advanced, I believe we should leverage MVVM. MvvmCross/MVVM Light/ReactiveUI? 
+* Package everything in a Story (e.g. a Health/Collaboration/etc... app) or just showcase functionality? 
