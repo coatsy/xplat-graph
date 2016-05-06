@@ -5,6 +5,7 @@ Code for the Cross-platform MS Graph session at
 
 ## Content
 ### Ideation
+[Ideas](ideas.md)
 ### Architecture
 ### Presentation
 ### Code
