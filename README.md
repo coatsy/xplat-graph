@@ -1,6 +1,6 @@
 # Cross-platform Samples for Microsoft Graph
-Code for the Cross-platform MS Graph session at
-* Newcastle Coders Group
+Presentation and Code for the Cross-platform MS Graph session at
+* [Newcastle Coders Group (1 June 2015)](http://www.meetup.com/en-AU/Newcastle-Coders-Group/events/230863675/)
 * TechReady 23
 
 ## Content
