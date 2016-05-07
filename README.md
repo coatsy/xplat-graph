@@ -8,6 +8,7 @@ Code for the Cross-platform MS Graph session at
 [Ideas](ideas.md)
 ### Architecture
 ### Presentation
+[Presentation](./Presentation/README.md)
 ### Code
 
 ##Contacts
