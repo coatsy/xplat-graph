@@ -5,13 +5,14 @@ Code for the Cross-platform MS Graph session at
 
 ## Content
 ### Ideation
-[Ideas](ideas.md)
+[Ideas](./Ideas/README.md)
 ### Architecture
+[Architecture](./Architecture/README.md)
 ### Presentation
 [Presentation](./Presentation/README.md)
 ### Code
 
 ##Contacts
-[Andrew Coates](https://github.com/coatsy)
+* [Simon Jäger](https://github.com/simonjaeger)
+* [Andrew Coates](https://github.com/coatsy)
 
-[Simon Jäger](https://github.com/simonjaeger)
