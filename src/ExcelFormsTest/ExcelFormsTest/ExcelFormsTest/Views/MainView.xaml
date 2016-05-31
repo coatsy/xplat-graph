@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExcelFormsTest.Views.MainView">
+  <StackLayout Padding="50">
+    <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
+    <StackLayout>
+      <Label Text="{Binding Path=AppVM.UserName, StringFormat='Logged in as {0}'}" IsVisible="{Binding Path=AppVM.IsLoggedIn}" />
+      <Button Text="Sign In" Command="{Binding Path=AppVM.LoginCommand}" IsVisible="{Binding Path=AppVM.IsNotLoggedIn}"/>
+      <Button Text="Sign In (Prompt for credentials)" Command="{Binding Path=AppVM.ForceLoginCommand}" IsVisible="{Binding Path=AppVM.IsNotLoggedIn}"/>
+      <Button Text="Sign Out" Command="{Binding Path=AppVM.LogoutCommand}" IsVisible="{Binding Path=AppVM.IsLoggedIn}" />
+    </StackLayout>
+    <StackLayout IsVisible="{Binding Path=AppVM.IsLoggedIn}" Padding="20,0">
+      <Image />
+    </StackLayout>
+  </StackLayout>
+</ContentPage>
