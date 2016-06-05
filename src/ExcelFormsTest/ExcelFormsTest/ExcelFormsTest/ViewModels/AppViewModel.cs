@@ -1,4 +1,5 @@
-﻿using Microsoft.Identity.Client;
+﻿using ExcelFormsTest.Services;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace ExcelFormsTest.ViewModels
                 NotifyPropertyChanged("IsLoggedIn");
                 NotifyPropertyChanged("IsNotLoggedIn");
                 NotifyPropertyChanged("UserName");
+
+                // update the token in the data service
+                DataService.Token = AuthResult?.Token ?? string.Empty;
             }
         }
 

@@ -1,7 +1,10 @@
 ﻿using ExcelFormsTest.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +12,33 @@ namespace ExcelFormsTest.Services
 {
     public static class DataService
     {
+
+        private static string token;
+
+        public static string Token
+        {
+            get { return token; }
+            set
+            {
+                token = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    client.DefaultRequestHeaders.Authorization = null;
+                }
+                else
+                {
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", Token);
+                }
+            }
+        }
+
+
+        public static string BaseGraphURL { get; set; } = "https://graph.microsoft.com";
+        public static string GraphVersion { get; set; } = "beta";
+        public static string FilteredFileQuery { get; set; } = "me/drive/root/search(q='{0}')?$select=name,id";
+
+        private static HttpClient client = new HttpClient();
+
         public static async Task<List<PropertyInformationModel>> GetProperties()
         {
             return await GetMockPropertyData();
@@ -29,7 +59,40 @@ namespace ExcelFormsTest.Services
             await DeleteMockProperty(pim);
         }
 
+        public static async Task<FileList> GetExcelFiles()
+        {
+            FileList result = new FileList();
 
+            string rawResult = await GetFileList("xlsx");
+
+            result = JsonConvert.DeserializeObject<FileList>(rawResult);
+
+            return result;
+        }
+
+        private static async Task<string> GetFileList(string filter)
+        {
+            string answer = string.Empty;
+            string queryString = string.Format($"{BaseGraphURL}/{GraphVersion}/{FilteredFileQuery}", filter);
+
+            answer = await executeQuery(queryString);
+
+            return answer;
+        }
+
+        private static async Task<string> executeQuery(string queryString)
+        {
+            string answer = string.Empty;
+
+            if (string.IsNullOrEmpty(Token) || client.DefaultRequestHeaders.Authorization == null)
+            {
+                throw new NotAuthorisedException("Token must be set");
+            }
+
+            answer = await client.GetStringAsync(queryString);
+
+            return answer;
+        }
 
 
         #region Mock Data
@@ -131,5 +194,22 @@ namespace ExcelFormsTest.Services
 
 
         #endregion
+    }
+
+    public class NotAuthorisedException : Exception
+    {
+        private string message;
+
+        public NotAuthorisedException()
+        {
+        }
+
+        public NotAuthorisedException(string message) : base(message)
+        {
+        }
+
+        public NotAuthorisedException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }
