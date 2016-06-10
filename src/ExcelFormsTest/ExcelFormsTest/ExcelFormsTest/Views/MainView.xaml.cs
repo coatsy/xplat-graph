@@ -25,5 +25,10 @@ namespace ExcelFormsTest.Views
             App.ClientApplication.PlatformParameters = platformParameters;
             base.OnAppearing();
         }
+
+        protected async void  ShowExpenses(object sender, object args)
+        {
+            await Navigation.PushAsync(new ExpensesView());
+        }
     }
 }

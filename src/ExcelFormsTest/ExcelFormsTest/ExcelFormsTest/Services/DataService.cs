@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,12 +34,103 @@ namespace ExcelFormsTest.Services
             }
         }
 
+        public static bool IsLoggedIn
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(Token);
+            }
+        }
+
 
         public static string BaseGraphURL { get; set; } = "https://graph.microsoft.com";
         public static string GraphVersion { get; set; } = "beta";
         public static string FilteredFileQuery { get; set; } = "me/drive/root/search(q='{0}')?$select=name,id";
-
+        public static string AppRootPath { get; set; } = "me/drive/special/approot:";
+        public static string BaseItemPath { get; set; } = "me/drive/items";
+        public static string ExpensesSpreadsheetName { get; set; } = "Expenses.xlsx";
+        public static string DataSheetName { get; set; } = "Data";
+        public static string DataTableName { get; set; } = "Table1";
+        public static string ChartSheetName { get; set; } = "Analysis";
         private static HttpClient client = new HttpClient();
+        private static string workbookID = string.Empty;
+
+        // ensures the "Expenses.xslx" file exists in the approot
+        private static async Task<bool> EnsureConfig()
+        {
+            // Are we logged in - if not just return false
+            if(!IsLoggedIn)
+            {
+                workbookID = string.Empty;
+                return false;
+            }
+
+            // does the file already exist? if so, return true
+            var check = await client.GetAsync($"{BaseGraphURL}/{GraphVersion}/{AppRootPath}/{ExpensesSpreadsheetName}?$select=name,id");
+            if (check.IsSuccessStatusCode)
+            {
+                dynamic answer = JsonConvert.DeserializeObject(await check.Content.ReadAsStringAsync());
+                workbookID = answer?.id ?? string.Empty;
+                return !string.IsNullOrWhiteSpace(workbookID);
+            }
+
+            // we're logged in but the file doesn't exist. Create it.
+            // read the binary stream from the embedded resource
+            var assembly = typeof(DataService).GetTypeInfo().Assembly;
+            const string RESOURCE_NAME = "ExcelFormsTest.Resources.Expenses.xlsx";
+
+            using (Stream stream = assembly.GetManifestResourceStream(RESOURCE_NAME))
+            {
+                workbookID = await UploadFile(stream, ExpensesSpreadsheetName, "application/xlsx");
+            }
+
+            return !string.IsNullOrWhiteSpace(workbookID);
+
+        }
+
+        private static async Task<string> UploadFile(Stream stream, string fileName, string contentType)
+        {
+            if (!IsLoggedIn)
+            {
+                return string.Empty;
+            }
+
+            //stream.Position = 0;
+            //byte[] inBytes = new byte[(int)stream.Length];
+            //await stream.ReadAsync(inBytes, 0, (int)stream.Length);
+            StreamContent fileStream = new StreamContent(stream);
+            fileStream.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            string fileLocation = $"{BaseGraphURL}/{GraphVersion}/{AppRootPath}/{fileName}:/content";
+            var result = await client.PutAsync(fileLocation, fileStream);
+            if (result.IsSuccessStatusCode)
+            {
+                dynamic answer = JsonConvert.DeserializeObject(await result.Content.ReadAsStringAsync());
+                var id= answer?.id ?? string.Empty;
+                return id;
+            }
+            else
+            {
+                return string.Empty;
+            }
+
+        }
+
+        public static async Task<List<Row>> GetRows()
+        {
+            List<Row> rows = new List<Row>();
+            if(! await EnsureConfig())
+            {
+                return rows;
+            }
+
+            string queryString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{DataSheetName}')/tables('{DataTableName}')/rows";
+
+            var rowList = await client.GetStringAsync(queryString);
+
+
+
+            return rows;
+        }
 
         public static async Task<List<PropertyInformationModel>> GetProperties()
         {
@@ -194,6 +287,14 @@ namespace ExcelFormsTest.Services
 
 
         #endregion
+    }
+
+    public class Row
+    {
+        public string Vendor { get; set; }
+        public string Category { get; set; }
+        public double Amount { get; set; }
+        public string Id { get; set; }
     }
 
     public class NotAuthorisedException : Exception

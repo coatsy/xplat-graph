@@ -50,6 +50,21 @@ namespace ExcelFormsTest.ViewModels
             }
         }
 
+        private CommandBase showExpensesCommand;
+
+        public CommandBase ShowExpensesCommand
+        {
+            get
+            {
+                showExpensesCommand = showExpensesCommand ?? new CommandBase(DoShowExpensesCommand);
+                return showExpensesCommand;
+            }
+        }
+
+        private async void DoShowExpensesCommand()
+        {
+            
+        }
 
     }
 }
