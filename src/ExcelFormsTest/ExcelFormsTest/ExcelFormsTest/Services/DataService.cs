@@ -82,7 +82,8 @@ namespace ExcelFormsTest.Services
             var check = await client.GetAsync($"{BaseGraphURL}/{GraphVersion}/{AppRootPath}/{ExpensesSpreadsheetName}?$select=name,id");
             if (check.IsSuccessStatusCode)
             {
-                dynamic answer = JsonConvert.DeserializeObject(await check.Content.ReadAsStringAsync());
+                var json = await check.Content.ReadAsStringAsync();
+                var answer = JsonConvert.DeserializeObject<FileListRootObject>(json);
                 workbookID = answer?.id ?? string.Empty;
                 return !string.IsNullOrWhiteSpace(workbookID);
             }
@@ -108,16 +109,14 @@ namespace ExcelFormsTest.Services
                 return string.Empty;
             }
 
-            //stream.Position = 0;
-            //byte[] inBytes = new byte[(int)stream.Length];
-            //await stream.ReadAsync(inBytes, 0, (int)stream.Length);
             StreamContent fileStream = new StreamContent(stream);
             fileStream.Headers.ContentType = new MediaTypeHeaderValue(contentType);
             string fileLocation = $"{BaseGraphURL}/{GraphVersion}/{AppRootPath}/{fileName}:/content";
             var result = await client.PutAsync(fileLocation, fileStream);
             if (result.IsSuccessStatusCode)
             {
-                dynamic answer = JsonConvert.DeserializeObject(await result.Content.ReadAsStringAsync());
+                var json = await result.Content.ReadAsStringAsync();
+                var answer = JsonConvert.DeserializeObject<FileCreationRootObject>(json);
                 var id = answer?.id ?? string.Empty;
                 return id;
             }
@@ -162,6 +161,14 @@ namespace ExcelFormsTest.Services
         public async static Task<string> GetChartImageAsBase64()
         {
             if (!await EnsureConfig()) return null;
+
+            var patchString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{ChartSheetName}')/Charts('Chart 1')";
+
+            var patchRequest = new HttpRequestMessage(new HttpMethod("PATCH"), patchString);
+            patchRequest.Content = new StringContent("{}", Encoding.UTF8, "application/json");
+            var patchResult = await client.SendAsync(patchRequest);
+
+
 
             var queryString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{ChartSheetName}')/Charts('Chart 1')/Image";
             var json = await client.GetStringAsync(queryString);
@@ -381,6 +388,88 @@ namespace ExcelFormsTest.Services
         [JsonProperty("@odata.context")]
         public string context { get; set; }
         public string value { get; set; }
+    }
+
+    public class FileListRootObject
+    {
+        [JsonProperty("@odata.context")]
+        public string context { get; set; }
+        [JsonProperty("@odata.etag")]
+        public string etag { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+    }
+
+
+    public class GraphApplication
+    {
+        public string displayName { get; set; }
+        public string id { get; set; }
+    }
+
+    public class GraphUser
+    {
+        public string displayName { get; set; }
+        public string id { get; set; }
+    }
+
+    public class CreatedBy
+    {
+        public GraphApplication application { get; set; }
+        public GraphUser user { get; set; }
+    }
+
+
+    public class LastModifiedBy
+    {
+        public GraphApplication application { get; set; }
+        public GraphUser user { get; set; }
+    }
+
+    public class ParentReference
+    {
+        public string driveId { get; set; }
+        public string id { get; set; }
+        public string path { get; set; }
+    }
+
+    public class Hashes
+    {
+        public string crc32Hash { get; set; }
+        public string sha1Hash { get; set; }
+    }
+
+    public class GraphFile
+    {
+        public Hashes hashes { get; set; }
+        public string mimeType { get; set; }
+    }
+
+    public class GraphFileSystemInfo
+    {
+        public string createdDateTime { get; set; }
+        public string lastModifiedDateTime { get; set; }
+    }
+
+    public class FileCreationRootObject
+    {
+        [JsonProperty("@odata.context")]
+        public string context { get; set; }
+        [JsonProperty("@microsoft.graph.downloadUrl")]
+        public string downloadUrl { get; set; }
+        public CreatedBy createdBy { get; set; }
+        public string createdDateTime { get; set; }
+        public string cTag { get; set; }
+        public string eTag { get; set; }
+        public string id { get; set; }
+        public LastModifiedBy lastModifiedBy { get; set; }
+        public string lastModifiedDateTime { get; set; }
+        public string name { get; set; }
+        public ParentReference parentReference { get; set; }
+        public int size { get; set; }
+        public string webUrl { get; set; }
+        public GraphFile file { get; set; }
+        public GraphFileSystemInfo fileSystemInfo { get; set; }
     }
 
 }

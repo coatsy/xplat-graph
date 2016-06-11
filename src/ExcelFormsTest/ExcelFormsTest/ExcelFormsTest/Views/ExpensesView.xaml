@@ -19,19 +19,19 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
               <Label Grid.Column="0" Text="{Binding Vendor}" />
               <Label Grid.Column="1" Text="{Binding Category}" />
               <Label Grid.Column="2" Text="{Binding Amount, StringFormat='{0:c}'}" HorizontalTextAlignment="End" />
-              <Label Grid.Column="3" Text="{Binding Id}" />
             </Grid>
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
     <Image Grid.Row="2" Source="{Binding ChartImage}" />
-    <Button Grid.Row="3" Text="Refresh" Command="{Binding GetExpensesCommand}" />
-  </Grid>
+    <StackLayout Orientation="Horizontal" Grid.Row="3">
+      <ActivityIndicator IsVisible="{Binding IsRefreshing}" IsRunning="{Binding IsRefreshing}" />
+      <Button Text="Refresh" Command="{Binding GetExpensesCommand}" />
+    </StackLayout>  </Grid>
 
 </ContentPage>
