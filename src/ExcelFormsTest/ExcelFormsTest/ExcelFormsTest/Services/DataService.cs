@@ -149,7 +149,8 @@ namespace ExcelFormsTest.Services
                     {
                         Vendor = item[0] as string,
                         Category = item[1] as string,
-                        Amount = item[2] as double? ?? 0.00,
+                        // this Parse madness is because an exact number of dollars comes back as a long and as double? returns null!
+                        Amount = double.Parse(item[2].ToString()),
                         Id = item[3] as string
                     });
                 }
