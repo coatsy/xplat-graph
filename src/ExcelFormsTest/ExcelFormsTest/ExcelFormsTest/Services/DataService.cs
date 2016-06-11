@@ -9,11 +9,24 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ExcelFormsTest.Services
 {
     public static class DataService
     {
+
+
+        public static List<string> ExpenseCategories = new List<string>()
+        {
+            "Taxi",
+            "Airfare",
+            "Lodging",
+            "Meals",
+            "Supplies",
+            "Gadgets",
+            "Connectivity"
+        };
 
         private static string token;
 
@@ -59,7 +72,7 @@ namespace ExcelFormsTest.Services
         private static async Task<bool> EnsureConfig()
         {
             // Are we logged in - if not just return false
-            if(!IsLoggedIn)
+            if (!IsLoggedIn)
             {
                 workbookID = string.Empty;
                 return false;
@@ -105,7 +118,7 @@ namespace ExcelFormsTest.Services
             if (result.IsSuccessStatusCode)
             {
                 dynamic answer = JsonConvert.DeserializeObject(await result.Content.ReadAsStringAsync());
-                var id= answer?.id ?? string.Empty;
+                var id = answer?.id ?? string.Empty;
                 return id;
             }
             else
@@ -115,10 +128,10 @@ namespace ExcelFormsTest.Services
 
         }
 
-        public static async Task<List<Row>> GetRows()
+        public static async Task<List<ExpenseRow>> GetRows()
         {
-            List<Row> rows = new List<Row>();
-            if(! await EnsureConfig())
+            List<ExpenseRow> rows = new List<ExpenseRow>();
+            if (!await EnsureConfig())
             {
                 return rows;
             }
@@ -127,9 +140,33 @@ namespace ExcelFormsTest.Services
 
             var rowList = await client.GetStringAsync(queryString);
 
+            var rowsObject = JsonConvert.DeserializeObject<ExpenseRowsRootObject>(rowList);
 
+            foreach (var row in rowsObject.value)
+            {
+                foreach (var item in row.values)
+                {
+                    rows.Add(new ExpenseRow()
+                    {
+                        Vendor = item[0] as string,
+                        Category = item[1] as string,
+                        Amount = item[2] as double? ?? 0.00,
+                        Id = item[3] as string
+                    });
+                }
+            }
 
             return rows;
+        }
+
+        public async static Task<string> GetChartImageAsBase64()
+        {
+            if (!await EnsureConfig()) return null;
+
+            var queryString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{ChartSheetName}')/Charts('Chart 1')/Image";
+            var json = await client.GetStringAsync(queryString);
+            var jsonObj = JsonConvert.DeserializeObject<ChartGraphObject>(json);
+            return jsonObj.value;
         }
 
         public static async Task<List<PropertyInformationModel>> GetProperties()
@@ -261,7 +298,7 @@ namespace ExcelFormsTest.Services
         private static async Task<PropertyInformationModel> UpdateMockProperty(PropertyInformationModel pim)
         {
             var prop = propList.Where(p => p.Id == pim.Id).FirstOrDefault();
-            if(prop != null)
+            if (prop != null)
             {
                 prop.Latitude = pim.Latitude;
                 prop.Longitude = pim.Longitude;
@@ -279,7 +316,7 @@ namespace ExcelFormsTest.Services
         private static async Task DeleteMockProperty(PropertyInformationModel pim)
         {
             var prop = propList.Where(p => p.Id == pim.Id).FirstOrDefault();
-            if(prop!=null)
+            if (prop != null)
             {
                 propList.Remove(prop);
             }
@@ -289,12 +326,20 @@ namespace ExcelFormsTest.Services
         #endregion
     }
 
-    public class Row
+    public class ExpenseRow
     {
         public string Vendor { get; set; }
         public string Category { get; set; }
         public double Amount { get; set; }
         public string Id { get; set; }
+
+        public object AsExcelRow()
+        {
+            return new
+            {
+                values = new object[] { Vendor, Category, Amount, Id }
+            };
+        }
     }
 
     public class NotAuthorisedException : Exception
@@ -313,4 +358,29 @@ namespace ExcelFormsTest.Services
         {
         }
     }
+
+    // used for deserializing json from the graph
+    public class ExpenseRowsValue
+    {
+        [JsonProperty("@odata.id")]
+        public string id { get; set; }
+        public int index { get; set; }
+        public List<List<object>> values { get; set; }
+    }
+
+    public class ExpenseRowsRootObject
+    {
+        [JsonProperty("@odata.context")]
+        public string context { get; set; }
+        public List<ExpenseRowsValue> value { get; set; }
+    }
+
+
+    public class ChartGraphObject
+    {
+        [JsonProperty("@odata.context")]
+        public string context { get; set; }
+        public string value { get; set; }
+    }
+
 }

@@ -11,7 +11,7 @@ namespace ExcelFormsTest.ViewModels
     public class ExpenseViewModel : ViewModelBase
     {
 
-        public ExpenseViewModel(Row row)
+        public ExpenseViewModel(ExpenseRow row)
         {
             this.Vendor = row.Vendor;
             this.Category = row.Category;
