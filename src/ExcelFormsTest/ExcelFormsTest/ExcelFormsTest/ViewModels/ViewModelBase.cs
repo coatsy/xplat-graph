@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace ExcelFormsTest.ViewModels
 {
@@ -17,6 +18,32 @@ namespace ExcelFormsTest.ViewModels
         {
             get { return title; }
             set { if (title == value) return; title = value; NotifyPropertyChanged(); }
+        }
+
+        private string message;
+        public string Message
+        {
+            get { return message; }
+            set { if (message == value) return; message = value; NotifyPropertyChanged(); }
+        }
+
+        private bool isRefreshing;
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set { if (isRefreshing == value) return; isRefreshing = value; NotifyPropertyChanged(); }
+        }
+
+
+        public void ShowMessage(string message)
+        {
+            Message = message;
+            Debug.WriteLine(message);
+        }
+
+        public void ClearMessage()
+        {
+            Message = string.Empty;
         }
 
 

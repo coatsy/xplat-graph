@@ -44,12 +44,16 @@
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\CommandBase.cs" />
     <Compile Include="ViewModels\ExcelInteractionViewModel.cs" />
+    <Compile Include="ViewModels\ExpensesChartViewModel.cs" />
     <Compile Include="ViewModels\ExpensesViewModel.cs" />
     <Compile Include="ViewModels\ExpenseViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PropertyInformationViewModel.cs" />
     <Compile Include="ViewModels\PropertyListViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\ExpensesChartView.xaml.cs">
+      <DependentUpon>ExpensesChartView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExpensesView.xaml.cs">
       <DependentUpon>ExpensesView.xaml</DependentUpon>
     </Compile>
@@ -104,6 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ExpensesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ExpensesChartView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -163,18 +163,27 @@ namespace ExcelFormsTest.Services
         {
             if (!await EnsureConfig()) return null;
 
-            var patchString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{ChartSheetName}')/Charts('Chart 1')";
+            //var patchString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{ChartSheetName}')/Charts('Chart 1')";
 
-            var patchRequest = new HttpRequestMessage(new HttpMethod("PATCH"), patchString);
-            patchRequest.Content = new StringContent("{}", Encoding.UTF8, "application/json");
-            var patchResult = await client.SendAsync(patchRequest);
-
-
+            //var patchRequest = new HttpRequestMessage(new HttpMethod("PATCH"), patchString);
+            //patchRequest.Content = new StringContent("{}", Encoding.UTF8, "application/json");
+            //var patchResult = await client.SendAsync(patchRequest);
 
             var queryString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{ChartSheetName}')/Charts('Chart 1')/Image";
             var json = await client.GetStringAsync(queryString);
             var jsonObj = JsonConvert.DeserializeObject<ChartGraphObject>(json);
             return jsonObj.value;
+        }
+
+        public static async Task<bool> AddRow(ExpenseRow row)
+        {
+            if (! await EnsureConfig()) return false;
+
+            // adds a row to the Excel Datasource
+            var postString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{DataSheetName}')/Tables('{DataTableName}')/rows";
+            var xlRow = row.AsExcelRow();
+            var result = await client.PostAsync(postString, new StringContent(JsonConvert.SerializeObject(xlRow), Encoding.UTF8, "application/json"));
+            return result.IsSuccessStatusCode;
         }
 
         public static async Task<List<PropertyInformationModel>> GetProperties()
@@ -345,7 +354,7 @@ namespace ExcelFormsTest.Services
         {
             return new
             {
-                values = new object[] { Vendor, Category, Amount, Id }
+                values = new object[] { new object[] { Vendor, Category, Amount, Id } }
             };
         }
     }
@@ -366,7 +375,7 @@ namespace ExcelFormsTest.Services
         {
         }
     }
-
+    #region JsonConvert Classes
     // used for deserializing json from the graph
     public class ExpenseRowsValue
     {
@@ -472,5 +481,5 @@ namespace ExcelFormsTest.Services
         public GraphFile file { get; set; }
         public GraphFileSystemInfo fileSystemInfo { get; set; }
     }
-
+    #endregion
 }

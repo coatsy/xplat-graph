@@ -16,5 +16,10 @@ namespace ExcelFormsTest.Views
             InitializeComponent();
             this.BindingContext = new ExpensesViewModel();
         }
+
+        private async void DisplayChart(object sender, object args)
+        {
+            await Navigation.PushModalAsync(new ExpensesChartView());
+        }
     }
 }

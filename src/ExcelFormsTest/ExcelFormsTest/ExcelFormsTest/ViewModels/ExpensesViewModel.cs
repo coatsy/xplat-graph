@@ -15,44 +15,15 @@ namespace ExcelFormsTest.ViewModels
         public ExpensesViewModel()
         {
             Title = "Expense List";
+           
         }
 
-        private bool isRefreshing;
-        public bool IsRefreshing
-        {
-            get { return isRefreshing; }
-            set { if (isRefreshing == value) return; isRefreshing = value; NotifyPropertyChanged(); }
-        }
 
 
         private ObservableCollection<ExpenseViewModel> expenses;
         public ObservableCollection<ExpenseViewModel> Expenses
         {
             get { expenses = expenses ?? new ObservableCollection<ExpenseViewModel>(); return expenses; }
-        }
-
-        // image handling from Clemens' answer at
-        // http://stackoverflow.com/questions/37080258/xamarin-show-image-from-base64-string
-        private string chartImageBase64;
-        public string ChartImageBase64
-        {
-            get { return chartImageBase64; }
-            set
-            {
-                chartImageBase64 = value;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged("ChartImage");
-            }
-        }
-
-        public ImageSource ChartImage
-        {
-            get
-            {
-                return string.IsNullOrEmpty(ChartImageBase64) ? 
-                    null : 
-                    ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(ChartImageBase64)));
-            }
         }
 
 
@@ -69,6 +40,8 @@ namespace ExcelFormsTest.ViewModels
 
         private async void DoGetExpensesCommand()
         {
+            ClearMessage();
+            var isRefreshing = IsRefreshing;
             IsRefreshing = true;
             var rows = await DataService.GetRows();
             Expenses.Clear();
@@ -79,9 +52,11 @@ namespace ExcelFormsTest.ViewModels
                     Expenses.Add(new ExpenseViewModel(row));
                 }
             }
-            ChartImageBase64 = await DataService.GetChartImageAsBase64();
-            IsRefreshing = false;
+
+            IsRefreshing = isRefreshing;
         }
+
+
 
         private CommandBase deleteExpenseCommand;
 
@@ -110,9 +85,27 @@ namespace ExcelFormsTest.ViewModels
             }
         }
 
-        private void DoAddExpenseCommand()
+        private async void DoAddExpenseCommand()
         {
+            ClearMessage();
+            ExpenseRow row = new ExpenseRow()
+            {
+                Vendor = "Vodafone",
+                Category = "Connectivity",
+                Amount = 128d,
+                Id = string.Empty
+            };
 
+            var success = await DataService.AddRow(row);
+
+            if (success)
+            {
+                Expenses.Add(new ExpenseViewModel(row));
+            }
+            else
+            {
+                ShowMessage("Error adding expense");
+            }
         }
     }
 }
