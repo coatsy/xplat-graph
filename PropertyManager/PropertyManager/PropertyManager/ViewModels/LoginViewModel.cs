@@ -9,8 +9,6 @@ namespace PropertyManager.ViewModels
     {
         private readonly IGraphService _graphService;
 
-        private readonly IAuthenticationService _authenticationService;
-
         private bool _isLoading;
 
         public bool IsLoading
@@ -25,12 +23,9 @@ namespace PropertyManager.ViewModels
 
         public ICommand LoginCommand => new MvxCommand(LoginAsync);
 
-        public LoginViewModel(IGraphService graphService,
-            IAuthenticationService authenticationService)
+        public LoginViewModel(IGraphService graphService)
         {
             _graphService = graphService;
-            _authenticationService = authenticationService;
-            IsLoading = false;
         }
 
         private async void LoginAsync()

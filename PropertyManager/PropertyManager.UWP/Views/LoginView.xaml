@@ -13,27 +13,31 @@
                     VerticalAlignment="Center"
                     MaxWidth="350">
             <Image Source="../Assets/Images/fingerprint.png"
-                   MaxHeight="160"></Image>
+                   MaxHeight="120"></Image>
 
             <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
-                       Margin="0,10,0,0">
+                       Margin="0,25,0,0">
                 Who are you?
             </TextBlock>
 
             <TextBlock Style="{StaticResource BodyTextBlockStyle}"
-                       Margin="0,25,0,50">
-                Sign in using your work or school account in order to use this sample application. Access the sample code for this application at https://github.com/coatsy/xplat-graph
+                       Margin="0,10,0,15"
+                       Foreground="#9a9fa3">
+                Sign in with your work or school account in order to use this sample application. Access the sample code for this application at https://github.com/coatsy/xplat-graph
             </TextBlock>
 
-            <Grid HorizontalAlignment="Center" Height="50">
+            <Grid HorizontalAlignment="Stretch" Height="50">
                 <Button Style="{StaticResource AccentButtonStyle}"
+                        HorizontalAlignment="Stretch"
                         Command="{Binding LoginCommand}"
-                        Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                        Visibility="{Binding IsLoading, 
+                    Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                     SIGN IN
                 </Button>
 
                 <ProgressRing Style="{StaticResource AccentProgressRingStyle}"
-                          IsActive="{Binding IsLoading}">
+                          IsActive="{Binding IsLoading}"
+                              HorizontalAlignment="Center">
                 </ProgressRing>
             </Grid>
         </StackPanel>

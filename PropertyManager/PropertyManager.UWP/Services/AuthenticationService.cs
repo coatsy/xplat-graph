@@ -7,7 +7,7 @@ namespace PropertyManager.UWP.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        public string Authority => "https://login.microsoftonline.com/simonj.onmicrosoft.com";
+        public string Authority => "https://login.microsoftonline.com/common";
 
         public string Resource => "https://graph.microsoft.com/";
 
@@ -17,6 +17,9 @@ namespace PropertyManager.UWP.Services
 
         public async Task<AuthenticationResult> AcquireTokenAsync()
         {
+            // Clear the cache.
+            TokenCache.DefaultShared.Clear();
+
             // Create the authentication context.
             var authenticationContext = new AuthenticationContext(Authority);
 
