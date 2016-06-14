@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Models\DriveItemModel.cs" />
     <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -40,6 +41,7 @@
     <Compile Include="Services\Implementations\GraphService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IGraphService.cs" />
+    <Compile Include="ViewModels\GroupsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

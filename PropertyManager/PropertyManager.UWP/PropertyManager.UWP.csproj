@@ -119,6 +119,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Views\GroupsView.xaml.cs">
+      <DependentUpon>GroupsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\GroupsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>

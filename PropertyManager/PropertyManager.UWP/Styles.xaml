@@ -18,7 +18,6 @@
     <!--Styles-->
     <Style x:Key="PageRootGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource SecondaryColorBrush}"/>
-        <Setter Property="Padding" Value="30"></Setter>
     </Style>
     
     <Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">

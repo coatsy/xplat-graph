@@ -11,7 +11,8 @@
         <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    MaxWidth="350">
+                    MaxWidth="350"
+                    Margin="30">
             <Image Source="../Assets/Images/fingerprint.png"
                    MaxHeight="120"></Image>
 
