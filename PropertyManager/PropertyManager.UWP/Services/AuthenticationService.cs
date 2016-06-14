@@ -26,7 +26,7 @@ namespace PropertyManager.UWP.Services
 
             // Authenticate the user.
             var authenticationResult = await authenticationContext.AcquireTokenAsync(
-                Resource, ClientId, RedirectUri, platformParameters);
+                Resource, ClientId, RedirectUri, platformParameters); 
             return authenticationResult;
         }
 

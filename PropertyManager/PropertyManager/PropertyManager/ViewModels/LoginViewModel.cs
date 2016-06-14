@@ -30,10 +30,12 @@ namespace PropertyManager.ViewModels
         {
             _graphService = graphService;
             _authenticationService = authenticationService;
+            IsLoading = false;
         }
 
         private async void LoginAsync()
         {
+            IsLoading = true;
             var d = await _graphService.GetGroupsAsync();
             var p = await _graphService.GetUserGroupsAsync();
         }

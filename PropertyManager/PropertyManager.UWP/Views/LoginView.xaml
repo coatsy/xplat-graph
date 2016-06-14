@@ -11,7 +11,7 @@
         <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    MaxWidth="300">
+                    MaxWidth="350">
             <Image Source="../Assets/Images/fingerprint.png"
                    MaxHeight="160"></Image>
 
@@ -21,19 +21,21 @@
             </TextBlock>
 
             <TextBlock Style="{StaticResource BodyTextBlockStyle}"
-                       Margin="0,25,0,20">
+                       Margin="0,25,0,50">
                 Sign in using your work or school account in order to use this sample application. Access the sample code for this application at https://github.com/coatsy/xplat-graph
             </TextBlock>
 
-            <Button Style="{StaticResource AccentButtonStyle}"
-                    HorizontalAlignment="Stretch"
-                    Command="{Binding LoginCommand}">
-                Sign in
-            </Button>
+            <Grid HorizontalAlignment="Center" Height="50">
+                <Button Style="{StaticResource AccentButtonStyle}"
+                        Command="{Binding LoginCommand}"
+                        Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                    SIGN IN
+                </Button>
 
-            <ProgressRing Style="{StaticResource AccentProgressRingStyle}"
+                <ProgressRing Style="{StaticResource AccentProgressRingStyle}"
                           IsActive="{Binding IsLoading}">
-            </ProgressRing>
+                </ProgressRing>
+            </Grid>
         </StackPanel>
     </Grid>
 </views:MvxWindowsPage>
