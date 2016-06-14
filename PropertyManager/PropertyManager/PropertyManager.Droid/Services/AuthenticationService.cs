@@ -29,11 +29,27 @@ namespace PropertyManager.Droid.Services
             var authenticationContext = new AuthenticationContext(Authority);
 
             // Create the platform parameters.
-            var platformParameters = new PlatformParameters(CallerActivity);
+            var platformParameters = new PlatformParameters(CallerActivity); 
 
             // Authenticate the user.
             var authenticationResult = await authenticationContext.AcquireTokenAsync(Resource,
                 ClientId, RedirectUri, platformParameters);
+            return authenticationResult;
+        }
+
+        public async Task<AuthenticationResult> AcquireTokenSilentAsync()
+        {
+            if (CallerActivity == null)
+            {
+                throw new Exception("Caller Activity must be set.");
+            }
+
+            // Create the authentication context.
+            var authenticationContext = new AuthenticationContext(Authority);
+
+            // Authenticate the user.
+            var authenticationResult = await authenticationContext.AcquireTokenSilentAsync(
+                Resource, ClientId);
             return authenticationResult;
         }
     }

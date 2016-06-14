@@ -1,4 +1,5 @@
-using MvvmCross.Platform.IoC;
+using MvvmCross.Platform;
+using PropertyManager.Services;
 
 namespace PropertyManager
 {
@@ -6,12 +7,9 @@ namespace PropertyManager
     {
         public override void Initialize()
         {
-            CreatableTypes()
-                .EndingWith("Service")
-                .AsInterfaces()
-                .RegisterAsLazySingleton();
-
-            RegisterAppStart<ViewModels.FirstViewModel>();
+            Mvx.RegisterType(typeof(IHttpService), typeof(HttpService));
+            Mvx.RegisterType(typeof(IGraphService), typeof(GraphService));
+            RegisterAppStart<ViewModels.LoginViewModel>();
         }
     }
 }

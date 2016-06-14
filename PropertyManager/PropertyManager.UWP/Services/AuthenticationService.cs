@@ -21,12 +21,23 @@ namespace PropertyManager.UWP.Services
             var authenticationContext = new AuthenticationContext(Authority);
 
             // Create the platform parameters.
-            var platformParameters = new PlatformParameters(PromptBehavior.Auto,
+            var platformParameters = new PlatformParameters(PromptBehavior.Always,
                 false);
 
             // Authenticate the user.
-            var authenticationResult = await authenticationContext.AcquireTokenAsync(Resource,
-                ClientId, RedirectUri, platformParameters);
+            var authenticationResult = await authenticationContext.AcquireTokenAsync(
+                Resource, ClientId, RedirectUri, platformParameters);
+            return authenticationResult;
+        }
+
+        public async Task<AuthenticationResult> AcquireTokenSilentAsync()
+        {
+            // Create the authentication context.
+            var authenticationContext = new AuthenticationContext(Authority);
+
+            // Authenticate the user.
+            var authenticationResult = await authenticationContext.AcquireTokenSilentAsync(
+                Resource, ClientId);
             return authenticationResult;
         }
     }
