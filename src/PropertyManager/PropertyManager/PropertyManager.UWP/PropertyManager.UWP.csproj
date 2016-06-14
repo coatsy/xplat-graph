@@ -166,7 +166,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PropertyManager\PropertyManager\PropertyManager.csproj">
+    <ProjectReference Include="..\PropertyManager\PropertyManager.csproj">
       <Project>{e3fa1bf7-8a72-44ac-964a-c46316886f4b}</Project>
       <Name>PropertyManager</Name>
     </ProjectReference>
