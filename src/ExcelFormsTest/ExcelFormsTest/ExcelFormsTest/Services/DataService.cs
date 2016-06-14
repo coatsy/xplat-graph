@@ -159,15 +159,142 @@ namespace ExcelFormsTest.Services
             return rows;
         }
 
+        internal static async Task AddSampleData()
+        {
+
+            ExpenseRow row;
+            row = new ExpenseRow()
+            {
+                Vendor = "Qantas Airways",
+                Category = "Airfare",
+                Amount = 174.87d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Qantas Airways",
+                Category = "Airfare",
+                Amount = 483.36d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Singapore Airlines",
+                Category = "Airfare",
+                Amount = 1485.20d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Virgin Australia",
+                Category = "Airfare",
+                Amount = 266.33d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Telstra",
+                Category = "Connectivity",
+                Amount = 70.20d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Vodafone",
+                Category = "Connectivity",
+                Amount = 60.00d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "T-Mobile",
+                Category = "Connectivity",
+                Amount = 25.47d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Uber",
+                Category = "Taxi",
+                Amount = 18.27d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Uber",
+                Category = "Taxi",
+                Amount = 12.56d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Uber",
+                Category = "Taxi",
+                Amount = 42.90d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Cafe 9",
+                Category = "Meals",
+                Amount = 12.50d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "McDonalds",
+                Category = "Meals",
+                Amount = 8.45d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Thai the Knot",
+                Category = "Meals",
+                Amount = 36.21d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+            row = new ExpenseRow()
+            {
+                Vendor = "Cafe 9",
+                Category = "Meals",
+                Amount = 18.30d,
+                Id = string.Empty
+            };
+            await AddRow(row);
+
+
+        }
+
         public async static Task<string> GetChartImageAsBase64()
         {
             if (!await EnsureConfig()) return null;
-
-            //var patchString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{ChartSheetName}')/Charts('Chart 1')";
-
-            //var patchRequest = new HttpRequestMessage(new HttpMethod("PATCH"), patchString);
-            //patchRequest.Content = new StringContent("{}", Encoding.UTF8, "application/json");
-            //var patchResult = await client.SendAsync(patchRequest);
 
             var queryString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{ChartSheetName}')/Charts('Chart 1')/Image";
             var json = await client.GetStringAsync(queryString);
@@ -177,12 +304,50 @@ namespace ExcelFormsTest.Services
 
         public static async Task<bool> AddRow(ExpenseRow row)
         {
-            if (! await EnsureConfig()) return false;
+            if (!await EnsureConfig()) return false;
 
             // adds a row to the Excel Datasource
             var postString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{DataSheetName}')/Tables('{DataTableName}')/rows";
             var xlRow = row.AsExcelRow();
             var result = await client.PostAsync(postString, new StringContent(JsonConvert.SerializeObject(xlRow), Encoding.UTF8, "application/json"));
+            return result.IsSuccessStatusCode;
+        }
+
+        public static async Task<ExpenseRow> UpdateRow(int index, ExpenseRow row)
+        {
+            var address = $"{DataSheetName}!A{index + 2}:D{index + 2}";
+            var updateString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{DataSheetName}')/range(address='{address}')";
+            var patchRequest = new HttpRequestMessage(new HttpMethod("PATCH"), updateString);
+            patchRequest.Content = new StringContent(JsonConvert.SerializeObject(row.AsExcelRow()), Encoding.UTF8, "application/json");
+            var patchResult = await client.SendAsync(patchRequest);
+
+            if (patchResult.IsSuccessStatusCode)
+            {
+                var json = await patchResult.Content.ReadAsStringAsync();
+
+                var answerObject = JsonConvert.DeserializeObject<UpdateRowRootObject>(json);
+                var updatedRow = new ExpenseRow()
+                {
+                    Vendor = answerObject.values[0][0].ToString(),
+                    Category = answerObject.values[0][1].ToString(),
+                    Amount = double.Parse(answerObject.values[0][2].ToString()),
+                    Id = answerObject.values[0][3].ToString()
+                };
+
+                return updatedRow;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static async Task<bool> DeleteRow(int index)
+        {
+            var address = $"{DataSheetName}!A{index + 2}:D{index + 2}";
+            var deleteString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{DataSheetName}')/range(address='{address}')/delete";
+            var moveUpInstructions = new { shift = "Up" };
+            var result = await client.PostAsync(deleteString, new StringContent(JsonConvert.SerializeObject(moveUpInstructions)));
             return result.IsSuccessStatusCode;
         }
 
@@ -375,6 +540,8 @@ namespace ExcelFormsTest.Services
         {
         }
     }
+    
+    
     #region JsonConvert Classes
     // used for deserializing json from the graph
     public class ExpenseRowsValue
@@ -481,5 +648,34 @@ namespace ExcelFormsTest.Services
         public GraphFile file { get; set; }
         public GraphFileSystemInfo fileSystemInfo { get; set; }
     }
+
+
+    public class UpdateRowRootObject
+    {
+        [JsonProperty("@odata.context")]
+        public string context { get; set; }
+        [JsonProperty("@odata.type")]
+        public string type { get; set; }
+        [JsonProperty("@odata.id")]
+        public string id { get; set; }
+        public string address { get; set; }
+        public string addressLocal { get; set; }
+        public int cellCount { get; set; }
+        public int columnCount { get; set; }
+        public bool columnHidden { get; set; }
+        public int columnIndex { get; set; }
+        public List<List<object>> formulas { get; set; }
+        public List<List<object>> formulasLocal { get; set; }
+        public List<List<object>> formulasR1C1 { get; set; }
+        public bool hidden { get; set; }
+        public List<List<string>> numberFormat { get; set; }
+        public int rowCount { get; set; }
+        public bool rowHidden { get; set; }
+        public int rowIndex { get; set; }
+        public List<List<string>> text { get; set; }
+        public List<List<object>> values { get; set; }
+        public List<List<string>> valueTypes { get; set; }
+    }
+
     #endregion
 }

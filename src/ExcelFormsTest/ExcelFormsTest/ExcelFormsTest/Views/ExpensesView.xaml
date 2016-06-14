@@ -9,9 +9,11 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <Label Grid.Row="0" Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
-    <ListView Grid.Row="1" ItemsSource="{Binding Expenses}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding GetExpensesCommand}" IsRefreshing="{Binding IsRefreshing}">
+    <ListView Grid.Row="1" ItemsSource="{Binding Expenses}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding GetExpensesCommand}" 
+              IsRefreshing="{Binding IsRefreshing}" SelectedItem="{Binding SelectedExpense}" SeparatorVisibility="Default">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
@@ -29,12 +31,17 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
-    <Label Grid.Row="2" Text="This is where the expenses details view will go" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+    <Label Grid.Row="2" Text="This is where the expenses details view will go" HorizontalOptions="CenterAndExpand" 
+           VerticalOptions="CenterAndExpand" />
     <StackLayout Orientation="Horizontal" Grid.Row="3">
       <Button Text="Refresh All" Command="{Binding GetExpensesCommand}" />
       <Button Text="Add Expense" Command="{Binding AddExpenseCommand}" />
+      <Button Text="Update Expense" Command="{Binding UpdateExpenseCommand}" IsEnabled="{Binding IsExpenseSelected}" />
+      <Button Text="Delete Expense" Command="{Binding DeleteExpenseCommand}" IsEnabled="{Binding IsExpenseSelected}" />
+      <Button Text="Add Sample Data" Command="{Binding AddSampleDataCommand}" />
       <Button Text="Show Chart" Clicked="DisplayChart" />
     </StackLayout>
-    <Label Text="{Binding Message}" Grid.Row="4" HorizontalOptions="CenterAndExpand" />
+    <ActivityIndicator Grid.Row="4" IsRunning="{Binding IsRefreshing}" HorizontalOptions="CenterAndExpand" />
+    <Label Text="{Binding Message}" Grid.Row="5" HorizontalOptions="CenterAndExpand" />
   </Grid>
 </ContentPage>

@@ -15,7 +15,31 @@ namespace ExcelFormsTest.ViewModels
         public ExpensesViewModel()
         {
             Title = "Expense List";
-           
+            DoGetExpensesCommand();
+        }
+
+        public bool IsExpenseSelected
+        {
+            get { return SelectedExpense != null; }
+        }
+
+        public int SelectedExpenseIndex
+        {
+            get { return SelectedExpense == null ? -1 : Expenses.IndexOf(SelectedExpense); }
+        }
+
+        private ExpenseViewModel selectedExpense;
+        public ExpenseViewModel SelectedExpense
+        {
+            get { return selectedExpense; }
+            set
+            {
+                if (selectedExpense == value) return;
+                selectedExpense = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("SelectedExpenseIndex");
+                NotifyPropertyChanged("IsExpenseSelected");
+            }
         }
 
 
@@ -69,9 +93,23 @@ namespace ExcelFormsTest.ViewModels
             }
         }
 
-        private void DoDeleteExpenseCommand()
+        private async void DoDeleteExpenseCommand()
         {
-
+            ClearMessage();
+            if (!IsExpenseSelected)
+            {
+                ShowMessage("No Expense Selected");
+                return;
+            }
+            var success = await DataService.DeleteRow(SelectedExpenseIndex);
+            if (!success)
+            {
+                ShowMessage("Error deleting row");
+            }
+            else
+            {
+                Expenses.RemoveAt(SelectedExpenseIndex);
+            }
         }
 
         private CommandBase addExpenseCommand;
@@ -106,6 +144,72 @@ namespace ExcelFormsTest.ViewModels
             {
                 ShowMessage("Error adding expense");
             }
+        }
+
+        private CommandBase updateExpenseCommand;
+
+        public CommandBase UpdateExpenseCommand
+        {
+            get
+            {
+                updateExpenseCommand = updateExpenseCommand ?? new CommandBase(DoUpdateExpenseCommand);
+                return updateExpenseCommand;
+            }
+        }
+
+        private async void DoUpdateExpenseCommand()
+        {
+
+            ClearMessage();
+            if (!IsExpenseSelected)
+            {
+                ShowMessage("No Expense Selected");
+                return;
+            }
+
+            var newExpense = new ExpenseRow()
+            {
+                Vendor = SelectedExpense.Vendor,
+                Category = SelectedExpense.Category,
+                Amount = SelectedExpense.Amount,
+                Id = SelectedExpense.ReceiptId
+            };
+
+            newExpense.Amount += 10d;
+
+            var updatedRow = await DataService.UpdateRow(SelectedExpenseIndex, newExpense);
+
+            if (updatedRow == null)
+            {
+                ShowMessage("Error Updating Row");
+            }
+            else
+            {
+                SelectedExpense.Vendor = updatedRow.Vendor;
+                SelectedExpense.Category = updatedRow.Category;
+                SelectedExpense.Amount = updatedRow.Amount;
+                SelectedExpense.ReceiptId = updatedRow.Id;
+            }
+        }
+
+        private CommandBase addSampleDataCommand;
+
+        public CommandBase AddSampleDataCommand
+        {
+            get
+            {
+                addSampleDataCommand = addSampleDataCommand ?? new CommandBase(DoAddSampleDataCommand);
+                return addSampleDataCommand;
+            }
+        }
+
+        private async void DoAddSampleDataCommand()
+        {
+            var refreshing = IsRefreshing;
+            IsRefreshing = true;
+            await DataService.AddSampleData();
+            DoGetExpensesCommand();
+            IsRefreshing = refreshing;
         }
     }
 }
