@@ -9,7 +9,8 @@
     mc:Ignorable="d">
 
     <ScrollViewer IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False" 
-                  HorizontalScrollMode="Disabled">
+                  HorizontalScrollMode="Disabled"
+                  Background="#fff">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
             <!--Header-->
