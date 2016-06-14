@@ -14,6 +14,8 @@
     <SolidColorBrush x:Key="DarkAccentColorBrush" Color="#cc134c"/>
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#4c565e"/>
     <SolidColorBrush x:Key="SecondaryColorBrush" Color="#fff"/>
+    <SolidColorBrush x:Key="DarkSecondaryColorBrush" Color="#9a9fa3"/>
+    <SolidColorBrush x:Key="AlternateRowListViewItemBackgroundColorBrush" Color="#f6f7f9"/>
 
     <!--Styles-->
     <Style x:Key="PageRootGridStyle" TargetType="Grid">
@@ -29,8 +31,14 @@
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="36"/>
         <Setter Property="LineHeight" Value="36"/>
-        <!--<Setter Property="FontWeight" Value="Bold"/>-->
         <Setter Property="FontFamily" Value="ms-appx:/Assets/Fonts/RobotoCondensed-Bold.ttf#Roboto"/>
+    </Style>
+
+    <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" 
+           BasedOn="{StaticResource TextBlockBaseStyle}">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="LineHeight" Value="22"/>
+        <!--<Setter Property="FontFamily" Value="ms-appx:/Assets/Fonts/RobotoCondensed-Bold.ttf#Roboto"/>-->
     </Style>
 
     <Style x:Key="BodyTextBlockStyle" TargetType="TextBlock" 
@@ -38,8 +46,7 @@
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
-        <!--<Setter Property="FontWeight" Value="Normal"/>-->
-        <!--<Setter Property="FontFamily" Value="ms-appx:/Assets/Fonts/Roboto-Regular.ttf#Roboto"/>-->
+        <Setter Property="Foreground" Value="{StaticResource DarkSecondaryColorBrush}"/>
     </Style>
 
     <Style x:Key="AccentProgressRingStyle" TargetType="ProgressRing">
@@ -57,15 +64,9 @@
         <Setter Property="MinWidth" Value="200"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <!--<Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>-->
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="CharacterSpacing" Value="35"/>
-        <!--<Setter Property="FontWeight" Value="Bold"/>-->
         <Setter Property="FontFamily" Value="ms-appx:/Assets/Fonts/Roboto-Bold.ttf#Roboto"/>
-        <!--<Setter Property="FontFamily" Value="ms-appx:/Assets/Fonts/Roboto-Bold.ttf#Roboto"/>-->
-        <!--<Setter Property="FontSize" Value="16"/>-->
-        <!--<Setter Property="FontFamily" Value="ms-appx:/Assets/Fonts/BEBAS___.ttf#Bebas"/>-->
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
