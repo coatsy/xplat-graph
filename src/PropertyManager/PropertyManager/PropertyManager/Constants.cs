@@ -10,6 +10,7 @@
         public static string ExcelPropertyTable => "PropertyTable";
         public static string ExcelPropertyTableColumnStart => "A";
         public static string ExcelPropertyTableColumnEnd => "F";
+        public static int ExcelPropertyTableColumns => 6;
 
         // Content Types.
         public static string ExcelContentType => "application/xlsx";

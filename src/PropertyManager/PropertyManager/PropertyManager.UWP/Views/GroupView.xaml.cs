@@ -1,5 +1,4 @@
 ﻿using Windows.UI.Core;
-using Windows.UI.Xaml.Controls;
 using MvvmCross.WindowsUWP.Views;
 using PropertyManager.ViewModels;
 

@@ -54,7 +54,7 @@ namespace PropertyManager.ViewModels
 
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
-        public ICommand SaveDetailsCommand => new MvxCommand(() => SaveDetailsAsync());
+        public ICommand SaveDetailsCommand => new MvxCommand(SaveDetailsAsync);
 
         public GroupViewModel(IGraphService graphService)
         {
@@ -150,9 +150,9 @@ namespace PropertyManager.ViewModels
 
         private int GetRowIndex()
         {
-            var idCell = TableColumns[0]
-                .Values.FirstOrDefault(v => v.Count > 0 &&
-                                            v[0].ToString() == Group.Mail);
+            var idCell = TableColumns[0].Values
+                .FirstOrDefault(v => v.Count > 0 &&
+                                     v[0].ToString() == Group.Mail);
             return idCell == null ? -1 : TableColumns[0].Values.IndexOf(idCell);
         }
     }

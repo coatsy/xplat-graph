@@ -44,6 +44,7 @@ namespace PropertyManager.Services
             }
             catch
             {
+                // Ignored.
             }
 
             // Prompt the user.
