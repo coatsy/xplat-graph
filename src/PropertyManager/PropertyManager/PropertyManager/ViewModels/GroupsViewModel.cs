@@ -16,7 +16,6 @@ namespace PropertyManager.ViewModels
 
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
-
         public GroupsViewModel(IGraphService graphService)
         {
             _graphService = graphService;
@@ -30,6 +29,13 @@ namespace PropertyManager.ViewModels
             {
                 Groups.Add(group);
             }
+        }
+
+        public void ShowGroup(GroupModel group)
+        {
+            // Navigate to groups view.
+            var data = JsonConvert.SerializeObject(group);
+            ShowViewModel<GroupViewModel>(new { data });
         }
     }
 }

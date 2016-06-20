@@ -19,6 +19,7 @@
     
     <views:MvxWindowsPage.Resources>
         <Style x:Key="GridViewStyle" TargetType="GridView">
+            <Setter Property="IsItemClickEnabled" Value="True"/>
             <Setter Property="SelectionMode" Value="None"/>
             <Setter Property="Margin" Value="0,0,0,0"/>
             <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
@@ -69,7 +70,9 @@
     
         <!--Header-->
         <Grid Grid.Row="0">
-            <Button Style="{StaticResource AccentHeaderButtonStyle}"/>
+            <Button Style="{StaticResource AccentHeaderButtonStyle}"
+                    Content="&#xE909;"
+                    IsHitTestVisible="False"/>
             <TextBlock Text="PROPERTIES"
                        Style="{StaticResource PageTitleTextBlock}"/>
             <SearchBox x:Name="SearchBox" 
@@ -81,12 +84,13 @@
 
         <!--Slim Grid View-->
         <GridView x:Name="SlimGridView" Grid.Row="1" ItemsSource="{Binding Groups}"
-                  Style="{StaticResource GridViewStyle}">
+                  Style="{StaticResource GridViewStyle}"
+                  ItemClick="GridViewOnItemClick">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Height="60" Orientation="Horizontal" Padding="11,0"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                        <TextBlock Text="&#xE716;"
+                        <TextBlock Text="&#xE913;"
                                    Style="{StaticResource ListIconTextBlock}"
                                    VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical"
@@ -108,14 +112,15 @@
 
         <!--Normal Grid View-->
         <GridView x:Name="NormalGridView" Grid.Row="1" ItemsSource="{Binding Groups}"
-                  Style="{StaticResource GridViewStyle}">
+                  Style="{StaticResource GridViewStyle}"
+                  ItemClick="GridViewOnItemClick">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="175" Height="175" Margin="15">
                      <StackPanel Orientation="Vertical"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center">
-                            <TextBlock Text="&#xE716;"
+                            <TextBlock Text="&#xE913;"
                                        Style="{StaticResource GridIconTextBlock}"
                                        Margin="0,0,0,10"/>
                             <TextBlock Text="{Binding DisplayName}" 

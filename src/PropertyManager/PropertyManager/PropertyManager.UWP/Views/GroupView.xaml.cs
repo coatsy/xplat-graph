@@ -1,13 +1,13 @@
 ﻿using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 using MvvmCross.WindowsUWP.Views;
-using PropertyManager.Models;
 using PropertyManager.ViewModels;
 
 namespace PropertyManager.UWP.Views
 {
-    public sealed partial class GroupsView : MvxWindowsPage
+    public sealed partial class GroupView : MvxWindowsPage
     {
-        public GroupsView()
+        public GroupView()
         { 
             InitializeComponent();
 
@@ -20,15 +20,8 @@ namespace PropertyManager.UWP.Views
 
         private void OnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
         {
-            var groupsViewModel = ViewModel as GroupsViewModel;
+            var groupsViewModel = ViewModel as GroupViewModel;
             groupsViewModel?.GoBackCommand.Execute(null);
-        }
-
-        private void GridViewOnItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
-        {
-            var group = e.ClickedItem as GroupModel;
-            var groupsViewModel = ViewModel as GroupsViewModel;
-            groupsViewModel?.ShowGroup(group);
         }
     }
 }

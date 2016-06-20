@@ -10,5 +10,7 @@ namespace PropertyManager.Services
         Task<GroupModel[]> GetUserGroupsAsync();
 
         Task<DriveItemModel[]> GetGroupDriveItemsAsync(GroupModel group);
+
+        Task<ConversationModel[]> GetGroupConversationsAsync(GroupModel group);
     }
 }

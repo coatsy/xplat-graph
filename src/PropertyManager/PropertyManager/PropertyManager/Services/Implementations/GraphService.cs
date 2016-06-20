@@ -71,9 +71,23 @@ namespace PropertyManager.Services
                 return (await _httpService.GetAsync<ResponseModel<DriveItemModel>>(
                     $"groups/{group.Id}/drive/root/children?select=id,name")).Value;
             }
-            catch (HttpRequestException exception)
+            catch (HttpRequestException)
             {
                 return new DriveItemModel[] {};
+            }
+        }
+
+        public async Task<ConversationModel[]> GetGroupConversationsAsync(GroupModel group)
+        {
+            await EnsureTokenIsPresentAsync();
+            try
+            {
+                return (await _httpService.GetAsync<ResponseModel<ConversationModel>>(
+                    $"groups/{group.Id}/conversations")).Value;
+            }
+            catch (HttpRequestException)
+            {
+                return new ConversationModel[] { };
             }
         }
     }

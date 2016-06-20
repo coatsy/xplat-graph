@@ -89,37 +89,23 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Assets\Fonts\Roboto-BoldItalic.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-Bold.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-BoldItalic.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-Italic.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-Light.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-LightItalic.ttf" />
-    <Content Include="Assets\Fonts\RobotoCondensed-Regular.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Italic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Light.ttf" />
-    <Content Include="Assets\Fonts\Roboto-LightItalic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Medium.ttf" />
-    <Content Include="Assets\Fonts\Roboto-MediumItalic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Regular.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Thin.ttf" />
-    <Content Include="Assets\Fonts\Roboto-ThinItalic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Black.ttf" />
-    <Content Include="Assets\Fonts\Roboto-BlackItalic.ttf" />
-    <Content Include="Assets\Fonts\Roboto-Bold.ttf" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AlternateRowListView.cs" />
+    <Compile Include="Controls\ConversationMessageTemplateSelector.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Views\GroupView.xaml.cs">
+      <DependentUpon>GroupView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupsView.xaml.cs">
       <DependentUpon>GroupsView.xaml</DependentUpon>
     </Compile>
@@ -134,10 +120,6 @@
     <None Include="PropertyManager.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\business.png" />
-    <Content Include="Assets\Images\event_note.png" />
-    <Content Include="Assets\Images\fingerprint.png" />
-    <Content Include="Assets\Images\property.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -156,6 +138,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\GroupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\GroupsView.xaml">
       <Generator>MSBuild:Compile</Generator>

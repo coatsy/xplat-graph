@@ -1,0 +1,91 @@
+﻿<views:MvxWindowsPage
+    x:Class="PropertyManager.UWP.Views.GroupView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:MvvmCross.WindowsUWP.Views"
+    mc:Ignorable="d">
+
+    <views:MvxWindowsPage.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </views:MvxWindowsPage.Transitions>
+
+    <views:MvxWindowsPage.Resources>
+        <Style x:Key="GridViewStyle" TargetType="GridView">
+            <Setter Property="IsItemClickEnabled" Value="True"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </views:MvxWindowsPage.Resources>
+
+    <Grid Style="{StaticResource PageRootGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Header-->
+        <Grid Grid.Row="0">
+            <Button Style="{StaticResource AccentHeaderButtonStyle}"
+                    Content="&#xE913;"
+                    IsHitTestVisible="False"/>
+            <TextBlock Text="{Binding Group.DisplayName}"
+                       Style="{StaticResource PageTitleTextBlock}"/>
+            <ProgressRing Style="{StaticResource AccentHeaderProgressRingStyle}"
+                          IsActive="{Binding IsLoading}"/>
+        </Grid>
+
+        <Pivot Grid.Row="1">
+            <!--Conversations-->
+            <PivotItem Header="Conversations" Margin="0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Messages-->
+                    <GridView Grid.Row="0" ItemsSource="{Binding Conversations}"
+                              Style="{StaticResource GridViewStyle}"
+                              ItemTemplateSelector="{StaticResource ConversationMessageTemplateSelector}">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                    </GridView>
+
+                    <!--TextBox-->
+                    <Border Grid.Row="1" Style="{StaticResource MessageTextBoxFrameBorderStyle}">
+                        <Grid>
+                            <TextBox Style="{StaticResource MessageTextBoxStyle}"
+                                     PlaceholderText="Type a message"/>
+                            <Button Style="{StaticResource AccentTextBoxButtonStyle}"
+                                    Content="&#xE724;"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Images">
+            </PivotItem>
+            <PivotItem Header="Tasks">
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</views:MvxWindowsPage>
