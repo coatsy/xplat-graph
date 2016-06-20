@@ -23,5 +23,11 @@ namespace PropertyManager.UWP.Views
             var groupsViewModel = ViewModel as GroupViewModel;
             groupsViewModel?.GoBackCommand.Execute(null);
         }
+
+        private void OnLostFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var groupsViewModel = ViewModel as GroupViewModel;
+            groupsViewModel?.SaveDetailsCommand.Execute(null);
+        }
     }
 }

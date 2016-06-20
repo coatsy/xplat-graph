@@ -12,6 +12,16 @@ namespace PropertyManager.Services
 
         Task<T> GetAsync<T>(string resource);
 
-        Task<T> PutAsync<T>(string name, Stream stream, string contentType);
+        Task<T> PostAsync<T>(string resource, object data);
+
+        Task<T> PostAsync<T>(string resource, Stream stream, string contentType);
+
+        Task<T> PutAsync<T>(string resource, object data);
+
+        Task<T> PutAsync<T>(string resource, Stream stream, string contentType);
+
+        Task<T> PatchAsync<T>(string resource, object data);
+
+        Task<T> PatchAsync<T>(string resource, Stream stream, string contentType);
     }
 }

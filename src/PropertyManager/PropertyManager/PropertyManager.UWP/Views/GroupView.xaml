@@ -56,27 +56,27 @@
             <PivotItem Header="Details">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                     <TextBox Style="{StaticResource MultiLineEditableTextBoxStyle}"
-                             Margin="0,0,0,15"
-                             Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">
+                             Margin="0,0,0,15" Text="{Binding PropertyData.Description, Mode=TwoWay}"
+                             LostFocus="OnLostFocus">
                     </TextBox>
-
                     <TextBlock Style="{StaticResource HeaderTextBlock}" Text="Sizes"/>
                     <TextBlock Text="Find the details about the sizes of the property." 
                                TextWrapping="Wrap" Margin="0,15"></TextBlock>
-
                     <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Rooms" Margin="0,15"/>
+                             Header="Rooms" Margin="0,15" Text="{Binding PropertyData.Rooms, Mode=TwoWay}"
+                             LostFocus="OnLostFocus"/>
                     <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Living area" Margin="0,15"/>
+                             Header="Living area" Margin="0,15" Text="{Binding PropertyData.LivingArea, Mode=TwoWay}"
+                             LostFocus="OnLostFocus"/>
                     <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Lot size" Margin="0,15"/>
-
+                             Header="Lot size" Margin="0,15" Text="{Binding PropertyData.LotSize, Mode=TwoWay}"
+                             LostFocus="OnLostFocus"/>
                     <TextBlock Style="{StaticResource HeaderTextBlock}" Text="Costs"/>
                     <TextBlock Text="Find the details about the costs of the property." 
                                TextWrapping="Wrap" Margin="0,15"/>
-
                     <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Operating costs" Margin="0,15"/>
+                             Header="Operating costs" Margin="0,15" Text="{Binding PropertyData.OperatingCosts, Mode=TwoWay}"
+                             LostFocus="OnLostFocus"/>
                 </StackPanel>
             </PivotItem>
 

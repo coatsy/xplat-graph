@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Core.ViewModels;
@@ -45,11 +44,10 @@ namespace PropertyManager.ViewModels
             if (excelFile == null)
             {
                 excelFile = await CreateExcelDataFileAsync();
-            }
-
-            if (excelFile == null)
-            {
-                // TODO: Handle error.
+                if (excelFile == null)
+                {
+                    // TODO: Handle error.
+                }
             }
 
             // Get groups and filter them. We need to make sure

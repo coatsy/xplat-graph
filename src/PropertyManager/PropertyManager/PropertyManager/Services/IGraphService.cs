@@ -14,7 +14,7 @@ namespace PropertyManager.Services
 
         Task<ConversationModel[]> GetGroupConversationsAsync(GroupModel group);
 
-        Task<DriveItemModel> CreateGroupDriveItemAsync(GroupModel group, string name, Stream stream, 
+        Task<DriveItemModel> AddGroupDriveItemAsync(GroupModel group, string name, Stream stream, 
             string contentType);
 
         Task<DriveItemModel[]> GetDriveItemsAsync();
@@ -22,5 +22,11 @@ namespace PropertyManager.Services
         Task<DriveItemModel> CreateDriveItemAsync(string name, Stream stream, string contentType);
 
         Task<TableColumnModel[]> GetTableColumnsAsync(DriveItemModel driveItem, string tableName);
+
+        Task<TableRowModel> AddTableRowAsync(DriveItemModel driveItem, string tableName,
+            TableRowModel tableRow);
+
+        Task<TableRowsModel> UpdateTableRowAsync(DriveItemModel driveItem, string sheetName,
+            string address, TableRowModel tableRow);
     }
 }

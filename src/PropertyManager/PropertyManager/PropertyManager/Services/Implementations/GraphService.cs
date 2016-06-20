@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
@@ -88,11 +89,11 @@ namespace PropertyManager.Services
             }
             catch (HttpRequestException)
             {
-                return new ConversationModel[] { };
+                return new ConversationModel[] {};
             }
         }
 
-        public async Task<DriveItemModel> CreateGroupDriveItemAsync(GroupModel group, string name,
+        public async Task<DriveItemModel> AddGroupDriveItemAsync(GroupModel group, string name,
             Stream stream, string contentType)
         {
             await EnsureTokenIsPresentAsync();
@@ -117,7 +118,7 @@ namespace PropertyManager.Services
             }
             catch (HttpRequestException)
             {
-                return new DriveItemModel[] { };
+                return new DriveItemModel[] {};
             }
         }
 
@@ -142,6 +143,44 @@ namespace PropertyManager.Services
             {
                 return (await _httpService.GetAsync<ResponseModel<TableColumnModel>>(
                     $"me/drive/items/{driveItem.Id}/workbook/tables/{tableName}/columns")).Value;
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
+
+        public async Task<TableRowModel> AddTableRowAsync(DriveItemModel driveItem, string tableName,
+            TableRowModel tableRow)
+        {
+            await EnsureTokenIsPresentAsync();
+            try
+            {
+                return (await _httpService.PostAsync<TableRowsModel>(
+                    $"me/drive/items/{driveItem.Id}/workbook/tables/{tableName}/rows",
+                    new TableRowsModel
+                    {
+                        Values = new[] {tableRow}
+                    })).Values.FirstOrDefault();
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
+
+        public async Task<TableRowsModel> UpdateTableRowAsync(DriveItemModel driveItem, string sheetName,
+            string address, TableRowModel tableRow)
+        {
+            await EnsureTokenIsPresentAsync();
+            try
+            {
+                return (await _httpService.PatchAsync<TableRowsModel>(
+                    $"me/drive/items/{driveItem.Id}/workbook/worksheets/{sheetName}/range(address='{sheetName}!{address}')",
+                    new TableRowsModel
+                    {
+                        Values = new[] {tableRow}
+                    }));
             }
             catch (HttpRequestException)
             {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace PropertyManager.Models
 {
@@ -10,6 +11,6 @@ namespace PropertyManager.Models
 
         public string Name { get; set; }
 
-        public List<List<object>> Values { get; set; }
+        public List<List<JToken>> Values { get; set; }
     }
 }
