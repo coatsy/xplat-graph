@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -42,6 +43,29 @@ namespace PropertyManager.Services
 
             // Parse the response.
             var result = JsonConvert.DeserializeObject<T>(response);
+            return result;
+        }
+
+        public async Task<T> PutAsync<T>(string resource, Stream stream, string contentType)
+        {
+            if (AccessToken == null)
+            {
+                throw new Exception(
+                    "The AccessToken is missing and needs " +
+                    "to be set before using the HttpService.");
+            }
+
+            // Create content.
+            var streamContent = new StreamContent(stream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+
+            // Get the response.
+            var response = await _httpClient.PutAsync(
+                new Uri(Endpoint.AbsoluteUri + resource), streamContent);
+
+            // Parse the response.
+            var result = JsonConvert.DeserializeObject<T>(
+                await response.Content.ReadAsStringAsync());
             return result;
         }
     }

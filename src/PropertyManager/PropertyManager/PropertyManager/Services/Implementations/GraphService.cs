@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
@@ -88,6 +89,21 @@ namespace PropertyManager.Services
             catch (HttpRequestException)
             {
                 return new ConversationModel[] { };
+            }
+        }
+
+        public async Task<DriveItemModel> CreateGroupDriveItemAsync(GroupModel group, string name,
+            Stream stream, string contentType)
+        {
+            await EnsureTokenIsPresentAsync();
+            try
+            {
+                return (await _httpService.PutAsync<DriveItemModel>(
+                    $"groups/{group.Id}/drive/root:/{name}:/content", stream, contentType));
+            }
+            catch (HttpRequestException)
+            {
+                return null;
             }
         }
     }

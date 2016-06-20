@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using PropertyManager.Models;
 
 namespace PropertyManager.Services
@@ -12,5 +13,8 @@ namespace PropertyManager.Services
         Task<DriveItemModel[]> GetGroupDriveItemsAsync(GroupModel group);
 
         Task<ConversationModel[]> GetGroupConversationsAsync(GroupModel group);
+
+        Task<DriveItemModel> CreateGroupDriveItemAsync(GroupModel group, string name,
+            Stream stream, string contentType);
     }
 }

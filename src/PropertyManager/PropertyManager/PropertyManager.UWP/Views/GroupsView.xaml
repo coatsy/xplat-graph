@@ -88,7 +88,7 @@
                   ItemClick="GridViewOnItemClick">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Height="60" Orientation="Horizontal" Padding="11,0"
+                    <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch">
                         <TextBlock Text="&#xE913;"
                                    Style="{StaticResource ListIconTextBlock}"

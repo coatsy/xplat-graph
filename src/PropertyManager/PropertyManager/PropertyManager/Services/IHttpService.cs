@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PropertyManager.Services
@@ -11,6 +12,6 @@ namespace PropertyManager.Services
 
         Task<T> GetAsync<T>(string resource);
 
-        //Task<T[]> GetCollectionAsync<T>(string requestUri);
+        Task<T> PutAsync<T>(string name, Stream stream, string contentType);
     }
 }

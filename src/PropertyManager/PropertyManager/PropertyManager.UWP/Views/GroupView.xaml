@@ -52,8 +52,36 @@
         </Grid>
 
         <Pivot Grid.Row="1">
+            <!--Details-->
+            <PivotItem Header="Details">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                    <TextBox Style="{StaticResource MultiLineEditableTextBoxStyle}"
+                             Margin="0,0,0,15"
+                             Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">
+                    </TextBox>
+
+                    <TextBlock Style="{StaticResource HeaderTextBlock}" Text="Sizes"/>
+                    <TextBlock Text="Find the details about the sizes of the property." 
+                               TextWrapping="Wrap" Margin="0,15"></TextBlock>
+
+                    <TextBox Style="{StaticResource EditableTextBoxStyle}" 
+                             Header="Rooms" Margin="0,15"/>
+                    <TextBox Style="{StaticResource EditableTextBoxStyle}" 
+                             Header="Living area" Margin="0,15"/>
+                    <TextBox Style="{StaticResource EditableTextBoxStyle}" 
+                             Header="Lot size" Margin="0,15"/>
+
+                    <TextBlock Style="{StaticResource HeaderTextBlock}" Text="Costs"/>
+                    <TextBlock Text="Find the details about the costs of the property." 
+                               TextWrapping="Wrap" Margin="0,15"/>
+
+                    <TextBox Style="{StaticResource EditableTextBoxStyle}" 
+                             Header="Operating costs" Margin="0,15"/>
+                </StackPanel>
+            </PivotItem>
+
             <!--Conversations-->
-            <PivotItem Header="Conversations" Margin="0,0">
+            <PivotItem Header="Conversations" Margin="0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -82,8 +110,60 @@
                     </Border>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Images">
+
+            <!--Media Files-->
+            <PivotItem Header="Media" Margin="0">
+                <GridView ItemsSource="{Binding MediaFiles}" Style="{StaticResource GridViewStyle}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
+                                VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                <TextBlock Text="&#xEB9F;"
+                                   Style="{StaticResource ListIconTextBlock}"
+                                   VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Vertical"
+                                    Margin="15,0,0,0"
+                                    VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
             </PivotItem>
+
+            <!--Document Files-->
+            <PivotItem Header="Documents" Margin="0">
+                <GridView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource GridViewStyle}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
+                                VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                <TextBlock Text="&#xE8E5;"
+                                   Style="{StaticResource ListIconTextBlock}"
+                                   VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Vertical"
+                                    Margin="15,0,0,0"
+                                    VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </PivotItem>
+
+            <!--Tasks-->
             <PivotItem Header="Tasks">
             </PivotItem>
         </Pivot>
