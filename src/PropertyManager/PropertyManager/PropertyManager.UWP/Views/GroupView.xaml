@@ -56,6 +56,7 @@
             <PivotItem Header="Details">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                     <TextBox Style="{StaticResource MultiLineEditableTextBoxStyle}"
+                             Header="Description"
                              Margin="0,0,0,15" Text="{Binding PropertyData.Description, Mode=TwoWay}"
                              LostFocus="OnLostFocus">
                     </TextBox>
