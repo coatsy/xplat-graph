@@ -137,6 +137,7 @@
     <Content Include="Assets\Images\business.png" />
     <Content Include="Assets\Images\event_note.png" />
     <Content Include="Assets\Images\fingerprint.png" />
+    <Content Include="Assets\Images\property.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

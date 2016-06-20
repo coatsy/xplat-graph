@@ -28,7 +28,7 @@ namespace PropertyManager.ViewModels
         public LoginViewModel(IGraphService graphService)
         {
             _graphService = graphService;
-            LoginCommand.Execute(null);
+            //LoginCommand.Execute(null);
         }
 
         private async void LoginAsync()

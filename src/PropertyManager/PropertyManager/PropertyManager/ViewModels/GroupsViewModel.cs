@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
 using PropertyManager.Models;
@@ -11,7 +12,10 @@ namespace PropertyManager.ViewModels
     {
         private readonly IGraphService _graphService;
 
-        public ObservableCollection<GroupModel> Groups { get; set; } 
+        public ObservableCollection<GroupModel> Groups { get; set; }
+
+        public ICommand GoBackCommand => new MvxCommand(() => Close(this));
+
 
         public GroupsViewModel(IGraphService graphService)
         {

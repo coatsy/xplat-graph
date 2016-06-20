@@ -5,60 +5,133 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MvvmCross.WindowsUWP.Views"
-    xmlns:controls="using:PropertyManager.UWP.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer IsHorizontalRailEnabled="False" IsHorizontalScrollChainingEnabled="False" 
-                  HorizontalScrollMode="Disabled"
-                  Background="#fff">
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-            <!--Header-->
-            <StackPanel Orientation="Vertical"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    MaxWidth="350"
-                    Margin="30">
-                <Image Source="../Assets/Images/business.png" MaxHeight="80"/>
-                <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Margin="0,25,0,0">
-                    Select Property
-                </TextBlock>
+    <views:MvxWindowsPage.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </views:MvxWindowsPage.Transitions>
+    
+    <views:MvxWindowsPage.Resources>
+        <Style x:Key="GridViewStyle" TargetType="GridView">
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </views:MvxWindowsPage.Resources>
 
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Margin="0,10,0,15">
-                    A property contains everything from photos, events and conversations. Everything is pulled from the Office 365 Group.
-                </TextBlock>
-            </StackPanel>
+    <Grid Style="{StaticResource PageRootGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="88"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Normal">
+                    <VisualState.Setters>
+                        <Setter Target="SearchBox.HorizontalAlignment" Value="Right"></Setter>
+                        <Setter Target="SearchBox.VerticalAlignment" Value="Top"></Setter>
+                        <Setter Target="SearchBox.MinWidth" Value="280"></Setter>
+                        <Setter Target="SlimGridView.Visibility" Value="Collapsed"></Setter>
+                        <Setter Target="NormalGridView.Visibility" Value="Visible"></Setter>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Slim">
+                    <VisualState.Setters>
+                        <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch"></Setter>
+                        <Setter Target="SearchBox.VerticalAlignment" Value="Bottom"></Setter>
+                        <Setter Target="SlimGridView.Visibility" Value="Visible"></Setter>
+                        <Setter Target="NormalGridView.Visibility" Value="Collapsed"></Setter>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    
+        <!--Header-->
+        <Grid Grid.Row="0">
+            <Button Style="{StaticResource AccentHeaderButtonStyle}"/>
+            <TextBlock Text="PROPERTIES"
+                       Style="{StaticResource PageTitleTextBlock}"/>
+            <SearchBox x:Name="SearchBox" 
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Bottom" Margin="11"
+                       PlaceholderText="Find a property" 
+                       Style="{StaticResource AccentSearchBoxStyle}"/>
+        </Grid>
 
-            <!--List-->
-            <controls:AlternateRowListView ItemsSource="{Binding Groups}" SelectionMode="None" 
-                                           ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <controls:AlternateRowListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="75" Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="75"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="../Assets/Images/event_note.png"
-                               Height="40" Width="40" VerticalAlignment="Center"
-                               HorizontalAlignment="Center"/>
-                            <StackPanel Grid.Column="1" Orientation="Vertical"
+        <!--Slim Grid View-->
+        <GridView x:Name="SlimGridView" Grid.Row="1" ItemsSource="{Binding Groups}"
+                  Style="{StaticResource GridViewStyle}">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="60" Orientation="Horizontal" Padding="11,0"
+                                VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                        <TextBlock Text="&#xE716;"
+                                   Style="{StaticResource ListIconTextBlock}"
+                                   VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical"
                                     Margin="15,0,0,0"
                                     VerticalAlignment="Center">
-                                <TextBlock Text="{Binding DisplayName}"
-                                           Style="{StaticResource TitleTextBlockStyle}"/>
-                                <TextBlock Text="{Binding Mail}" 
-                                           Style="{StaticResource BodyTextBlockStyle}"/>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </controls:AlternateRowListView.ItemTemplate>
-                <controls:AlternateRowListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </controls:AlternateRowListView.ItemsPanel>
-            </controls:AlternateRowListView>
-        </StackPanel>
-    </ScrollViewer>
+                            <TextBlock Text="{Binding DisplayName}"/>
+                            <TextBlock Text="{Binding Mail}" 
+                                       Style="{StaticResource FadedBodyTextBlock}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+
+        <!--Normal Grid View-->
+        <GridView x:Name="NormalGridView" Grid.Row="1" ItemsSource="{Binding Groups}"
+                  Style="{StaticResource GridViewStyle}">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="175" Height="175" Margin="15">
+                     <StackPanel Orientation="Vertical"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center">
+                            <TextBlock Text="&#xE716;"
+                                       Style="{StaticResource GridIconTextBlock}"
+                                       Margin="0,0,0,10"/>
+                            <TextBlock Text="{Binding DisplayName}" 
+                                       Style="{StaticResource CenteredBodyTextBlock}"/>
+                            <TextBlock Text="{Binding Mail}" 
+                                       Style="{StaticResource CenteredFadedBodyTextBlock}"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal" VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" MaximumRowsOrColumns="4"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+    </Grid>
 </views:MvxWindowsPage>
