@@ -91,24 +91,19 @@ namespace PropertyManager.ViewModels
             else
             {
                 // Create the table row.
-                tableRow = await _graphService.AddTableRowAsync(ExcelFile, 
+                tableRow = await _graphService.AddTableRowAsync(ExcelFile,
                     Constants.ExcelPropertyTable,
-                    TableRowModel.Create(Group.Mail, "", 0, 0, 0, 0));
+                    new PropertyDataModel
+                    {
+                        Id = Group.Mail
+                    });
                 for (var i = 0; i < tableRow.Count; i++)
                 {
-                    TableColumns[i].Values.Add(new List<JToken> { tableRow[i] });
+                    TableColumns[i].Values.Add(new List<JToken> {tableRow[i]});
                 }
             }
-            PropertyData = new PropertyDataModel
-            {
-                Id = tableRow[0].Value<string>(),
-                Description = tableRow[1].Value<string>(),
-                Rooms = tableRow[2].Value<string>(),
-                LivingArea = tableRow[3].Value<string>(),
-                LotSize = tableRow[4].Value<string>(),
-                OperatingCosts = tableRow[5].Value<string>(),
-            };
-        
+            PropertyData = new PropertyDataModel(tableRow);
+
             await Task.WhenAll(UpdateDriveItemsAsync(), UpdateConversationsAsync());
             IsLoading = false;
         }
@@ -140,31 +135,25 @@ namespace PropertyManager.ViewModels
 
         private async void SaveDetailsAsync()
         {
-            if (IsLoading)
-                return;
-
             IsLoading = true;
-            var rowIndex = GetRowIndex() + 1;
-            var address = $"A{rowIndex}:F{rowIndex}";
-            var tableRow = new TableRowModel();
-            tableRow.Add(new JValue(PropertyData.Id));
-            tableRow.Add(new JValue(PropertyData.Description));
-            tableRow.Add(new JValue(PropertyData.Rooms));
-            tableRow.Add(new JValue(PropertyData.LivingArea));
-            tableRow.Add(new JValue(PropertyData.LotSize));
-            tableRow.Add(new JValue(PropertyData.OperatingCosts));
 
-            var d = await _graphService.UpdateTableRowAsync(ExcelFile, "Data",
-                address, tableRow);
+            // Calculate address and create table row.
+            var rowIndex = GetRowIndex() + 1;
+            var address = $"{Constants.ExcelPropertyTableColumnStart}{rowIndex}:" +
+                          $"{Constants.ExcelPropertyTableColumnEnd}{rowIndex}";
+
+            // Update the table row.
+            await _graphService.UpdateTableRowAsync(ExcelFile, Constants.ExcelDataSheet,
+                address, PropertyData);
             IsLoading = false;
         }
 
         private int GetRowIndex()
         {
-            var idColumn = TableColumns.First(c => c.Name == Constants.ExcelIdColumn);
-            var idCell = idColumn.Values.FirstOrDefault(v => v.Count > 0 &&
-                                                 v[0].ToString() == Group.Mail);
-            return idCell == null ? -1 : idColumn.Values.IndexOf(idCell);
+            var idCell = TableColumns[0]
+                .Values.FirstOrDefault(v => v.Count > 0 &&
+                                            v[0].ToString() == Group.Mail);
+            return idCell == null ? -1 : TableColumns[0].Values.IndexOf(idCell);
         }
     }
 }

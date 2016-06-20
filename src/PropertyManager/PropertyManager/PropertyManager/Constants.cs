@@ -2,17 +2,14 @@
 {
     public static class Constants
     {
-        // Strings.
+        // Excel File.
         public static string ExcelFileName => "Data.xlsx";
         public static string ExcelFileResourceName => 
             "PropertyManager.Resources." + ExcelFileName;
+        public static string ExcelDataSheet => "Data";
         public static string ExcelPropertyTable => "PropertyTable";
-        public static string ExcelIdColumn => "ID";
-        public static string ExcelDescriptionColumn => "Description";
-        public static string ExcelRoomsColumn => "Rooms";
-        public static string ExcelLivingAreaColumn => "LivingArea";
-        public static string ExcelLotSizeColumn => "LotSize";
-        public static string ExcelLotOperatingCostsColumn => "OperatingCosts";
+        public static string ExcelPropertyTableColumnStart => "A";
+        public static string ExcelPropertyTableColumnEnd => "F";
 
         // Content Types.
         public static string ExcelContentType => "application/xlsx";

@@ -5,18 +5,15 @@ namespace PropertyManager.Models
 {
     public class TableRowModel : List<JToken>
     {
-        public static TableRowModel Create(string id, string description,
-            int rooms, int livingArea, int lotSize, int operatingCosts)
+        public TableRowModel()
         {
-            return new TableRowModel
-            {
-                id,
-                description,
-                rooms,
-                livingArea,
-                lotSize,
-                operatingCosts
-            };
+            
+        }
+
+        public TableRowModel(IEnumerable<JToken> collection)
+            : base(collection)
+        {
+            
         }
     }
 }
