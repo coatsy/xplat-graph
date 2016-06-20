@@ -20,5 +20,7 @@ namespace PropertyManager.Services
         Task<DriveItemModel[]> GetDriveItemsAsync();
 
         Task<DriveItemModel> CreateDriveItemAsync(string name, Stream stream, string contentType);
+
+        Task<TableColumnModel[]> GetTableColumnsAsync(DriveItemModel driveItem, string tableName);
     }
 }

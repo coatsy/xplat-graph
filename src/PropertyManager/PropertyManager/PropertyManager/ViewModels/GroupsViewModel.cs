@@ -12,6 +12,10 @@ namespace PropertyManager.ViewModels
     {
         private readonly IGraphService _graphService;
 
+        public DriveItemModel ExcelFile { get; set; }
+
+        public TableColumnModel[] TableColumns { get; set; }
+
         public ObservableCollection<GroupModel> Groups { get; set; }
 
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
@@ -22,13 +26,23 @@ namespace PropertyManager.ViewModels
             Groups = new ObservableCollection<GroupModel>();
         }
 
-        public void Init(string data)
+        public async void Init(string excelFileData, string groupsData)
         {
-            var groups = JsonConvert.DeserializeObject<GroupModel[]>(data);
+            // Deserialize Excel file.
+            var excelFile = JsonConvert.DeserializeObject<DriveItemModel>(excelFileData);
+            ExcelFile = excelFile;
+
+            // Deserialize groups.
+            var groups = JsonConvert.DeserializeObject<GroupModel[]>(groupsData);
             foreach (var group in groups)
             {
                 Groups.Add(group);
             }
+
+            // Get table columns.
+            var tableColumns = await _graphService.GetTableColumnsAsync(excelFile,
+                Constants.ExcelPropertyTable);
+            TableColumns = tableColumns;
         }
 
         public void ShowGroup(GroupModel group)

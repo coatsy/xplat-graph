@@ -134,5 +134,19 @@ namespace PropertyManager.Services
                 return null;
             }
         }
+
+        public async Task<TableColumnModel[]> GetTableColumnsAsync(DriveItemModel driveItem, string tableName)
+        {
+            await EnsureTokenIsPresentAsync();
+            try
+            {
+                return (await _httpService.GetAsync<ResponseModel<TableColumnModel>>(
+                    $"me/drive/items/{driveItem.Id}/workbook/tables/{tableName}/columns")).Value;
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
     }
 }

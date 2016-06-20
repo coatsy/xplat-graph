@@ -35,6 +35,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Models\ConversationModel.cs" />
     <Compile Include="Models\DriveItemModel.cs" />
+    <Compile Include="Models\TableColumnModel.cs" />
     <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

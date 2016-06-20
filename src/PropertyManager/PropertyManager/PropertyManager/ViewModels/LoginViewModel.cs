@@ -40,15 +40,16 @@ namespace PropertyManager.ViewModels
             IsLoading = true;
 
             // If the backing Excel file doesn't exist, create it.
-            var driveItems = (await _graphService.GetDriveItemsAsync()).ToList();
-            if (!driveItems.Any(f => f.Name.Equals(Constants.ExcelFileName)))
+            var driveItems = await _graphService.GetDriveItemsAsync();
+            var excelFile = driveItems.FirstOrDefault(i => i.Name.Equals(Constants.ExcelFileName));
+            if (excelFile == null)
             {
-                var excelFile = await CreateExcelDataFileAsync();
-                if (excelFile == null)
-                {
-                    // TODO: Handle error.
-                }
-                driveItems.Add(excelFile);
+                excelFile = await CreateExcelDataFileAsync();
+            }
+
+            if (excelFile == null)
+            {
+                // TODO: Handle error.
             }
 
             // Get groups and filter them. We need to make sure
@@ -59,8 +60,9 @@ namespace PropertyManager.ViewModels
                 allGroups.Any(ag => ug.Id == ag.Id)).ToArray();
 
             // Navigate to groups view.
-            var data = JsonConvert.SerializeObject(groups);
-            ShowViewModel<GroupsViewModel>(new { data });
+            var excelFileData = JsonConvert.SerializeObject(excelFile);
+            var groupsData = JsonConvert.SerializeObject(groups);
+            ShowViewModel<GroupsViewModel>(new { excelFileData, groupsData  });
             IsLoading = false;
         }
 
