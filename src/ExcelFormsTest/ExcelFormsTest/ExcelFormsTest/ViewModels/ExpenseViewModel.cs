@@ -11,6 +11,11 @@ namespace ExcelFormsTest.ViewModels
     public class ExpenseViewModel : ViewModelBase
     {
 
+        public List<String> ExpenseCategories
+        {
+            get { return DataService.ExpenseCategories; }
+        }
+
         public ExpenseViewModel(ExpenseRow row)
         {
             this.Vendor = row.Vendor;
@@ -30,7 +35,7 @@ namespace ExcelFormsTest.ViewModels
         public string Category
         {
             get { return category; }
-            set { if (category == value) return; category = value; NotifyPropertyChanged(); }
+            set { if (category == value) return; category = value; NotifyPropertyChanged(); NotifyPropertyChanged("CategoryImage"); }
         }
 
         private double amount;
@@ -49,14 +54,15 @@ namespace ExcelFormsTest.ViewModels
             set { if (receiptId == value) return; receiptId = value; NotifyPropertyChanged(); NotifyPropertyChanged("ReceiptImage"); }
         }
 
-        public Image ReceiptImage
+        public ImageSource ReceiptImage
         {
             get { return GetReceiptImage(); }
         }
 
-        private Image GetReceiptImage()
+        private ImageSource GetReceiptImage()
         {
-            throw new NotImplementedException();
+            //TODO Implement the Base64 Stuff from chart
+            return null;
         }
 
         public Image CategoryImage
@@ -69,6 +75,36 @@ namespace ExcelFormsTest.ViewModels
             throw new NotImplementedException();
         }
 
+        private CommandBase getReceiptImageFromCameraCommand;
 
+        public CommandBase GetReceiptImageFromCameraCommand
+        {
+            get
+            {
+                getReceiptImageFromCameraCommand = getReceiptImageFromCameraCommand ?? new CommandBase(DoGetReceiptImageFromCameraCommand);
+                return getReceiptImageFromCameraCommand;
+            }
+        }
+
+        private void DoGetReceiptImageFromCameraCommand()
+        {
+
+        }
+
+        private CommandBase getReceiptImageFromLibraryCommand;
+
+        public CommandBase GetReceiptImageFromLibraryCommand
+        {
+            get
+            {
+                getReceiptImageFromLibraryCommand = getReceiptImageFromLibraryCommand ?? new CommandBase(DoGetReceiptImageFromLibraryCommand);
+                return getReceiptImageFromLibraryCommand;
+            }
+        }
+
+        private void DoGetReceiptImageFromLibraryCommand()
+        {
+
+        }
     }
 }

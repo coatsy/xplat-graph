@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fe="clr-namespace:FreshEssentials;assembly=FreshEssentials"
+             x:Class="ExcelFormsTest.Views.ExpenseView">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid Grid.Column="0">
+      <StackLayout Orientation="Vertical">
+        <Label Text="Vendor"/>
+        <Entry Text="{Binding Vendor, Mode=TwoWay}" />
+        <fe:BindablePicker ItemsSource="{Binding ExpenseCategories}" SelectedItem="{Binding Category}" Title="Category" />
+        <Label Text="Amount"/>
+        <Entry Text="{Binding Amount, Mode=TwoWay}" />
+      </StackLayout>
+    </Grid>
+    <Grid Grid.Column="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <Image Grid.Row="0" Source="{Binding ReceiptImage}" />
+      <StackLayout Orientation="Horizontal">
+        <Button Text="Camera" Command="{Binding GetReceiptImageFromCameraCommand}" />
+        <Button Text="Library" Command="{Binding GetReceiptImageFromLibraryCommand}" />
+      </StackLayout>
+    </Grid>
+  </Grid>
+</ContentView>        

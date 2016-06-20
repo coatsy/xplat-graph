@@ -1,9 +1,10 @@
 ﻿{
   "dependencies": {
+    "FreshEssentials": "2.0.1",
     "Microsoft.Identity.Client": "1.0.304142221-alpha",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
     "Newtonsoft.Json": "8.0.3",
-    "Xamarin.Forms": "2.2.0.43"
+    "Xamarin.Forms": "2.3.0.49"
   },
   "frameworks": {
     "uap10.0": {}

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ExcelFormsTest.Views"
              x:Class="ExcelFormsTest.Views.ExpensesView">
   <Grid Padding="10">
     <Grid.RowDefinitions>
@@ -13,13 +14,14 @@
     </Grid.RowDefinitions>
     <Label Grid.Row="0" Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
     <ListView Grid.Row="1" ItemsSource="{Binding Expenses}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding GetExpensesCommand}" 
-              IsRefreshing="{Binding IsRefreshing}" SelectedItem="{Binding SelectedExpense}" SeparatorVisibility="Default">
+              IsRefreshing="{Binding IsRefreshing}" SelectedItem="{Binding SelectedExpense}" SeparatorVisibility="Default"
+              x:Name="ExpenseList">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
             <Grid>
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
@@ -31,8 +33,11 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
+    <!--
     <Label Grid.Row="2" Text="This is where the expenses details view will go" HorizontalOptions="CenterAndExpand" 
            VerticalOptions="CenterAndExpand" />
+           -->
+    <local:ExpenseView Grid.Row="2" BindingContext="{Binding SelectedExpense}" />
     <StackLayout Orientation="Horizontal" Grid.Row="3">
       <Button Text="Refresh All" Command="{Binding GetExpensesCommand}" />
       <Button Text="Add Expense" Command="{Binding AddExpenseCommand}" />

@@ -11,10 +11,13 @@ namespace ExcelFormsTest.Views
 {
     public partial class ExpensesView : ContentPage
     {
+        ExpensesViewModel vm;
+
         public ExpensesView()
         {
             InitializeComponent();
-            this.BindingContext = new ExpensesViewModel();
+            vm = new ExpensesViewModel();
+            this.BindingContext = vm;
         }
 
         private async void DisplayChart(object sender, object args)
