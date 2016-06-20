@@ -106,5 +106,33 @@ namespace PropertyManager.Services
                 return null;
             }
         }
+
+        public async Task<DriveItemModel[]> GetDriveItemsAsync()
+        {
+            await EnsureTokenIsPresentAsync();
+            try
+            {
+                return (await _httpService.GetAsync<ResponseModel<DriveItemModel>>(
+                    $"me/drive/special/approot/children?select=id,name")).Value;
+            }
+            catch (HttpRequestException)
+            {
+                return new DriveItemModel[] { };
+            }
+        }
+
+        public async Task<DriveItemModel> CreateDriveItemAsync(string name, Stream stream, string contentType)
+        {
+            await EnsureTokenIsPresentAsync();
+            try
+            {
+                return (await _httpService.PutAsync<DriveItemModel>(
+                    $"me/drive/special/approot:/{name}:/content", stream, contentType));
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
     }
 }

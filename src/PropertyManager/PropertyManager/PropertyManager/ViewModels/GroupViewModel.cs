@@ -69,24 +69,6 @@ namespace PropertyManager.ViewModels
                     DocumentFiles.Add(driveItem);
                 }
             }
-
-            // If the backing Excel file doesn't exist, create it.
-            if (!DocumentFiles.Any(f => f.Name.Equals(Constants.ExcelFileName)))
-            {
-                var file = await CreateExcelDataFileAsync();
-                DocumentFiles.Add(file);
-            }
-        }
-
-        public async Task<DriveItemModel> CreateExcelDataFileAsync()
-        {
-            var assembly = typeof(App).GetTypeInfo().Assembly;
-            using (var stream = assembly.GetManifestResourceStream(Constants.ExcelFileResourceName))
-            {
-                var file = await _graphService.CreateGroupDriveItemAsync(Group, Constants.ExcelFileName,
-                    stream, Constants.ExcelContentType);
-                return file;
-            }
         }
 
         private async Task UpdateConversationsAsync()

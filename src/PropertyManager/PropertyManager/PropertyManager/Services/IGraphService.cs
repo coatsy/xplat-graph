@@ -14,7 +14,11 @@ namespace PropertyManager.Services
 
         Task<ConversationModel[]> GetGroupConversationsAsync(GroupModel group);
 
-        Task<DriveItemModel> CreateGroupDriveItemAsync(GroupModel group, string name,
-            Stream stream, string contentType);
+        Task<DriveItemModel> CreateGroupDriveItemAsync(GroupModel group, string name, Stream stream, 
+            string contentType);
+
+        Task<DriveItemModel[]> GetDriveItemsAsync();
+
+        Task<DriveItemModel> CreateDriveItemAsync(string name, Stream stream, string contentType);
     }
 }
