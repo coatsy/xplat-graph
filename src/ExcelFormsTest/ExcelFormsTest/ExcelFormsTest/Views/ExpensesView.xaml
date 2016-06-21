@@ -15,7 +15,7 @@
     <Label Grid.Row="0" Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
     <ListView Grid.Row="1" ItemsSource="{Binding Expenses}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding GetExpensesCommand}" 
               IsRefreshing="{Binding IsRefreshing}" SelectedItem="{Binding SelectedExpense}" SeparatorVisibility="Default"
-              x:Name="ExpenseList">
+              x:Name="ExpenseList" >
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
@@ -25,9 +25,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
-              <Label Grid.Column="0" Text="{Binding Vendor}" />
-              <Label Grid.Column="1" Text="{Binding Category}" />
-              <Label Grid.Column="2" Text="{Binding Amount, StringFormat='{0:c}'}" HorizontalTextAlignment="End" />
+              <Label Grid.Column="0" Text="{Binding Vendor}" HorizontalOptions="StartAndExpand" />
+              <Label Grid.Column="1" Text="{Binding Category}" HorizontalOptions="StartAndExpand" />
+              <Label Grid.Column="2" Text="{Binding Amount, StringFormat='{0:c}'}" HorizontalTextAlignment="End" HorizontalOptions="EndAndExpand"/>
             </Grid>
           </ViewCell>
         </DataTemplate>
