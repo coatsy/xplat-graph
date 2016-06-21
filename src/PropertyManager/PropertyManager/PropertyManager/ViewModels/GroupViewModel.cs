@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -76,36 +78,51 @@ namespace PropertyManager.ViewModels
             var group = JsonConvert.DeserializeObject<GroupModel>(groupData);
             Group = group;
 
-            // Get table columns.
-            TableColumns = await _graphService.GetTableColumnsAsync(excelFile,
-                Constants.ExcelPropertyTable);
+            // Update property data.
+            await UpdatePropertyDataAsync();
 
-            // If an entry in the table doesn't exist, create it.
-            var rowIndex = GetRowIndex();
-            TableRowModel tableRow;
-            if (rowIndex > -1)
-            {
-                tableRow = new TableRowModel();
-                tableRow.AddRange(TableColumns.Select(column => column.Values[rowIndex][0]));
-            }
-            else
-            {
-                // Create the table row.
-                tableRow = await _graphService.AddTableRowAsync(ExcelFile,
-                    Constants.ExcelPropertyTable,
-                    new PropertyDataModel
-                    {
-                        Id = Group.Mail
-                    });
-                for (var i = 0; i < tableRow.Count; i++)
-                {
-                    TableColumns[i].Values.Add(new List<JToken> {tableRow[i]});
-                }
-            }
-            PropertyData = new PropertyDataModel(tableRow);
-
+            // Update the rest of the data.
             await Task.WhenAll(UpdateDriveItemsAsync(), UpdateConversationsAsync());
             IsLoading = false;
+        }
+
+        private async Task UpdatePropertyDataAsync()
+        {
+            var retry = 0;
+            while (true)
+            {
+                if (retry > 3)
+                {
+                    throw new Exception("Failed to update property data.");
+                }
+
+                // Get table columns.
+                TableColumns = await _graphService.GetTableColumnsAsync(ExcelFile, Constants.ExcelPropertyTable);
+
+                // If an entry in the table doesn't exist, create it.
+                var rowIndex = GetRowIndex();
+                if (rowIndex > -1)
+                {
+                    var tableRow = new TableRowModel();
+                    tableRow.AddRange(TableColumns.Select(column => column.Values[rowIndex][0]));
+                    PropertyData = new PropertyDataModel(tableRow);
+                }
+                else
+                {
+                    await _graphService.AddTableRowAsync(ExcelFile,
+                        Constants.ExcelPropertyTable,
+                        new PropertyDataModel
+                        {
+                            Id = Group.Mail
+                        });
+
+                    // Retry logic.
+                    await Task.Delay(2000);
+                    retry = retry + 1;
+                    continue;
+                }
+                break;
+            }
         }
 
         private async Task UpdateDriveItemsAsync()
@@ -135,6 +152,8 @@ namespace PropertyManager.ViewModels
 
         private async void SaveDetailsAsync()
         {
+            // TODO: Save in larger batch/ranges... Excel API not responding well
+            // to many small updates.
             IsLoading = true;
 
             // Calculate address and create table row.
@@ -151,6 +170,7 @@ namespace PropertyManager.ViewModels
         private int GetRowIndex()
         {
             var idCell = TableColumns[0].Values
+                .Where(v => !string.IsNullOrWhiteSpace(v[0].Value<string>()))
                 .FirstOrDefault(v => v.Count > 0 &&
                                      v[0].ToString() == Group.Mail);
             return idCell == null ? -1 : TableColumns[0].Values.IndexOf(idCell);
