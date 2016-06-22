@@ -33,10 +33,6 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
-    <!--
-    <Label Grid.Row="2" Text="This is where the expenses details view will go" HorizontalOptions="CenterAndExpand" 
-           VerticalOptions="CenterAndExpand" />
-           -->
     <local:ExpenseView Grid.Row="2" BindingContext="{Binding SelectedExpense}" />
     <StackLayout Orientation="Horizontal" Grid.Row="3">
       <Button Text="Refresh All" Command="{Binding GetExpensesCommand}" />
