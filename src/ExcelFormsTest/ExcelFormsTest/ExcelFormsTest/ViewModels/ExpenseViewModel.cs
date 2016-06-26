@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ExcelFormsTest.Services;
 using Xamarin.Forms;
 using System.IO;
+using Plugin.Media;
 
 namespace ExcelFormsTest.ViewModels
 {
@@ -23,7 +24,23 @@ namespace ExcelFormsTest.ViewModels
             this.Category = row.Category;
             this.Amount = row.Amount;
             this.ReceiptId = row.Id;
+
+            InitialiseCamera();
+
         }
+
+        private async void InitialiseCamera()
+        {
+            CameraInitialised = await CrossMedia.Current.Initialize();
+        }
+
+        private bool cameraInitialised;
+        public bool CameraInitialised
+        {
+            get { return cameraInitialised; }
+            set { if (cameraInitialised == value) return; cameraInitialised = value; NotifyPropertyChanged(); }
+        }
+
 
         private string vendor;
         public string Vendor
@@ -52,7 +69,14 @@ namespace ExcelFormsTest.ViewModels
         public string ReceiptId
         {
             get { return receiptId; }
-            set { if (receiptId == value) return; receiptId = value; NotifyPropertyChanged(); GetReceiptImageBase64(receiptId); }
+            set
+            {
+                if (receiptId == value) return;
+                receiptId = value;
+                NotifyPropertyChanged();
+                GetReceiptImageBase64(receiptId);
+                NotifyPropertyChanged("ReceiptPresentImage");
+            }
         }
 
         private async void GetReceiptImageBase64(string id)
@@ -118,9 +142,40 @@ namespace ExcelFormsTest.ViewModels
             }
         }
 
-        private void DoGetReceiptImageFromCameraCommand()
+        private async void DoGetReceiptImageFromCameraCommand()
         {
+            if(!CameraInitialised)
+            {
+                Message = "Waiting for camera to initialise, please tray again shortly";
+            }
+            else if(!CrossMedia.Current.IsCameraAvailable)
+            {
+                Message = "Camera unavailable on this hardware";
+            }
+            else
+            {
+                var imageFile = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                {
+                    Name = $"{Guid.NewGuid().ToString()}.jpeg",
+                    DefaultCamera = Plugin.Media.Abstractions.CameraDevice.Rear,
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium,
+                    Directory = "Temp",
+                    SaveToAlbum = true
+                }
+                );
 
+                Message = "Saving ...";
+
+                if (imageFile == null)
+                {
+                    Message = "Cancelled";
+                }
+                else
+                {
+                    ReceiptId = await DataService.UploadFile(imageFile.GetStream(), Path.GetFileName(imageFile.Path), "image/jpeg");
+                    Message = "Done";
+                }
+            }
         }
 
         private CommandBase getReceiptImageFromLibraryCommand;
@@ -134,9 +189,29 @@ namespace ExcelFormsTest.ViewModels
             }
         }
 
-        private void DoGetReceiptImageFromLibraryCommand()
+        private async void DoGetReceiptImageFromLibraryCommand()
         {
-
+            if (!CameraInitialised)
+            {
+                Message = "Waiting for image stack to initialise, please tray again shortly";
+            }
+            else if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                Message = "Photo selection unavailable on this hardware";
+            }
+            else
+            {
+                var imageFile = await CrossMedia.Current.PickPhotoAsync();
+                if (imageFile == null)
+                {
+                    Message = "Cancelled";
+                }
+                else
+                {
+                    ReceiptId = await DataService.UploadFile(imageFile.GetStream(), $"{Guid.NewGuid().ToString()}.jpeg", "image/jpeg");
+                    Message = "Done";
+                }
+            }
         }
     }
 }

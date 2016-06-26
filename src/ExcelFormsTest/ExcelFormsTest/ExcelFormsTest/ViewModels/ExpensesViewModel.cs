@@ -101,6 +101,10 @@ namespace ExcelFormsTest.ViewModels
                 ShowMessage("No Expense Selected");
                 return;
             }
+            if(!string.IsNullOrEmpty(SelectedExpense.ReceiptId))
+            {
+                await DataService.RemoveReceiptImage(SelectedExpense.ReceiptId);
+            }
             var success = await DataService.DeleteRow(SelectedExpenseIndex);
             if (!success)
             {
@@ -109,6 +113,7 @@ namespace ExcelFormsTest.ViewModels
             else
             {
                 Expenses.RemoveAt(SelectedExpenseIndex);
+                SelectedExpense = null;
             }
         }
 

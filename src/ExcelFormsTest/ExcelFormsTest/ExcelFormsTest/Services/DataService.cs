@@ -102,6 +102,7 @@ namespace ExcelFormsTest.Services
 
         }
 
+
         public static async Task<string> SaveReceiptImage(Stream image)
         {
             string id = string.Empty;
@@ -176,13 +177,12 @@ namespace ExcelFormsTest.Services
                 catch (Exception e)
                 {
 
-                    throw e;
                 }
             }
             return answer;
         }
 
-        private static async Task<string> UploadFile(Stream stream, string fileName, string contentType)
+        public static async Task<string> UploadFile(Stream stream, string fileName, string contentType)
         {
             if (!IsLoggedIn)
             {
