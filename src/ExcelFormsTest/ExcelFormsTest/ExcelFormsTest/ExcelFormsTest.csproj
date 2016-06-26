@@ -155,13 +155,20 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Images\Airfare.png" />
-    <Content Include="Resources\Images\Connectivity.png" />
-    <Content Include="Resources\Images\Gadgets.png" />
-    <Content Include="Resources\Images\Lodging.png" />
-    <Content Include="Resources\Images\Meal.png" />
-    <Content Include="Resources\Images\Supplies.png" />
-    <Content Include="Resources\Images\Taxi.png" />
+    <EmbeddedResource Include="Resources\Images\Airfare.png" />
+    <EmbeddedResource Include="Resources\Images\Connectivity.png" />
+    <EmbeddedResource Include="Resources\Images\Gadgets.png" />
+    <EmbeddedResource Include="Resources\Images\Lodging.png" />
+    <EmbeddedResource Include="Resources\Images\Meals.png" />
+    <EmbeddedResource Include="Resources\Images\Supplies.png" />
+    <EmbeddedResource Include="Resources\Images\Taxi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\Default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\NoReceipt.png" />
+    <EmbeddedResource Include="Resources\Images\Receipt.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.0.49\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.0.49\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

@@ -175,8 +175,6 @@ namespace ExcelFormsTest.ViewModels
                 Id = SelectedExpense.ReceiptId
             };
 
-            newExpense.Amount += 10d;
-
             var updatedRow = await DataService.UpdateRow(SelectedExpenseIndex, newExpense);
 
             if (updatedRow == null)

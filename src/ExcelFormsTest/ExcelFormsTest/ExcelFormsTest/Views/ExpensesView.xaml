@@ -13,27 +13,32 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <Label Grid.Row="0" Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
-    <ListView Grid.Row="1" ItemsSource="{Binding Expenses}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding GetExpensesCommand}" 
-              IsRefreshing="{Binding IsRefreshing}" SelectedItem="{Binding SelectedExpense}" SeparatorVisibility="Default"
-              x:Name="ExpenseList" >
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-              </Grid.ColumnDefinitions>
-              <Label Grid.Column="0" Text="{Binding Vendor}" HorizontalOptions="StartAndExpand" />
-              <Label Grid.Column="1" Text="{Binding Category}" HorizontalOptions="StartAndExpand" />
-              <Label Grid.Column="2" Text="{Binding Amount, StringFormat='{0:c}'}" HorizontalTextAlignment="End" HorizontalOptions="EndAndExpand"/>
-            </Grid>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-    <local:ExpenseView Grid.Row="2" BindingContext="{Binding SelectedExpense}" />
+    <Grid Grid.Row="1" Padding="10">
+      <ListView ItemsSource="{Binding Expenses}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding GetExpensesCommand}"
+       IsRefreshing="{Binding IsRefreshing}" SelectedItem="{Binding SelectedExpense}" SeparatorVisibility="Default"
+       x:Name="ExpenseList"  >
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="50" />
+                  <ColumnDefinition Width="2*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding CategoryImage}" HeightRequest="48" WidthRequest="48" />
+                <Label Grid.Column="1" Text="{Binding Vendor}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                <Label Grid.Column="2" Text="{Binding Category}" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{0:c}'}" HorizontalTextAlignment="End" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                <Image Grid.Column="4" Source="{Binding ReceiptPresentImage}" HeightRequest="48" WidthRequest="48" />
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </Grid>    <local:ExpenseView Grid.Row="2" BindingContext="{Binding SelectedExpense}" />
     <StackLayout Orientation="Horizontal" Grid.Row="3">
       <Button Text="Refresh All" Command="{Binding GetExpensesCommand}" />
       <Button Text="Add Expense" Command="{Binding AddExpenseCommand}" />

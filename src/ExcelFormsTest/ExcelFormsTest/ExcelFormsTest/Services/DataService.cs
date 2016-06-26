@@ -102,6 +102,86 @@ namespace ExcelFormsTest.Services
 
         }
 
+        public static async Task<string> SaveReceiptImage(Stream image)
+        {
+            string id = string.Empty;
+
+            if (IsLoggedIn)
+            {
+                id = await UploadFile(image, $"{Guid.NewGuid().ToString()}.jpeg", "image/jpeg");
+            }
+
+            return id;
+        }
+
+        public static async Task<string> UpdateReceiptImage(Stream image, string id)
+        {
+            if (!IsLoggedIn)
+                return id;
+
+            var newId = id;
+            if (await RemoveReceiptImage(id))
+            {
+                newId = await SaveReceiptImage(image);
+            }
+
+            return newId;
+        }
+
+        public static async Task<bool> RemoveReceiptImage(string id)
+        {
+            var result = false;
+
+            if(IsLoggedIn)
+            {
+                result = await DeleteFile(id);
+            }
+            return result;
+        }
+
+        private static async Task<bool> DeleteFile(string id)
+        {
+            if (!IsLoggedIn)
+                return false;
+
+            string fileLocation = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{id}";
+            var result = await client.DeleteAsync(fileLocation);
+            return result.IsSuccessStatusCode;
+        }
+
+        public static async Task<string> GetReceiptImageAsBase64(string id)
+        {
+            var answer = string.Empty;
+            if (!IsLoggedIn)
+            {
+                return answer;
+            }
+
+            var fileLocation = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{id}";
+            var result = await client.GetAsync(fileLocation);
+            if (!result.IsSuccessStatusCode)
+            {
+                return answer;
+            }
+
+            var content = await result.Content.ReadAsStringAsync();
+            var fileItem = JsonConvert.DeserializeObject<FileItem>(content);
+            if (!string.IsNullOrEmpty(fileItem?.downloadUrl))
+            {
+                try
+                {
+                    var fileBytes = await client.GetByteArrayAsync(fileItem.downloadUrl);
+                    answer = Convert.ToBase64String(fileBytes);
+                }
+                catch (Exception e)
+                {
+
+                    throw e;
+                }
+            }
+            return answer;
+        }
+
         private static async Task<string> UploadFile(Stream stream, string fileName, string contentType)
         {
             if (!IsLoggedIn)
@@ -116,7 +196,7 @@ namespace ExcelFormsTest.Services
             if (result.IsSuccessStatusCode)
             {
                 var json = await result.Content.ReadAsStringAsync();
-                var answer = JsonConvert.DeserializeObject<FileCreationRootObject>(json);
+                var answer = JsonConvert.DeserializeObject<FileItem>(json);
                 var id = answer?.id ?? string.Empty;
                 return id;
             }
@@ -124,6 +204,32 @@ namespace ExcelFormsTest.Services
             {
                 return string.Empty;
             }
+
+        }
+
+        public static async Task<bool> AddRows(List<ExpenseRow> rows)
+        {
+            if (!await EnsureConfig()) return false;
+
+            var postString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{DataSheetName}')/Tables('{DataTableName}')/rows";
+
+            var rowArray = new object[rows.Count];
+
+            int thisRow = 0;
+            HttpResponseMessage result = null;
+            foreach (var row in rows)
+            {
+                rowArray[thisRow] = row.AsExcelRowObject();
+                thisRow++;
+                result = await client.PostAsync(postString, new StringContent(JsonConvert.SerializeObject(row.AsExcelRow()), Encoding.UTF8, "application/json"));
+
+            }
+            //object rowsObject = new
+            //{
+            //    values = rowArray
+            //};
+            //result = await client.PostAsync(postString, new StringContent(JsonConvert.SerializeObject(rowsObject), Encoding.UTF8, "application/json"));
+            return result?.IsSuccessStatusCode ?? false;
 
         }
 
@@ -161,133 +267,120 @@ namespace ExcelFormsTest.Services
 
         internal static async Task AddSampleData()
         {
+            var RowsToAdd = new List<ExpenseRow>();
 
-            ExpenseRow row;
-            row = new ExpenseRow()
+            RowsToAdd.Add( new ExpenseRow()
             {
                 Vendor = "Qantas Airways",
                 Category = "Airfare",
                 Amount = 174.87d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add( new ExpenseRow()
             {
                 Vendor = "Qantas Airways",
                 Category = "Airfare",
                 Amount = 483.36d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Singapore Airlines",
                 Category = "Airfare",
                 Amount = 1485.20d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Virgin Australia",
                 Category = "Airfare",
                 Amount = 266.33d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Telstra",
                 Category = "Connectivity",
                 Amount = 70.20d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Vodafone",
                 Category = "Connectivity",
                 Amount = 60.00d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "T-Mobile",
                 Category = "Connectivity",
                 Amount = 25.47d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Uber",
                 Category = "Taxi",
                 Amount = 18.27d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Uber",
                 Category = "Taxi",
                 Amount = 12.56d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Uber",
                 Category = "Taxi",
                 Amount = 42.90d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Cafe 9",
                 Category = "Meals",
                 Amount = 12.50d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "McDonalds",
                 Category = "Meals",
                 Amount = 8.45d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Thai the Knot",
                 Category = "Meals",
                 Amount = 36.21d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
 
-            row = new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Cafe 9",
                 Category = "Meals",
                 Amount = 18.30d,
                 Id = string.Empty
-            };
-            await AddRow(row);
+            });
+            await AddRows(RowsToAdd);
 
 
         }
@@ -519,8 +612,13 @@ namespace ExcelFormsTest.Services
         {
             return new
             {
-                values = new object[] { new object[] { Vendor, Category, Amount, Id } }
+                values = new object[] { this.AsExcelRowObject() }
             };
+        }
+
+        public object AsExcelRowObject()
+        {
+            return new object[] { Vendor, Category, Amount, Id };
         }
     }
 
@@ -628,7 +726,7 @@ namespace ExcelFormsTest.Services
         public string lastModifiedDateTime { get; set; }
     }
 
-    public class FileCreationRootObject
+    public class FileItem
     {
         [JsonProperty("@odata.context")]
         public string context { get; set; }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExcelFormsTest.Services;
 using Xamarin.Forms;
+using System.IO;
 
 namespace ExcelFormsTest.ViewModels
 {
@@ -51,28 +52,59 @@ namespace ExcelFormsTest.ViewModels
         public string ReceiptId
         {
             get { return receiptId; }
-            set { if (receiptId == value) return; receiptId = value; NotifyPropertyChanged(); NotifyPropertyChanged("ReceiptImage"); }
+            set { if (receiptId == value) return; receiptId = value; NotifyPropertyChanged(); GetReceiptImageBase64(receiptId); }
         }
+
+        private async void GetReceiptImageBase64(string id)
+        {
+            ReceiptImageBase64 = await DataService.GetReceiptImageAsBase64(id);
+        }
+
+        private string receiptImageBase64;
+        public string ReceiptImageBase64
+        {
+            get { return receiptImageBase64; }
+            set { if (receiptImageBase64 == value) return; receiptImageBase64 = value; NotifyPropertyChanged(); NotifyPropertyChanged("ReceiptImage"); }
+        }
+
 
         public ImageSource ReceiptImage
         {
-            get { return GetReceiptImage(); }
+            get
+            {
+                return string.IsNullOrEmpty(ReceiptImageBase64) ?
+                    null :
+                    ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(ReceiptImageBase64)));
+            }
         }
 
-        private ImageSource GetReceiptImage()
+        public ImageSource CategoryImage
         {
-            //TODO Implement the Base64 Stuff from chart
-            return null;
+            get { return GetResourceImage(Category); }
         }
 
-        public Image CategoryImage
+        public ImageSource ReceiptPresentImage
         {
-            get { return GetCategoryImage(); }
+            get
+            {
+                return string.IsNullOrEmpty(ReceiptId) ?
+                    GetResourceImage("NoReceipt") :
+                    GetResourceImage("Receipt");
+            }
         }
-
-        private Image GetCategoryImage()
+        
+        private const string resourceTemplate = "ExcelFormsTest.Resources.Images.{0}.png";
+        private ImageSource GetResourceImage(string imageName)
         {
-            throw new NotImplementedException();
+            ImageSource src = null;
+            var resource = string.Format(resourceTemplate, imageName);
+            src = ImageSource.FromResource(resource);
+            if(src == null)
+            {
+                resource = string.Format(resourceTemplate, "Default");
+                src = ImageSource.FromResource(resource);
+            }
+            return src;
         }
 
         private CommandBase getReceiptImageFromCameraCommand;

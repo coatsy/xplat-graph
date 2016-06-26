@@ -20,10 +20,10 @@
     <Grid Grid.Column="1">
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
-        <RowDefinition Height="Auto" />
+        <RowDefinition Height="50" />
       </Grid.RowDefinitions>
       <Image Grid.Row="0" Source="{Binding ReceiptImage}" />
-      <StackLayout Orientation="Horizontal">
+      <StackLayout Orientation="Horizontal" Grid.Row="1">
         <Button Text="Camera" Command="{Binding GetReceiptImageFromCameraCommand}" />
         <Button Text="Library" Command="{Binding GetReceiptImageFromLibraryCommand}" />
       </StackLayout>
