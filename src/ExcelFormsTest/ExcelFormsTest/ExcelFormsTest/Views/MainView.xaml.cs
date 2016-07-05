@@ -26,9 +26,13 @@ namespace ExcelFormsTest.Views
             base.OnAppearing();
         }
 
-        protected async void  ShowExpenses(object sender, object args)
+        protected async void ShowExpenses(object sender, object args)
         {
             await Navigation.PushAsync(new ExpensesView());
+        }
+        protected async void ShowGroups(object sender, object args)
+        {
+            await Navigation.PushAsync(new GroupsView());
         }
     }
 }

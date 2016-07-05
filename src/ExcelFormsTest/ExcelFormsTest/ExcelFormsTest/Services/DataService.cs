@@ -133,7 +133,7 @@ namespace ExcelFormsTest.Services
         {
             var result = false;
 
-            if(IsLoggedIn)
+            if (IsLoggedIn)
             {
                 result = await DeleteFile(id);
             }
@@ -209,27 +209,32 @@ namespace ExcelFormsTest.Services
 
         public static async Task<bool> AddRows(List<ExpenseRow> rows)
         {
-            if (!await EnsureConfig()) return false;
+            // for now, can only add one row per POST
 
-            var postString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{DataSheetName}')/Tables('{DataTableName}')/rows";
 
-            var rowArray = new object[rows.Count];
-
-            int thisRow = 0;
-            HttpResponseMessage result = null;
+            var answer = true;
             foreach (var row in rows)
             {
-                rowArray[thisRow] = row.AsExcelRowObject();
-                thisRow++;
-                result = await client.PostAsync(postString, new StringContent(JsonConvert.SerializeObject(row.AsExcelRow()), Encoding.UTF8, "application/json"));
-
+                answer = answer && await AddRow(row);
             }
-            //object rowsObject = new
+            return answer;
+
+            //if (!await EnsureConfig()) return false;
+
+            //var postString = $"{BaseGraphURL}/{GraphVersion}/{BaseItemPath}/{workbookID}/workbook/worksheets('{DataSheetName}')/Tables('{DataTableName}')/rows";
+
+            //var rowArray = new object[rows.Count];
+
+            //int thisRow = 0;
+            //HttpResponseMessage result = null;
+            //foreach (var row in rows)
             //{
-            //    values = rowArray
-            //};
-            //result = await client.PostAsync(postString, new StringContent(JsonConvert.SerializeObject(rowsObject), Encoding.UTF8, "application/json"));
-            return result?.IsSuccessStatusCode ?? false;
+            //    rowArray[thisRow] = row.AsExcelRowObject();
+            //    thisRow++;
+            //    result = await client.PostAsync(postString, new StringContent(JsonConvert.SerializeObject(row.AsExcelRow()), Encoding.UTF8, "application/json"));
+
+            //}
+            //return result?.IsSuccessStatusCode ?? false;
 
         }
 
@@ -269,7 +274,7 @@ namespace ExcelFormsTest.Services
         {
             var RowsToAdd = new List<ExpenseRow>();
 
-            RowsToAdd.Add( new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Qantas Airways",
                 Category = "Airfare",
@@ -277,7 +282,7 @@ namespace ExcelFormsTest.Services
                 Id = string.Empty
             });
 
-            RowsToAdd.Add( new ExpenseRow()
+            RowsToAdd.Add(new ExpenseRow()
             {
                 Vendor = "Qantas Airways",
                 Category = "Airfare",
@@ -499,6 +504,48 @@ namespace ExcelFormsTest.Services
             return answer;
         }
 
+        #region Group Methods
+
+        private static async Task<GroupList> GroupQuery(string queryString)
+        {
+            if (!IsLoggedIn)
+            {
+                return null;
+            }
+            var answer = await executeQuery(queryString);
+
+            return string.IsNullOrEmpty(answer) ?
+                null :
+                JsonConvert.DeserializeObject<GroupList>(answer);
+        }
+
+        public static async Task<GroupList> GetAllGroups()
+        {
+            var queryString = $"{BaseGraphURL}/{GraphVersion}/groups";
+            return await GroupQuery(queryString);
+        }
+        public static async Task<GroupList> GetMyGroups()
+        {
+            var queryString = $"{BaseGraphURL}/{GraphVersion}/me/memberof";
+            return await GroupQuery(queryString);
+        }
+
+        public static async Task<string> GetGroupThumbnailAsBase64(string id)
+        {
+            if (! IsLoggedIn)
+            {
+                return string.Empty;
+            }
+            var queryString = $"{BaseGraphURL}/{GraphVersion}/groups/{id}/photo/$value";
+            var answer = await client.GetByteArrayAsync(queryString);
+
+            return Convert.ToBase64String(answer);
+        }
+
+
+
+        #endregion
+
 
         #region Mock Data
 
@@ -638,8 +685,8 @@ namespace ExcelFormsTest.Services
         {
         }
     }
-    
-    
+
+
     #region JsonConvert Classes
     // used for deserializing json from the graph
     public class ExpenseRowsValue
@@ -774,6 +821,37 @@ namespace ExcelFormsTest.Services
         public List<List<object>> values { get; set; }
         public List<List<string>> valueTypes { get; set; }
     }
+
+    public class GroupList
+    {
+        [JsonProperty("@odata.context")]
+        public string context { get; set; }
+        [JsonProperty("value")]
+        public List<Group> groups { get; set; }
+    }
+
+    public class Group
+    {
+        [JsonProperty("@odata.context")]
+        public string context { get; set; }
+        public string id { get; set; }
+        public string classification { get; set; }
+        public DateTimeOffset? createdDateTime { get; set; }
+        public string description { get; set; }
+        public string displayName { get; set; }
+        public List<string> groupTypes { get; set; }
+        public string mail { get; set; }
+        public bool? mailEnabled { get; set; }
+        public string mailNickname { get; set; }
+        public DateTimeOffset? onPremisesLastSyncDateTime { get; set; }
+        public string onPremisesSecurityIdentifier { get; set; }
+        public bool? onPremisesSyncEnabled { get; set; }
+        public List<string> proxyAddresses { get; set; }
+        public DateTimeOffset? renewedDateTime { get; set; }
+        public bool? securityEnabled { get; set; }
+        public string visibility { get; set; }
+    }
+
 
     #endregion
 }

@@ -15,7 +15,7 @@ namespace ExcelFormsTest
 
         const string AppId = "2927aace-2535-4715-a22a-2393d8da16e8";
         public static PublicClientApplication ClientApplication = new PublicClientApplication(AppId);
-        public static string[] scopes = new string[] { "Files.ReadWrite" };
+        public static string[] scopes = new string[] { "Files.ReadWrite", "Group.ReadWrite.All" };
 
         public AppViewModel VM = new AppViewModel();
 

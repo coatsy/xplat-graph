@@ -38,7 +38,8 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-    </Grid>    <local:ExpenseView Grid.Row="2" BindingContext="{Binding SelectedExpense}" />
+    </Grid>    
+    <local:ExpenseView Grid.Row="2" BindingContext="{Binding SelectedExpense}" />
     <StackLayout Orientation="Horizontal" Grid.Row="3">
       <Button Text="Refresh All" Command="{Binding GetExpensesCommand}" />
       <Button Text="Add Expense" Command="{Binding AddExpenseCommand}" />

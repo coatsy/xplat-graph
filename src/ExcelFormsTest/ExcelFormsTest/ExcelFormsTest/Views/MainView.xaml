@@ -7,6 +7,7 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Label Grid.Row="0" Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
@@ -23,7 +24,8 @@
       <Button Grid.Row="3" Text="Sign Out" Command="{Binding Path=AppVM.LogoutCommand}" IsVisible="{Binding Path=AppVM.IsLoggedIn}" />
     </Grid>
     <Button Grid.Row="2" Text="Expenses" Clicked="ShowExpenses" IsVisible="{Binding Path=AppVM.IsLoggedIn}" />
-    <Grid Grid.Row="3" IsVisible="{Binding Path=AppVM.IsLoggedIn}" Padding="20,0">
+    <Button Grid.Row="3" Text="Groups" Clicked="ShowGroups" IsVisible="{Binding Path=AppVM.IsLoggedIn}" />
+    <Grid Grid.Row="4" IsVisible="{Binding Path=AppVM.IsLoggedIn}" Padding="20,0">
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />

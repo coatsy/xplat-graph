@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExcelFormsTest.Views.GroupsView">
+  <Grid Padding="20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Label Grid.Row="0" Text="{Binding Title}" />
+    <ListView Grid.Row="1" ItemsSource="{Binding Groups}" IsPullToRefreshEnabled="False"
+     IsRefreshing="{Binding IsRefreshing}" SeparatorVisibility="Default" >
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+              </Grid.ColumnDefinitions>
+              <Image Grid.Column="0" Source="{Binding GroupThumbnail}" HeightRequest="48" WidthRequest="48" />
+              <Label Grid.Column="1" Text="{Binding Name}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+              <Label Grid.Column="2" Text="{Binding Description}" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+    <StackLayout Orientation="Horizontal" Grid.Row="2">
+      <Button Text="All Groups" Command="{Binding GetAllGroupsCommand}" HeightRequest="40" />
+      <Button Text="My Groups" Command="{Binding GetMyGroupsCommand}" HeightRequest="40" />
+    </StackLayout>
+    <Label Grid.Row="3" Text="{Binding Message}" />
+  </Grid>
+</ContentPage>
