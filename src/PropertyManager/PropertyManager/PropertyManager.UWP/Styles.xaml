@@ -956,6 +956,7 @@
            BasedOn="{StaticResource EditableTextBoxStyle}">
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="MinHeight" Value="60"/>
     </Style>
 
     <!--Selectors-->

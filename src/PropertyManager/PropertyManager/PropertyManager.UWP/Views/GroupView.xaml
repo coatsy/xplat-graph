@@ -100,7 +100,6 @@
                         Nothing here, add something.
                     </TextBlock>
 
-
                     <!--TextBox-->
                     <Border Grid.Row="1" Style="{StaticResource MessageTextBoxFrameBorderStyle}">
                         <Grid>
