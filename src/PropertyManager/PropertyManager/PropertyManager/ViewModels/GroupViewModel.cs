@@ -53,6 +53,12 @@ namespace PropertyManager.ViewModels
 
         public ObservableCollection<ConversationModel> Conversations { get; set; }
 
+        public bool IsMediaFilesEmpty => !MediaFiles.Any();
+
+        public bool IsDocumentFilesEmpty => !DocumentFiles.Any();
+
+        public bool IsConversationsEmpty => !Conversations.Any();
+
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
         public ICommand SaveDetailsCommand => new MvxCommand(SaveDetailsAsync);
@@ -77,7 +83,7 @@ namespace PropertyManager.ViewModels
             Group = group;
         }
 
-        public async override void Start()
+        public override async void Start()
         {
             IsLoading = true;
 
@@ -106,6 +112,8 @@ namespace PropertyManager.ViewModels
                     DocumentFiles.Add(driveItem);
                 }
             }
+            RaisePropertyChanged(() => IsMediaFilesEmpty);
+            RaisePropertyChanged(() => IsDocumentFilesEmpty);
         }
 
         private async Task UpdateConversationsAsync()
@@ -115,6 +123,7 @@ namespace PropertyManager.ViewModels
             {
                 Conversations.Add(conversation);
             }
+            RaisePropertyChanged(() => IsConversationsEmpty);
         }
 
         public void LaunchDriveItemAsync(DriveItemModel driveItem)
@@ -153,7 +162,7 @@ namespace PropertyManager.ViewModels
             var newConversation = new ConversationModel
             {
                 Preview = message,
-                UniqueSenders = new List<string> { _configService.User.DisplayName }
+                UniqueSenders = new List<string> {_configService.User.DisplayName}
             };
 
             if (Conversations.Any())
@@ -164,6 +173,7 @@ namespace PropertyManager.ViewModels
             {
                 Conversations.Add(newConversation);
             }
+            RaisePropertyChanged(() => IsConversationsEmpty);
 
             // Create the request object.
             var newThread = new NewConversationModel
@@ -173,21 +183,11 @@ namespace PropertyManager.ViewModels
                 {
                     new NewPostModel
                     {
-                        Body = new BodyModel
-                        {
-                            Content = message,
-                            ContentType = "html"
-                        },
+                        Body = new BodyModel(message, "html"),
                         NewParticipants = new List<ParticipantModel>
                         {
-                            new ParticipantModel
-                            {
-                                EmailAddress = new EmailAddressModel
-                                {
-                                    Name = _configService.User.DisplayName,
-                                    Address = _configService.User.Mail
-                                }
-                            }
+                            new ParticipantModel(_configService.User.DisplayName,
+                                _configService.User.Mail)
                         }
                     }
                 }

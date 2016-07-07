@@ -94,6 +94,12 @@
                             </ItemsPanelTemplate>
                         </GridView.ItemsPanel>
                     </GridView>
+                    <TextBlock Style="{StaticResource FadedBodyTextBlock}"
+                               Margin="14,0" Grid.Row="0"
+                               Visibility="{Binding IsConversationsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Nothing here, add something.
+                    </TextBlock>
+
 
                     <!--TextBox-->
                     <Border Grid.Row="1" Style="{StaticResource MessageTextBoxFrameBorderStyle}">
@@ -111,56 +117,70 @@
 
             <!--Media Files-->
             <PivotItem Header="Media" Margin="0">
-                <GridView ItemsSource="{Binding MediaFiles}" Style="{StaticResource GridViewStyle}"
+               <Grid>
+                    <GridView ItemsSource="{Binding MediaFiles}" Style="{StaticResource GridViewStyle}"
                           ItemClick="OnDriveItemClick">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                <TextBlock Text="&#xEB9F;"
+                                    <TextBlock Text="&#xEB9F;"
                                    Style="{StaticResource ListIconTextBlock}"
                                    VerticalAlignment="Center"/>
-                                <StackPanel Orientation="Vertical"
+                                    <StackPanel Orientation="Vertical"
                                     Margin="15,0,0,0"
                                     VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
-                </GridView>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                    </GridView>
+                    <TextBlock Style="{StaticResource FadedBodyTextBlock}"
+                               Margin="14,0"
+                               Visibility="{Binding IsMediaFilesEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Nothing here, add something.
+                    </TextBlock>
+                </Grid>
             </PivotItem>
 
             <!--Document Files-->
             <PivotItem Header="Documents" Margin="0">
-                <GridView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource GridViewStyle}"
+                <Grid>
+                    <GridView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource GridViewStyle}"
                           ItemClick="OnDriveItemClick">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                <TextBlock Text="&#xE8E5;"
+                                    <TextBlock Text="&#xE8E5;"
                                    Style="{StaticResource ListIconTextBlock}"
                                    VerticalAlignment="Center"/>
-                                <StackPanel Orientation="Vertical"
+                                    <StackPanel Orientation="Vertical"
                                     Margin="15,0,0,0"
                                     VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
-                </GridView>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                    </GridView>
+                    <TextBlock Style="{StaticResource FadedBodyTextBlock}"
+                               Margin="14,0"
+                               Visibility="{Binding IsDocumentFilesEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Nothing here, add something.
+                    </TextBlock>
+                </Grid>
             </PivotItem>
 
             <!--Tasks-->
