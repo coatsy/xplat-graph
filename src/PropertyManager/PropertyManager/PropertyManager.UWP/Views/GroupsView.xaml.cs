@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 using MvvmCross.WindowsUWP.Views;
 using PropertyManager.Models;
 using PropertyManager.ViewModels;
@@ -24,11 +25,17 @@ namespace PropertyManager.UWP.Views
             groupsViewModel?.GoBackCommand.Execute(null);
         }
 
-        private void GridViewOnItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
+        private void GridViewOnItemClick(object sender, ItemClickEventArgs e)
         {
             var group = e.ClickedItem as GroupModel;
             var groupsViewModel = ViewModel as GroupsViewModel;
             groupsViewModel?.ShowGroup(group);
+        }
+
+        private void OnQuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
+        {
+            var groupsViewModel = ViewModel as GroupsViewModel;
+            groupsViewModel?.FiltereGroupsCommand.Execute(null);
         }
     }
 }

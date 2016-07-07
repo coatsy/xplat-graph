@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PropertyManager.Models;
 using PropertyManager.Services;
 
@@ -17,6 +14,8 @@ namespace PropertyManager.ViewModels
         : MvxViewModel
     {
         private readonly IGraphService _graphService;
+        private readonly IConfigService _configService;
+        private readonly ILauncherService _launcherService;
 
         private bool _isLoading;
 
@@ -30,21 +29,7 @@ namespace PropertyManager.ViewModels
             }
         }
 
-        public DriveItemModel ExcelFile { get; set; }
-
-        public TableColumnModel[] TableColumns { get; set; }
-
-        private PropertyDataModel _propertyData;
-
-        public PropertyDataModel PropertyData
-        {
-            get { return _propertyData; }
-            set
-            {
-                _propertyData = value;
-                RaisePropertyChanged(() => PropertyData);
-            }
-        }
+        public PropertyTableRowModel PropertyData { get; set; }
 
         public GroupModel Group { get; set; }
 
@@ -58,71 +43,36 @@ namespace PropertyManager.ViewModels
 
         public ICommand SaveDetailsCommand => new MvxCommand(SaveDetailsAsync);
 
-        public GroupViewModel(IGraphService graphService)
+        public GroupViewModel(IGraphService graphService, IConfigService configService,
+            ILauncherService launcherService)
         {
             _graphService = graphService;
+            _configService = configService;
+            _launcherService = launcherService;
             MediaFiles = new ObservableCollection<DriveItemModel>();
             DocumentFiles = new ObservableCollection<DriveItemModel>();
             Conversations = new ObservableCollection<ConversationModel>();
         }
 
-        public async void Init(string excelFileData, string groupData)
+        public void Init(string groupData)
         {
-            IsLoading = true;
-
-            // Deserialize Excel file.
-            var excelFile = JsonConvert.DeserializeObject<DriveItemModel>(excelFileData);
-            ExcelFile = excelFile;
-
             // Deserialize Group.
             var group = JsonConvert.DeserializeObject<GroupModel>(groupData);
             Group = group;
+        }
 
-            // Update property data.
-            await UpdatePropertyDataAsync();
+        public async override void Start()
+        {
+            IsLoading = true;
+
+            // Get property data.
+            PropertyData = _configService.DataFile.PropertyTable
+                .Rows.FirstOrDefault(r => r.Id == Group.Mail);
 
             // Update the rest of the data.
             await Task.WhenAll(UpdateDriveItemsAsync(), UpdateConversationsAsync());
             IsLoading = false;
-        }
-
-        private async Task UpdatePropertyDataAsync()
-        {
-            var retry = 0;
-            while (true)
-            {
-                if (retry > 3)
-                {
-                    throw new Exception("Failed to update property data.");
-                }
-
-                // Get table columns.
-                TableColumns = await _graphService.GetTableColumnsAsync(ExcelFile, Constants.ExcelPropertyTable);
-
-                // If an entry in the table doesn't exist, create it.
-                var rowIndex = GetRowIndex();
-                if (rowIndex > -1)
-                {
-                    var tableRow = new TableRowModel();
-                    tableRow.AddRange(TableColumns.Select(column => column.Values[rowIndex][0]));
-                    PropertyData = new PropertyDataModel(tableRow);
-                }
-                else
-                {
-                    await _graphService.AddTableRowAsync(ExcelFile,
-                        Constants.ExcelPropertyTable,
-                        new PropertyDataModel
-                        {
-                            Id = Group.Mail
-                        });
-
-                    // Retry logic.
-                    await Task.Delay(2000);
-                    retry = retry + 1;
-                    continue;
-                }
-                break;
-            }
+            base.Start();
         }
 
         private async Task UpdateDriveItemsAsync()
@@ -152,28 +102,26 @@ namespace PropertyManager.ViewModels
 
         private async void SaveDetailsAsync()
         {
-            // TODO: Save in larger batch/ranges... Excel API not responding well
-            // to many small updates.
             IsLoading = true;
 
-            // Calculate address and create table row.
-            var rowIndex = GetRowIndex() + 1;
-            var address = $"{Constants.ExcelPropertyTableColumnStart}{rowIndex}:" +
-                          $"{Constants.ExcelPropertyTableColumnEnd}{rowIndex}";
+            // Calculate address (range).
+            const int startRow = 2;
+            var endRow = 2 + (_configService.DataFile.PropertyTable.Rows.Length - 1);
+            var address = $"{Constants.DataFilePropertyTableColumnStart}{startRow}:" +
+                          $"{Constants.DataFilePropertyTableColumnEnd}{endRow}";
 
             // Update the table row.
-            await _graphService.UpdateTableRowAsync(ExcelFile, Constants.ExcelDataSheet,
-                address, PropertyData);
+            await _graphService.UpdateTableRowsAsync(_configService.DataFile.DriveItem,
+                Constants.DataFileDataSheet,
+                address, _configService.DataFile.PropertyTable.Rows
+                    .Cast<TableRowModel>().ToArray(), _configService.AppGroup);
+
             IsLoading = false;
         }
 
-        private int GetRowIndex()
+        public void LaunchDriveItemAsync(DriveItemModel driveItem)
         {
-            var idCell = TableColumns[0].Values
-                .Where(v => !string.IsNullOrWhiteSpace(v[0].Value<string>()))
-                .FirstOrDefault(v => v.Count > 0 &&
-                                     v[0].ToString() == Group.Mail);
-            return idCell == null ? -1 : TableColumns[0].Values.IndexOf(idCell);
+            _launcherService.LaunchWebUri(new Uri(driveItem.WebUrl));
         }
     }
 }

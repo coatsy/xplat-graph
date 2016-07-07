@@ -31,6 +31,7 @@ namespace PropertyManager.UWP
             appView.TitleBar.ButtonPressedForegroundColor = Colors.White;
             (Window.Current.Content as Frame).Background = resources["BackgroundColorBrush"] as SolidColorBrush;
 
+            Mvx.RegisterSingleton(typeof(ILauncherService), new LauncherService());
             Mvx.RegisterSingleton(typeof(IAuthenticationService), new AuthenticationService());
             return new PropertyManager.App();
         }

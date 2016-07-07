@@ -1,45 +1,75 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
+using PropertyManager.Extensions;
 using PropertyManager.Models;
+using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
     public class GroupsViewModel
         : MvxViewModel
     {
-        public DriveItemModel ExcelFile { get; set; }
+        private readonly IConfigService _configService;
 
-        public ObservableCollection<GroupModel> Groups { get; set; }
+        private string _query;
+
+        public string Query
+        {
+            get { return _query; }
+            set
+            {
+                _query = value;
+                RaisePropertyChanged(() => Query);
+                FiltereGroupsCommand.Execute(null);
+            }
+        }
+
+        public ObservableCollection<GroupModel> FilteredGroups { get; set; }
 
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
-        public GroupsViewModel()
+        public ICommand FiltereGroupsCommand => new MvxCommand(FilterGroups);
+
+        public GroupsViewModel(IConfigService configService)
         {
-            Groups = new ObservableCollection<GroupModel>();
+            _configService = configService;
+            FilteredGroups = new ObservableCollection<GroupModel>();
         }
 
-        public void Init(string excelFileData, string groupsData)
+        public override void Start()
         {
-            // Deserialize Excel file.
-            var excelFile = JsonConvert.DeserializeObject<DriveItemModel>(excelFileData);
-            ExcelFile = excelFile;
-
-            // Deserialize groups.
-            var groups = JsonConvert.DeserializeObject<GroupModel[]>(groupsData);
-            foreach (var group in groups)
-            {
-                Groups.Add(group);
-            }
+            // Filter groups.
+            _query = null;
+            FilterGroups();
+            base.Start();
         }
 
         public void ShowGroup(GroupModel group)
         {
-            // Navigate to groups view.
-            var excelFileData = JsonConvert.SerializeObject(ExcelFile);
-            var groupData = JsonConvert.SerializeObject(group);
-            ShowViewModel<GroupViewModel>(new { excelFileData, groupData });
+            // Navigate to the group view.
+            ShowViewModel<GroupViewModel>(new
+            {
+                groupData = JsonConvert.SerializeObject(group)
+            });
+        }
+
+        private void FilterGroups()
+        {
+            if (string.IsNullOrWhiteSpace(_query))
+            {
+                FilteredGroups.Clear();
+                FilteredGroups.AddRange(_configService.Groups);
+            }
+            else
+            {
+                FilteredGroups.Clear();
+                FilteredGroups.AddRange(_configService.Groups
+                    .Where(g => g.DisplayName.Contains(_query) ||
+                                g.Mail.Contains(_query)));
+            }
         }
     }
 }

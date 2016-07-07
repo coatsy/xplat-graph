@@ -79,11 +79,13 @@
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Bottom" Margin="11"
                        PlaceholderText="Find a property" 
-                       Style="{StaticResource AccentSearchBoxStyle}"/>
+                       QueryText="{Binding Query, Mode=TwoWay}"
+                       Style="{StaticResource AccentSearchBoxStyle}" 
+                       QuerySubmitted="OnQuerySubmitted"/>
         </Grid>
 
         <!--Slim Grid View-->
-        <GridView x:Name="SlimGridView" Grid.Row="1" ItemsSource="{Binding Groups}"
+        <GridView x:Name="SlimGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
                   Style="{StaticResource GridViewStyle}"
                   ItemClick="GridViewOnItemClick">
             <GridView.ItemTemplate>
@@ -111,7 +113,7 @@
         </GridView>
 
         <!--Normal Grid View-->
-        <GridView x:Name="NormalGridView" Grid.Row="1" ItemsSource="{Binding Groups}"
+        <GridView x:Name="NormalGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
                   Style="{StaticResource GridViewStyle}"
                   ItemClick="GridViewOnItemClick">
             <GridView.ItemTemplate>

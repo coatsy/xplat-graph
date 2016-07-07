@@ -9,6 +9,7 @@ namespace PropertyManager
         {
             Mvx.RegisterType(typeof(IHttpService), typeof(HttpService));
             Mvx.RegisterType(typeof(IGraphService), typeof(GraphService));
+            Mvx.RegisterSingleton(typeof(IConfigService), new ConfigService());
             RegisterAppStart<ViewModels.LoginViewModel>();
         }
     }

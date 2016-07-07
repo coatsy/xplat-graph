@@ -1,0 +1,40 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+
+namespace PropertyManager.Models
+{
+    public class TableModel<T> where T : TableRowModel, new()
+    {
+        private TableColumnModel[] _columns;
+
+        public TableColumnModel[] Columns
+        {
+            get { return _columns; }
+            set
+            {
+                _columns = value; 
+                UpdateRows();
+            }
+        }
+
+        public T[] Rows { get; private set; }
+
+        private void UpdateRows()
+        {
+            var rows = new List<T>();
+            for (var i = 1; i < Columns[0].Values.Count; i++)
+            {
+                var row = new T();
+                row.AddRange(Columns.Select(column => column.Values[i][0]));
+                rows.Add(row);
+            }
+            Rows = rows.ToArray();
+        }
+
+        public TableColumnModel this[string name]
+        {
+            get { return Columns.First(c => c.Name.Equals(name)); }
+        }
+    }
+}

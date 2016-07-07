@@ -57,27 +57,22 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                     <TextBox Style="{StaticResource MultiLineEditableTextBoxStyle}"
                              Header="Description"
-                             Margin="0,0,0,15" Text="{Binding PropertyData.Description, Mode=TwoWay}"
-                             LostFocus="OnLostFocus">
+                             Margin="0,0,0,15" Text="{Binding PropertyData.Description, Mode=TwoWay}">
                     </TextBox>
                     <TextBlock Style="{StaticResource HeaderTextBlock}" Text="Sizes"/>
                     <TextBlock Text="Find the details about the sizes of the property." 
                                TextWrapping="Wrap" Margin="0,15"></TextBlock>
                     <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Rooms" Margin="0,15" Text="{Binding PropertyData.Rooms, Mode=TwoWay}"
-                             LostFocus="OnLostFocus"/>
+                             Header="Rooms" Margin="0,15" Text="{Binding PropertyData.Rooms, Mode=TwoWay}"/>
                     <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Living area" Margin="0,15" Text="{Binding PropertyData.LivingArea, Mode=TwoWay}"
-                             LostFocus="OnLostFocus"/>
+                             Header="Living area" Margin="0,15" Text="{Binding PropertyData.LivingArea, Mode=TwoWay}"/>
                     <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Lot size" Margin="0,15" Text="{Binding PropertyData.LotSize, Mode=TwoWay}"
-                             LostFocus="OnLostFocus"/>
+                             Header="Lot size" Margin="0,15" Text="{Binding PropertyData.LotSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource HeaderTextBlock}" Text="Costs"/>
                     <TextBlock Text="Find the details about the costs of the property." 
                                TextWrapping="Wrap" Margin="0,15"/>
                     <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Operating costs" Margin="0,15" Text="{Binding PropertyData.OperatingCosts, Mode=TwoWay}"
-                             LostFocus="OnLostFocus"/>
+                             Header="Operating costs" Margin="0,15" Text="{Binding PropertyData.OperatingCosts, Mode=TwoWay}"/>
                 </StackPanel>
             </PivotItem>
 
@@ -114,7 +109,8 @@
 
             <!--Media Files-->
             <PivotItem Header="Media" Margin="0">
-                <GridView ItemsSource="{Binding MediaFiles}" Style="{StaticResource GridViewStyle}">
+                <GridView ItemsSource="{Binding MediaFiles}" Style="{StaticResource GridViewStyle}"
+                          ItemClick="OnDriveItemClick">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
@@ -140,7 +136,8 @@
 
             <!--Document Files-->
             <PivotItem Header="Documents" Margin="0">
-                <GridView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource GridViewStyle}">
+                <GridView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource GridViewStyle}"
+                          ItemClick="OnDriveItemClick">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"

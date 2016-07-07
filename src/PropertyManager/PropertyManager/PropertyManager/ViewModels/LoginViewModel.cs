@@ -1,9 +1,12 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PropertyManager.Models;
 using PropertyManager.Services;
 
@@ -13,6 +16,7 @@ namespace PropertyManager.ViewModels
         : MvxViewModel
     {
         private readonly IGraphService _graphService;
+        private readonly IConfigService _configService;
 
         private bool _isLoading;
 
@@ -28,9 +32,10 @@ namespace PropertyManager.ViewModels
 
         public ICommand LoginCommand => new MvxCommand(LoginAsync);
 
-        public LoginViewModel(IGraphService graphService)
+        public LoginViewModel(IGraphService graphService, IConfigService configService)
         {
             _graphService = graphService;
+            _configService = configService;
             LoginCommand.Execute(null);
         }
 
@@ -38,40 +43,108 @@ namespace PropertyManager.ViewModels
         {
             IsLoading = true;
 
-            // If the backing Excel file doesn't exist, create it.
-            var driveItems = await _graphService.GetDriveItemsAsync();
-            var excelFile = driveItems.FirstOrDefault(i => i.Name.Equals(Constants.ExcelFileName));
-            if (excelFile == null)
+            // Get the current user and all of the groups.
+            var user = await _graphService.GetUserAsync();
+            var allGroups = await _graphService.GetGroupsAsync();
+
+            // Get the group belonging to this app.
+            var appGroup = allGroups.FirstOrDefault(g => g.Mail.StartsWith(
+                Constants.AppGroupMail + "@"));
+
+            // If the app group doesn't exist, create it.
+            if (appGroup == null)
             {
-                excelFile = await CreateExcelDataFileAsync();
-                if (excelFile == null)
+                appGroup = await _graphService.AddGroupAsync(new GroupModel
                 {
-                    // TODO: Handle error.
+                    DisplayName = Constants.AppGroupDisplayName,
+                    Description = Constants.AppGroupDescription,
+                    MailNickname = Constants.AppGroupMail,
+                    MailEnabled = true,
+                    SecurityEnabled = false,
+                    GroupTypes = new List<string> {"Unified"}
+                });
+
+                // We need the file storage to be ready in order to place the data file. 
+                // Wait for it to be configured.
+                await WaitForDriveAsync(appGroup);
+            }
+
+            // Add the current user as a member of the app group.
+            var appGroupUsers = await _graphService.GetGroupUsersAsync(appGroup);
+            if (appGroupUsers.All(u => u.UserPrincipalName != user.UserPrincipalName))
+            {
+                await _graphService.AddGroupUserAsync(appGroup, user);
+            }
+
+            // Get the app group files and the property data file.
+            var appGroupDriveItems = await _graphService.GetGroupDriveItemsAsync(appGroup);
+            var dataDriveItem = appGroupDriveItems.FirstOrDefault(i => i.Name.Equals(
+                Constants.DataFileName));
+
+            // If the data file doesn't exist, create it.
+            if (dataDriveItem == null)
+            {
+                // Get the data file template from the resources.
+                var assembly = typeof (App).GetTypeInfo().Assembly;
+                using (var stream = assembly.GetManifestResourceStream(Constants.DataFileResourceName))
+                {
+                    dataDriveItem = await _graphService.AddGroupDriveItemAsync(appGroup,
+                        Constants.DataFileName, stream, Constants.ExcelContentType);
+                }
+
+                if (dataDriveItem == null)
+                {
+                    throw new Exception("Could not create the property data file in the group.");
                 }
             }
 
-            // Get groups and filter them. We need to make sure
-            // the group can be accessed by the user.
-            var allGroups = await _graphService.GetGroupsAsync();
-            var userGroups = await _graphService.GetUserGroupsAsync();
-            var groups = userGroups.Where(ug =>
-                allGroups.Any(ag => ug.Id == ag.Id)).ToArray();
+            // Get the property table.
+            var propertyTable = await _graphService.GetTableAsync<PropertyTableRowModel>(
+                dataDriveItem, Constants.DataFilePropertyTable, appGroup);
 
-            // Navigate to groups view.
-            var excelFileData = JsonConvert.SerializeObject(excelFile);
-            var groupsData = JsonConvert.SerializeObject(groups);
-            ShowViewModel<GroupsViewModel>(new { excelFileData, groupsData  });
+            // Create the data file represenation.
+            var dataFile = new DataFileModel
+            {
+                DriveItem = dataDriveItem,
+                PropertyTable = propertyTable
+            };
+
+            // Get groups that the user is a member of and represents 
+            // a property.
+            var userGroups = await _graphService.GetUserGroupsAsync();
+            var propertyGroups = userGroups
+                .Where(g => propertyTable["Id"]
+                    .Values.Any(v => v.Any() &&
+                                     v[0].Type == JTokenType.String &&
+                                     v[0].Value<string>().Equals(g.Mail,
+                                         StringComparison.OrdinalIgnoreCase)))
+                .ToArray();
+
+            // Set (singleton) config.
+            _configService.AppGroup = appGroup;
+            _configService.Groups = propertyGroups;
+            _configService.DataFile = dataFile;
+
+            // Navigate to the groups view.
+            ShowViewModel<GroupsViewModel>();
             IsLoading = false;
         }
 
-        public async Task<DriveItemModel> CreateExcelDataFileAsync()
+        private async Task WaitForDriveAsync(GroupModel group)
         {
-            var assembly = typeof(App).GetTypeInfo().Assembly;
-            using (var stream = assembly.GetManifestResourceStream(Constants.ExcelFileResourceName))
+            while (true)
             {
-                var file = await _graphService.CreateDriveItemAsync(Constants.ExcelFileName,
-                    stream, Constants.ExcelContentType);
-                return file;
+                try
+                {
+                    // Try to get drive items. If it fails, the drive is 
+                    // most likely still being configured.
+                    await _graphService.GetGroupDriveItemsAsync(group);
+                    return;
+                }
+                catch
+                {
+                    await Task.Delay(2500);
+                }
             }
         }
     }

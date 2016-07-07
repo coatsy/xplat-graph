@@ -1,5 +1,8 @@
 ﻿using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using MvvmCross.WindowsUWP.Views;
+using PropertyManager.Models;
 using PropertyManager.ViewModels;
 
 namespace PropertyManager.UWP.Views
@@ -23,10 +26,18 @@ namespace PropertyManager.UWP.Views
             groupsViewModel?.GoBackCommand.Execute(null);
         }
 
-        private void OnLostFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             var groupsViewModel = ViewModel as GroupViewModel;
             groupsViewModel?.SaveDetailsCommand.Execute(null);
+            base.OnNavigatingFrom(e);
+        }
+
+        private void OnDriveItemClick(object sender, ItemClickEventArgs e)
+        {
+            var group = e.ClickedItem as DriveItemModel;
+            var groupsViewModel = ViewModel as GroupViewModel;
+            groupsViewModel?.LaunchDriveItemAsync(group);
         }
     }
 }
