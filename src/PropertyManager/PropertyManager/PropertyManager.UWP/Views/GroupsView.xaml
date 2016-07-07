@@ -18,16 +18,33 @@
     </views:MvxWindowsPage.Transitions>
     
     <views:MvxWindowsPage.Resources>
+        <Style x:Key="ListViewStyle" TargetType="ListView">
+            <Setter Property="IsItemClickEnabled" Value="True"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="GridViewStyle" TargetType="GridView">
             <Setter Property="IsItemClickEnabled" Value="True"/>
             <Setter Property="SelectionMode" Value="None"/>
-            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="Margin" Value="0"/>
             <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="GridViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
                     </Style>
                 </Setter.Value>
             </Setter>
@@ -36,7 +53,7 @@
 
     <Grid Style="{StaticResource PageRootGridStyle}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="88"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
@@ -57,7 +74,7 @@
                 <VisualState x:Name="Slim">
                     <VisualState.Setters>
                         <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch"></Setter>
-                        <Setter Target="SearchBox.VerticalAlignment" Value="Bottom"></Setter>
+                        <Setter Target="SearchBox.VerticalAlignment" Value="Top"></Setter>
                         <Setter Target="SlimGridView.Visibility" Value="Visible"></Setter>
                         <Setter Target="NormalGridView.Visibility" Value="Collapsed"></Setter>
                     </VisualState.Setters>
@@ -70,14 +87,9 @@
     
         <!--Header-->
         <Grid Grid.Row="0">
-            <Button Style="{StaticResource AccentHeaderButtonStyle}"
-                    Content="&#xE909;"
-                    IsHitTestVisible="False"/>
-            <TextBlock Text="PROPERTIES"
-                       Style="{StaticResource PageTitleTextBlock}"/>
             <SearchBox x:Name="SearchBox" 
                        HorizontalAlignment="Stretch"
-                       VerticalAlignment="Bottom" Margin="11"
+                       VerticalAlignment="Top" Margin="15,20,15,0"
                        PlaceholderText="Find a property" 
                        QueryText="{Binding Query, Mode=TwoWay}"
                        Style="{StaticResource AccentSearchBoxStyle}" 
@@ -85,12 +97,12 @@
         </Grid>
 
         <!--Slim Grid View-->
-        <GridView x:Name="SlimGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
-                  Style="{StaticResource GridViewStyle}"
-                  ItemClick="GridViewOnItemClick">
-            <GridView.ItemTemplate>
+        <ListView x:Name="SlimGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
+                  Style="{StaticResource ListViewStyle}"
+                  ItemClick="OnItemClick">
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
+                    <StackPanel Height="62" Orientation="Horizontal" Padding="15,0"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch">
                         <TextBlock Text="&#xE913;"
                                    Style="{StaticResource ListIconTextBlock}"
@@ -104,18 +116,18 @@
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
-            </GridView.ItemTemplate>
-            <GridView.ItemsPanel>
+            </ListView.ItemTemplate>
+            <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
                 </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
-        </GridView>
+            </ListView.ItemsPanel>
+        </ListView>
 
         <!--Normal Grid View-->
         <GridView x:Name="NormalGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
                   Style="{StaticResource GridViewStyle}"
-                  ItemClick="GridViewOnItemClick">
+                  ItemClick="OnItemClick">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="175" Height="175" Margin="15">

@@ -25,7 +25,7 @@ namespace PropertyManager.UWP.Views
             groupsViewModel?.GoBackCommand.Execute(null);
         }
 
-        private void GridViewOnItemClick(object sender, ItemClickEventArgs e)
+        private void OnItemClick(object sender, ItemClickEventArgs e)
         {
             var group = e.ClickedItem as GroupModel;
             var groupsViewModel = ViewModel as GroupsViewModel;

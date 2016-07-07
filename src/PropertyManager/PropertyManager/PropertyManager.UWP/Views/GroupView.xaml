@@ -36,7 +36,7 @@
 
     <Grid Style="{StaticResource PageRootGridStyle}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="75"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -44,7 +44,8 @@
         <Grid Grid.Row="0">
             <Button Style="{StaticResource AccentHeaderButtonStyle}"
                     Content="&#xE913;"
-                    IsHitTestVisible="False"/>
+                    IsHitTestVisible="False"
+                    IsTabStop="False"/>
             <TextBlock Text="{Binding Group.DisplayName}"
                        Style="{StaticResource PageTitleTextBlock}"/>
             <ProgressRing Style="{StaticResource AccentHeaderProgressRingStyle}"

@@ -17,7 +17,8 @@
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#4c565e"/>
     <SolidColorBrush x:Key="SecondaryColorBrush" Color="#fff"/>
     <SolidColorBrush x:Key="DarkSecondaryColorBrush" Color="#9a9fa3"/>
-    <SolidColorBrush x:Key="BackgroundColorBrush" Color="#f6f7f9"/>
+    <!--<SolidColorBrush x:Key="BackgroundColorBrush" Color="#f6f7f9"/>-->
+    <SolidColorBrush x:Key="BackgroundColorBrush" Color="#fff"/>
 
     <!--Styles-->
     <Style x:Key="PageRootGridStyle" TargetType="Grid">
@@ -36,12 +37,15 @@
     </Style>
 
     <Style x:Key="PageTitleTextBlock" TargetType="TextBlock">
-        <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Margin" Value="58,12,0,0"/>
+        <Setter Property="FontWeight" Value="SemiLight"/>
+        <Setter Property="Margin" Value="52,0,0,0"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="FadedBodyTextBlock" TargetType="TextBlock">
         <Setter Property="Opacity" Value="0.6"/>
+        <Setter Property="FontSize" Value="14"/>
     </Style>
 
     <Style x:Key="HeaderTextBlock" TargetType="TextBlock">
@@ -70,7 +74,7 @@
 
     <Style x:Key="ListIconTextBlock" TargetType="TextBlock"
            BasedOn="{StaticResource IconTextBlock}">
-        <Setter Property="FontSize" Value="36"/>
+        <Setter Property="FontSize" Value="30"/>
     </Style>
 
     <Style x:Key="GridIconTextBlock" TargetType="TextBlock"
@@ -175,13 +179,13 @@
         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Width" Value="45"/>
         <Setter Property="Height" Value="45"/>
+        <Setter Property="Margin" Value="5,8,5,5"/>
         <Setter Property="Content" Value="&#xE711;"/>
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
@@ -210,9 +214,6 @@
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
@@ -410,8 +411,9 @@
         <Setter Property="FontSize" Value="{ThemeResource SearchBoxContentThemeFontSize}"/>
         <Setter Property="FontWeight" Value="{ThemeResource SearchBoxContentThemeFontWeight}"/>
         <Setter Property="Foreground" Value="{ThemeResource SearchBoxForegroundThemeBrush}"/>
-        <Setter Property="Padding" Value="{ThemeResource SearchBoxThemePadding}"/>
+        <Setter Property="Padding" Value="12,4,4,4"/>
         <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinHeight" Value="32"/>
         <Setter Property="Typography.StylisticSet20" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
