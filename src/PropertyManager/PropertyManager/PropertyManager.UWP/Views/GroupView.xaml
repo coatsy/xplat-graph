@@ -99,9 +99,11 @@
                     <Border Grid.Row="1" Style="{StaticResource MessageTextBoxFrameBorderStyle}">
                         <Grid>
                             <TextBox Style="{StaticResource MessageTextBoxStyle}"
-                                     PlaceholderText="Type a message"/>
+                                     PlaceholderText="Type a message" Text="{Binding Message, 
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyUp="OnKeyUp"/>
                             <Button Style="{StaticResource AccentTextBoxButtonStyle}"
-                                    Content="&#xE724;"/>
+                                    Content="&#xE724;"
+                                    Command="{Binding SendMessageCommand}"/>
                         </Grid>
                     </Border>
                 </Grid>

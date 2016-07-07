@@ -1,4 +1,6 @@
-﻿using Windows.UI.Core;
+﻿using System.Diagnostics;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using MvvmCross.WindowsUWP.Views;
@@ -38,6 +40,17 @@ namespace PropertyManager.UWP.Views
             var group = e.ClickedItem as DriveItemModel;
             var groupsViewModel = ViewModel as GroupViewModel;
             groupsViewModel?.LaunchDriveItemAsync(group);
+        }
+
+        private void OnKeyUp(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key != VirtualKey.Enter || !e.KeyStatus.WasKeyDown)
+            {
+                return;
+            }
+
+            var groupsViewModel = ViewModel as GroupViewModel;
+            groupsViewModel?.SendMessageCommand.Execute(null);
         }
     }
 }

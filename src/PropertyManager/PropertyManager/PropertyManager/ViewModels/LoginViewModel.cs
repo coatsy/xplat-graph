@@ -121,6 +121,7 @@ namespace PropertyManager.ViewModels
                 .ToArray();
 
             // Set (singleton) config.
+            _configService.User = user;
             _configService.AppGroup = appGroup;
             _configService.Groups = propertyGroups;
             _configService.DataFile = dataFile;

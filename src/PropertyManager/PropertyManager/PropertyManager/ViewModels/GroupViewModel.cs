@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -29,6 +31,18 @@ namespace PropertyManager.ViewModels
             }
         }
 
+        private string _message;
+
+        public string Message
+        {
+            get { return _message; }
+            set
+            {
+                _message = value;
+                RaisePropertyChanged(() => Message);
+            }
+        }
+
         public PropertyTableRowModel PropertyData { get; set; }
 
         public GroupModel Group { get; set; }
@@ -43,6 +57,8 @@ namespace PropertyManager.ViewModels
 
         public ICommand SaveDetailsCommand => new MvxCommand(SaveDetailsAsync);
 
+        public ICommand SendMessageCommand => new MvxCommand(SendMessageAsync);
+
         public GroupViewModel(IGraphService graphService, IConfigService configService,
             ILauncherService launcherService)
         {
@@ -56,7 +72,7 @@ namespace PropertyManager.ViewModels
 
         public void Init(string groupData)
         {
-            // Deserialize Group.
+            // Deserialize the group.
             var group = JsonConvert.DeserializeObject<GroupModel>(groupData);
             Group = group;
         }
@@ -71,6 +87,7 @@ namespace PropertyManager.ViewModels
 
             // Update the rest of the data.
             await Task.WhenAll(UpdateDriveItemsAsync(), UpdateConversationsAsync());
+
             IsLoading = false;
             base.Start();
         }
@@ -100,6 +117,11 @@ namespace PropertyManager.ViewModels
             }
         }
 
+        public void LaunchDriveItemAsync(DriveItemModel driveItem)
+        {
+            _launcherService.LaunchWebUri(new Uri(driveItem.WebUrl));
+        }
+
         private async void SaveDetailsAsync()
         {
             IsLoading = true;
@@ -119,9 +141,61 @@ namespace PropertyManager.ViewModels
             IsLoading = false;
         }
 
-        public void LaunchDriveItemAsync(DriveItemModel driveItem)
+        private async void SendMessageAsync()
         {
-            _launcherService.LaunchWebUri(new Uri(driveItem.WebUrl));
+            IsLoading = true;
+
+            // Reset the text box.
+            var message = Message;
+            Message = "";
+
+            // Create a local message entry and add it.
+            var newConversation = new ConversationModel
+            {
+                Preview = message,
+                UniqueSenders = new List<string> { _configService.User.DisplayName }
+            };
+
+            if (Conversations.Any())
+            {
+                Conversations.Insert(0, newConversation);
+            }
+            else
+            {
+                Conversations.Add(newConversation);
+            }
+
+            // Create the request object.
+            var newThread = new NewConversationModel
+            {
+                Topic = "Property Manager",
+                Posts = new List<NewPostModel>
+                {
+                    new NewPostModel
+                    {
+                        Body = new BodyModel
+                        {
+                            Content = message,
+                            ContentType = "html"
+                        },
+                        NewParticipants = new List<ParticipantModel>
+                        {
+                            new ParticipantModel
+                            {
+                                EmailAddress = new EmailAddressModel
+                                {
+                                    Name = _configService.User.DisplayName,
+                                    Address = _configService.User.Mail
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Send the message.
+            await _graphService.AddGroupConversation(Group, newThread);
+            IsLoading = false;
         }
     }
 }

@@ -187,6 +187,11 @@ namespace PropertyManager.Services
             });
         }
 
+        public Task<NewConversationModel> AddGroupConversation(GroupModel group, NewConversationModel conversation)
+        {
+            return PostAsync($"groups/{group.Id}/threads", conversation);
+        }
+
         public async Task<TableModel<T>> GetTableAsync<T>(DriveItemModel driveItem, string tableName,
             GroupModel group = null) where T : TableRowModel, new()
         {
