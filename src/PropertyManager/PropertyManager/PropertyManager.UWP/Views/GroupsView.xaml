@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MvvmCross.WindowsUWP.Views"
+    xmlns:controls="using:PropertyManager.UWP.Controls"
     mc:Ignorable="d">
 
     <views:MvxWindowsPage.Transitions>
@@ -20,6 +21,7 @@
     <views:MvxWindowsPage.Resources>
         <Style x:Key="ListViewStyle" TargetType="ListView">
             <Setter Property="IsItemClickEnabled" Value="True"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="SelectionMode" Value="None"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
@@ -98,25 +100,28 @@
 
         <!--Slim Grid View-->
         <ListView x:Name="SlimGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
-                  Style="{StaticResource ListViewStyle}"
+                  Style="{StaticResource ListViewStyle}" 
                   ItemClick="OnItemClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Height="62" Orientation="Horizontal" Padding="15,0"
-                                VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                        <TextBlock Text="&#xE913;"
-                                   Style="{StaticResource ListIconTextBlock}"
-                                   VerticalAlignment="Center"/>
-                        <StackPanel Orientation="Vertical"
-                                    Margin="15,0,0,0"
-                                    VerticalAlignment="Center">
-                            <TextBlock Text="{Binding DisplayName}"/>
-                            <TextBlock Text="{Binding Mail}" 
-                                       Style="{StaticResource FadedBodyTextBlock}"/>
-                        </StackPanel>
-                    </StackPanel>
+                    <controls:TileListViewItem Header="{Binding DisplayName}"
+                                               Text="{Binding Mail}"
+                                               Icon="&#xE913;"
+                                               IconSize="26"
+                                               TileBackground="{StaticResource AccentColorBrush}"
+                                               TileForeground="White"
+                                               IsHitTestVisible="False"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <controls:TileListViewItem Header="Add a property"
+                                               Icon="&#xE948;"
+                                               IconSize="18"
+                                               TileBackground="LightGray"
+                                               TileForeground="Black"/>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>

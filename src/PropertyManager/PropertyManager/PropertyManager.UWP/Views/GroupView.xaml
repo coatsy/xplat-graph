@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MvvmCross.WindowsUWP.Views"
+    xmlns:controls="using:PropertyManager.UWP.Controls"
     mc:Ignorable="d">
 
     <views:MvxWindowsPage.Transitions>
@@ -18,6 +19,23 @@
     </views:MvxWindowsPage.Transitions>
 
     <views:MvxWindowsPage.Resources>
+        <Style x:Key="ListViewStyle" TargetType="ListView">
+            <Setter Property="IsItemClickEnabled" Value="True"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="GridViewStyle" TargetType="GridView">
             <Setter Property="IsItemClickEnabled" Value="True"/>
             <Setter Property="SelectionMode" Value="None"/>
@@ -36,13 +54,13 @@
 
     <Grid Style="{StaticResource PageRootGridStyle}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="77"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Header-->
         <Grid Grid.Row="0">
-            <Button Style="{StaticResource AccentHeaderButtonStyle}"
+            <Button Style="{StaticResource HeaderButtonStyle}"
                     Content="&#xE913;"
                     IsHitTestVisible="False"
                     IsTabStop="False"/>
@@ -95,11 +113,6 @@
                             </ItemsPanelTemplate>
                         </GridView.ItemsPanel>
                     </GridView>
-                    <TextBlock Style="{StaticResource FadedBodyTextBlock}"
-                               Margin="14,0" Grid.Row="0"
-                               Visibility="{Binding IsConversationsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        Nothing here, add something.
-                    </TextBlock>
 
                     <!--TextBox-->
                     <Border Grid.Row="1" Style="{StaticResource MessageTextBoxFrameBorderStyle}">
@@ -118,68 +131,64 @@
             <!--Media Files-->
             <PivotItem Header="Media" Margin="0">
                <Grid>
-                    <GridView ItemsSource="{Binding MediaFiles}" Style="{StaticResource GridViewStyle}"
-                          ItemClick="OnDriveItemClick">
-                        <GridView.ItemTemplate>
+                    <ListView ItemsSource="{Binding MediaFiles}" Style="{StaticResource ListViewStyle}">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
-                                VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                    <TextBlock Text="&#xEB9F;"
-                                   Style="{StaticResource ListIconTextBlock}"
-                                   VerticalAlignment="Center"/>
-                                    <StackPanel Orientation="Vertical"
-                                    Margin="15,0,0,0"
-                                    VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </StackPanel>
-                                </StackPanel>
+                                <controls:TileListViewItem Header="{Binding Name}"
+                                               Text="{Binding WebUrl}"
+                                               Icon="&#xEB9F;"
+                                               IconSize="26"
+                                               TileBackground="{StaticResource AccentColorBrush}"
+                                               TileForeground="White"
+                                               IsHitTestVisible="False"/>
                             </DataTemplate>
-                        </GridView.ItemTemplate>
-                        <GridView.ItemsPanel>
+                        </ListView.ItemTemplate>
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <controls:TileListViewItem Header="Add a media file"
+                                               Icon="&#xE948;"
+                                               IconSize="18"
+                                               TileBackground="LightGray"
+                                               TileForeground="Black"/>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+                        <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
                             </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                    </GridView>
-                    <TextBlock Style="{StaticResource FadedBodyTextBlock}"
-                               Margin="14,0"
-                               Visibility="{Binding IsMediaFilesEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        Nothing here, add something.
-                    </TextBlock>
+                        </ListView.ItemsPanel>
+                    </ListView>
                 </Grid>
             </PivotItem>
 
             <!--Document Files-->
             <PivotItem Header="Documents" Margin="0">
                 <Grid>
-                    <GridView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource GridViewStyle}"
-                          ItemClick="OnDriveItemClick">
-                        <GridView.ItemTemplate>
+                    <ListView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource ListViewStyle}">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Height="60" Orientation="Horizontal" Padding="13,0"
-                                VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                    <TextBlock Text="&#xE8E5;"
-                                   Style="{StaticResource ListIconTextBlock}"
-                                   VerticalAlignment="Center"/>
-                                    <StackPanel Orientation="Vertical"
-                                    Margin="15,0,0,0"
-                                    VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </StackPanel>
-                                </StackPanel>
+                                <controls:TileListViewItem Header="{Binding Name}"
+                                                           Text="{Binding WebUrl}"
+                                                           Icon="&#xE8E5;" IconSize="26"
+                                                           TileBackground="{StaticResource AccentColorBrush}"
+                                                           TileForeground="White"
+                                                           IsHitTestVisible="False"/>
                             </DataTemplate>
-                        </GridView.ItemTemplate>
-                        <GridView.ItemsPanel>
+                        </ListView.ItemTemplate>
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <controls:TileListViewItem Header="Add a document file"
+                                                           Icon="&#xE948;" IconSize="18"
+                                                           TileBackground="LightGray"
+                                                           TileForeground="Black"/>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+                        <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
                             </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                    </GridView>
-                    <TextBlock Style="{StaticResource FadedBodyTextBlock}"
-                               Margin="14,0"
-                               Visibility="{Binding IsDocumentFilesEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        Nothing here, add something.
-                    </TextBlock>
+                        </ListView.ItemsPanel>
+                    </ListView>
                 </Grid>
             </PivotItem>
 

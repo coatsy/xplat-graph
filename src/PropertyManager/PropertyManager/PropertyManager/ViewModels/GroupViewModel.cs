@@ -53,12 +53,6 @@ namespace PropertyManager.ViewModels
 
         public ObservableCollection<ConversationModel> Conversations { get; set; }
 
-        public bool IsMediaFilesEmpty => !MediaFiles.Any();
-
-        public bool IsDocumentFilesEmpty => !DocumentFiles.Any();
-
-        public bool IsConversationsEmpty => !Conversations.Any();
-
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
         public ICommand SaveDetailsCommand => new MvxCommand(SaveDetailsAsync);
@@ -112,8 +106,6 @@ namespace PropertyManager.ViewModels
                     DocumentFiles.Add(driveItem);
                 }
             }
-            RaisePropertyChanged(() => IsMediaFilesEmpty);
-            RaisePropertyChanged(() => IsDocumentFilesEmpty);
         }
 
         private async Task UpdateConversationsAsync()
@@ -123,7 +115,6 @@ namespace PropertyManager.ViewModels
             {
                 Conversations.Add(conversation);
             }
-            RaisePropertyChanged(() => IsConversationsEmpty);
         }
 
         public void LaunchDriveItemAsync(DriveItemModel driveItem)
@@ -173,7 +164,6 @@ namespace PropertyManager.ViewModels
             {
                 Conversations.Add(newConversation);
             }
-            RaisePropertyChanged(() => IsConversationsEmpty);
 
             // Create the request object.
             var newThread = new NewConversationModel

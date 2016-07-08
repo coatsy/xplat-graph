@@ -173,9 +173,9 @@
         </Setter>
     </Style>
 
-    <Style x:Key="AccentHeaderButtonStyle" TargetType="Button">
+    <Style x:Key="HeaderButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
@@ -187,7 +187,7 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Normal"/>
-        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontSize" Value="26"/>
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -243,10 +243,12 @@
     </Style>
 
     <Style x:Key="AccentTextBoxButtonStyle" TargetType="Button"
-           BasedOn="{StaticResource AccentHeaderButtonStyle}">
+           BasedOn="{StaticResource HeaderButtonStyle}">
         <Setter Property="Width" Value="50"/>
         <Setter Property="Height" Value="50"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}"/>
     </Style>
 
     <Style x:Key="MessageTextBoxStyle" TargetType="TextBox">
