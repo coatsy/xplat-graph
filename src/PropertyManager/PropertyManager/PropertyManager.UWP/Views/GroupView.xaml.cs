@@ -51,10 +51,13 @@ namespace PropertyManager.UWP.Views
             ViewModel?.GoBackCommand.Execute(null);
         }
 
-        private void OnDriveItemClick(object sender, ItemClickEventArgs e)
+        private void OnFileItemClick(object sender, ItemClickEventArgs e)
         {
-            var group = e.ClickedItem as DriveItemModel;
-            ViewModel?.LaunchDriveItemAsync(group);
+            var file = e.ClickedItem as FileModel;
+            if (file != null)
+            {
+                ViewModel?.LaunchDriveItemAsync(file.DriveItem);
+            }
         }
 
         private void OnKeyUp(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)

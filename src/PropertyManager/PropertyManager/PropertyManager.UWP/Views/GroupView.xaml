@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MvvmCross.WindowsUWP.Views"
     xmlns:controls="using:PropertyManager.UWP.Controls"
-    xmlns:extensions="using:PropertyManager.UWP.Extensions"
+    xmlns:converters="using:PropertyManager.UWP.Converters"
     mc:Ignorable="d">
 
     <views:MvxWindowsPage.Transitions>
@@ -20,6 +20,8 @@
     </views:MvxWindowsPage.Transitions>
 
     <views:MvxWindowsPage.Resources>
+        <converters:FileTypeToIconConverter x:Key="FileTypeToIconConverter"/>
+
         <Style x:Key="ListViewStyle" TargetType="ListView">
             <Setter Property="IsItemClickEnabled" Value="True"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -79,27 +81,27 @@
                            TextWrapping="Wrap" Margin="0,0,0,15"/>
                     <controls:TileListViewItem Header="{Binding Details.Description}"
                                                Text="Description" IsHitTestVisible="False"
-                                               Icon="&#xE913;" IconSize="26"
+                                               Icon="&#xE913;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
                     <controls:TileListViewItem Header="{Binding Details.Rooms}"
                                                Text="Rooms" IsHitTestVisible="False"
-                                               Icon="&#xE8D7;" IconSize="26"
+                                               Icon="&#xE8D7;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
                     <controls:TileListViewItem Header="{Binding Details.LivingArea}"
                                                Text="Living area" IsHitTestVisible="False"
-                                               Icon="&#xE80F;" IconSize="26"
+                                               Icon="&#xE80F;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
                     <controls:TileListViewItem Header="{Binding Details.LotSize}"
                                                Text="Lot size" IsHitTestVisible="False"
-                                               Icon="&#xE707;" IconSize="26"
+                                               Icon="&#xE707;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
                     <controls:TileListViewItem Header="{Binding Details.OperatingCosts}"
                                                Text="Operating costs" IsHitTestVisible="False"
-                                               Icon="&#xE8EC;" IconSize="26"
+                                               Icon="&#xE8EC;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
                     <controls:PointerTextBlock Text="Edit details" Foreground="{StaticResource AccentColorBrush}"
@@ -141,16 +143,16 @@
                 </Grid>
             </PivotItem>
 
-            <!--Media Files-->
-            <PivotItem Header="Media" Margin="0">
+            <!--Files-->
+            <PivotItem Header="Files" Margin="0">
                <Grid>
-                    <ListView ItemsSource="{Binding MediaFiles}" Style="{StaticResource ListViewStyle}"
-                              ItemClick="OnDriveItemClick">
+                    <ListView ItemsSource="{Binding Files}" Style="{StaticResource ListViewStyle}"
+                              ItemClick="OnFileItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <controls:TileListViewItem Header="{Binding Name}"
-                                               Text="{Binding WebUrl}"
-                                               Icon="&#xEB9F;"
+                                <controls:TileListViewItem Header="{Binding DriveItem.Name}"
+                                               Text="{Binding DriveItem.WebUrl}"
+                                               Icon="{Binding Type, Converter={StaticResource FileTypeToIconConverter}}"
                                                IconSize="26"
                                                TileBackground="{StaticResource AccentColorBrush}"
                                                TileForeground="White"
@@ -159,7 +161,7 @@
                         </ListView.ItemTemplate>
                         <ListView.HeaderTemplate>
                             <DataTemplate>
-                                <controls:TileListViewItem Header="Add a media file"
+                                <controls:TileListViewItem Header="Add a file"
                                                Icon="&#xE948;"
                                                IconSize="18"
                                                TileBackground="LightGray"
@@ -175,37 +177,8 @@
                 </Grid>
             </PivotItem>
 
-            <!--Document Files-->
-            <PivotItem Header="Documents" Margin="0">
-                <Grid>
-                    <ListView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource ListViewStyle}"
-                              ItemClick="OnDriveItemClick">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <controls:TileListViewItem Header="{Binding Name}"
-                                                           Text="{Binding WebUrl}"
-                                                           Icon="&#xE8E5;" IconSize="26"
-                                                           TileBackground="{StaticResource AccentColorBrush}"
-                                                           TileForeground="White"
-                                                           IsHitTestVisible="False"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.HeaderTemplate>
-                            <DataTemplate>
-                                <controls:TileListViewItem Header="Add a document file"
-                                                           Icon="&#xE948;" IconSize="18"
-                                                           TileBackground="LightGray"
-                                                           TileForeground="Black"/>
-                            </DataTemplate>
-                        </ListView.HeaderTemplate>
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
-                </Grid>
-            </PivotItem>
+            <!--xEB9F-->
+            <!--xE8E5-->
 
             <!--Tasks-->
             <PivotItem Header="Tasks">

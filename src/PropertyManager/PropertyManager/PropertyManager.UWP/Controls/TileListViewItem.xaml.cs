@@ -61,6 +61,15 @@ namespace PropertyManager.UWP.Controls
             set { SetValue(IconSizeProperty, value); }
         }
 
+        public static readonly DependencyProperty TextWrappingProperty = DependencyProperty.Register(
+            "TextWrapping", typeof (TextWrapping), typeof (TileListViewItem), new PropertyMetadata(TextWrapping.NoWrap));
+
+        public TextWrapping TextWrapping
+        {
+            get { return (TextWrapping) GetValue(TextWrappingProperty); }
+            set { SetValue(TextWrappingProperty, value); }
+        }
+
         public TileListViewItem()
         {
             InitializeComponent();

@@ -102,6 +102,7 @@
     <Compile Include="Controls\TileListViewItem.xaml.cs">
       <DependentUpon>TileListViewItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\FileTypeToIconConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />

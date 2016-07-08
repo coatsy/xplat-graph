@@ -48,9 +48,7 @@ namespace PropertyManager.ViewModels
 
         public GroupModel Group { get; set; }
 
-        public ObservableCollection<DriveItemModel> MediaFiles { get; set; }
-
-        public ObservableCollection<DriveItemModel> DocumentFiles { get; set; }
+        public ObservableCollection<FileModel> Files { get; set; }
 
         public ObservableCollection<ConversationModel> Conversations { get; set; }
 
@@ -68,8 +66,7 @@ namespace PropertyManager.ViewModels
             _graphService = graphService;
             _configService = configService;
             _launcherService = launcherService;
-            MediaFiles = new ObservableCollection<DriveItemModel>();
-            DocumentFiles = new ObservableCollection<DriveItemModel>();
+            Files = new ObservableCollection<FileModel>();
             Conversations = new ObservableCollection<ConversationModel>();
         }
 
@@ -102,11 +99,11 @@ namespace PropertyManager.ViewModels
             {
                 if (Constants.MediaFileExtensions.Any(e => driveItem.Name.Contains(e)))
                 {
-                    MediaFiles.Add(driveItem);
+                    Files.Add(new FileModel(driveItem, FileType.Media));
                 }
                 else if (Constants.DocumentFileExtensions.Any(e => driveItem.Name.Contains(e)))
                 {
-                    DocumentFiles.Add(driveItem);
+                    Files.Add(new FileModel(driveItem, FileType.Document));
                 }
             }
         }

@@ -36,6 +36,8 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Models\BodyModel.cs" />
+    <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\NewConversationModel.cs" />
     <Compile Include="Models\ConversationModel.cs" />
     <Compile Include="Models\DataFileModel.cs" />

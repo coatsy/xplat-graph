@@ -29,7 +29,7 @@
             <StackPanel Orientation="Vertical" Grid.Column="2"
                                     VerticalAlignment="Center" MinHeight="39" Margin="0,1,0,0" >
                 <TextBlock Text="{x:Bind Header, Mode=OneWay}" TextTrimming="CharacterEllipsis" 
-                           TextWrapping="Wrap"/>
+                           TextWrapping="{x:Bind TextWrapping, Mode=OneWay}"/>
                 <TextBlock Text="{x:Bind Text, Mode=OneWay}" TextTrimming="CharacterEllipsis" 
                            TextWrapping="NoWrap" Style="{StaticResource FadedBodyTextBlock}"/>
             </StackPanel>
