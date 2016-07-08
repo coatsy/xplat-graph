@@ -1,4 +1,5 @@
-﻿using PropertyManager.Models;
+﻿using System.Collections.Generic;
+using PropertyManager.Models;
 
 namespace PropertyManager.Services
 {
@@ -8,7 +9,7 @@ namespace PropertyManager.Services
 
         public GroupModel AppGroup { get; set; }
 
-        public GroupModel[] Groups { get; set; }
+        public List<GroupModel> Groups { get; set; }
 
         public DataFileModel DataFile { get; set; }
     }

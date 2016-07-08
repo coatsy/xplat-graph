@@ -192,6 +192,24 @@ namespace PropertyManager.Services
             return PostAsync($"groups/{group.Id}/threads", conversation);
         }
 
+        public async Task WaitForGroupDriveAsync(GroupModel @group)
+        {
+            while (true)
+            {
+                try
+                {
+                    // Try to get drive items. If it fails, the drive is 
+                    // most likely still being configured.
+                    await GetGroupDriveItemsAsync(group);
+                    return;
+                }
+                catch
+                {
+                    await Task.Delay(2500);
+                }
+            }
+        }
+
         public async Task<TableModel<T>> GetTableAsync<T>(DriveItemModel driveItem, string tableName,
             GroupModel group = null) where T : TableRowModel, new()
         {

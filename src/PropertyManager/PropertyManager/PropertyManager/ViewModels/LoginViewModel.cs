@@ -54,19 +54,14 @@ namespace PropertyManager.ViewModels
             // If the app group doesn't exist, create it.
             if (appGroup == null)
             {
-                appGroup = await _graphService.AddGroupAsync(new GroupModel
-                {
-                    DisplayName = Constants.AppGroupDisplayName,
-                    Description = Constants.AppGroupDescription,
-                    MailNickname = Constants.AppGroupMail,
-                    MailEnabled = true,
-                    SecurityEnabled = false,
-                    GroupTypes = new List<string> {"Unified"}
-                });
-
+                appGroup = await _graphService.AddGroupAsync(GroupModel.CreateUnified(
+                    Constants.AppGroupDisplayName, 
+                    Constants.AppGroupDescription, 
+                    Constants.AppGroupMail));
+       
                 // We need the file storage to be ready in order to place the data file. 
                 // Wait for it to be configured.
-                await WaitForDriveAsync(appGroup);
+                await _graphService.WaitForGroupDriveAsync(appGroup);
             }
 
             // Add the current user as a member of the app group.
@@ -123,30 +118,12 @@ namespace PropertyManager.ViewModels
             // Set (singleton) config.
             _configService.User = user;
             _configService.AppGroup = appGroup;
-            _configService.Groups = propertyGroups;
+            _configService.Groups = new List<GroupModel>(propertyGroups);
             _configService.DataFile = dataFile;
 
             // Navigate to the groups view.
             ShowViewModel<GroupsViewModel>();
             IsLoading = false;
-        }
-
-        private async Task WaitForDriveAsync(GroupModel group)
-        {
-            while (true)
-            {
-                try
-                {
-                    // Try to get drive items. If it fails, the drive is 
-                    // most likely still being configured.
-                    await _graphService.GetGroupDriveItemsAsync(group);
-                    return;
-                }
-                catch
-                {
-                    await Task.Delay(2500);
-                }
-            }
         }
     }
 }

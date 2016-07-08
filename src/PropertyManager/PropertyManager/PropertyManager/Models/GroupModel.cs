@@ -23,5 +23,19 @@ namespace PropertyManager.Models
         public bool SecurityEnabled { get; set; }
 
         public string Visibility { get; set; }
+
+        public static GroupModel CreateUnified(string displayName, string description,
+            string mailNickname)
+        {
+            return new GroupModel
+            {
+                DisplayName = displayName,
+                Description = description,
+                MailNickname = mailNickname,
+                MailEnabled = true,
+                SecurityEnabled = false,
+                GroupTypes = new List<string> {"Unified"}
+            };
+        }
     }
 }

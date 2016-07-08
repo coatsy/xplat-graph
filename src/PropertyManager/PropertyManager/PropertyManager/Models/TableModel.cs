@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace PropertyManager.Models
 {
@@ -40,6 +41,15 @@ namespace PropertyManager.Models
         public TableColumnModel this[string name]
         {
             get { return Columns.First(c => c.Name.Equals(name)); }
+        }
+
+        public void AddRow(TableRowModel row)
+        {
+            for (var i = 0; i < row.Count; i++)
+            {
+                Columns[i].Values.Add(new List<JToken> { row[i] });
+            }
+            UpdateRows();
         }
     }
 }

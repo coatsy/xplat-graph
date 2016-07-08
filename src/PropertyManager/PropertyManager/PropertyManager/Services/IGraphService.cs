@@ -30,6 +30,8 @@ namespace PropertyManager.Services
 
         Task<NewConversationModel> AddGroupConversation(GroupModel group, NewConversationModel conversation);
 
+        Task WaitForGroupDriveAsync(GroupModel group);
+
         Task<TableModel<T>> GetTableAsync<T>(DriveItemModel driveItem, string tableName, GroupModel group = null) where T : TableRowModel, new();
 
         Task<TableColumnModel[]> GetTableColumnsAsync(DriveItemModel driveItem, string tableName, GroupModel group = null);

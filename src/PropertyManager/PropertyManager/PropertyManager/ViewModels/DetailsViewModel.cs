@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Core.ViewModels;
+using Newtonsoft.Json.Linq;
 using PropertyManager.Models;
 using PropertyManager.Services;
 
@@ -12,7 +16,6 @@ namespace PropertyManager.ViewModels
     {
         private readonly IGraphService _graphService;
         private readonly IConfigService _configService;
-        private bool _isExisting;
 
         private bool _isLoading;
 
@@ -38,7 +41,21 @@ namespace PropertyManager.ViewModels
             }
         }
 
+        private string _streetName;
+
+        public string StreetName
+        {
+            get { return _streetName; }
+            set
+            {
+                _streetName = value;
+                RaisePropertyChanged(() => StreetName);
+            }
+        }
+
         public PropertyTableRowModel Details { get; set; }
+
+        public bool IsExisting { get; set; }
 
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
@@ -55,10 +72,10 @@ namespace PropertyManager.ViewModels
             // Get details.
             Details = _configService.DataFile.PropertyTable
                 .Rows.FirstOrDefault(r => r.Id == id);
-            _isExisting = Details != null;
+            IsExisting = Details != null;
 
             // Set title.
-            Title = (_isExisting ? "Add" : "Edit") + " a property";
+            Title = (IsExisting ? "Add" : "Edit") + " a property";
             if (Details == null)
             {
                 Details = new PropertyTableRowModel();
@@ -69,7 +86,7 @@ namespace PropertyManager.ViewModels
         {
             IsLoading = true;
 
-            if (_isExisting)
+            if (IsExisting)
             {
                 // Calculate address (range).
                 const int startRow = 2;
@@ -81,6 +98,34 @@ namespace PropertyManager.ViewModels
                 await _graphService.UpdateTableRowsAsync(_configService.DataFile.DriveItem,
                     Constants.DataFileDataSheet, address, _configService.DataFile.PropertyTable.Rows
                         .Cast<TableRowModel>().ToArray(), _configService.AppGroup);
+            }
+            else
+            {
+                // Create property group.
+                var mailNickname = new string(_streetName.ToCharArray()
+                    .Where(char.IsLetterOrDigit)
+                    .ToArray())
+                    .ToLower();
+                var propertyGroup = await _graphService.AddGroupAsync(GroupModel.CreateUnified(
+                    StreetName, 
+                    Details.Description, 
+                    mailNickname));
+  
+                // We need the file storage to be ready in order to place any files.
+                // Wait for it to be configured.
+                await _graphService.WaitForGroupDriveAsync(propertyGroup);
+
+                // Add the current user as a member of the app group.
+                await _graphService.AddGroupUserAsync(propertyGroup, _configService.User);
+
+                // Add details to data file.
+                Details.Id = propertyGroup.Mail;
+                await _graphService.AddTableRowAsync(_configService.DataFile.DriveItem,
+                    Constants.DataFilePropertyTable, Details, _configService.AppGroup);
+
+                // Add group and details to local config.
+                _configService.Groups.Add(propertyGroup);
+                _configService.DataFile.PropertyTable.AddRow(Details);
             }
 
             IsLoading = false;

@@ -73,6 +73,12 @@ namespace PropertyManager.Services
             var response = await _httpClient.PostAsync(
                 new Uri(Endpoint.AbsoluteUri + resource), streamContent);
 
+            // Check response.
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(response.ReasonPhrase);
+            }
+
             // Parse the response.
             var result = JsonConvert.DeserializeObject<T>(
                 await response.Content.ReadAsStringAsync());
@@ -104,6 +110,12 @@ namespace PropertyManager.Services
             // Get the response.
             var response = await _httpClient.PutAsync(
                 new Uri(Endpoint.AbsoluteUri + resource), streamContent);
+
+            // Check response.
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(response.ReasonPhrase);
+            }
 
             // Parse the response.
             var result = JsonConvert.DeserializeObject<T>(
@@ -137,6 +149,12 @@ namespace PropertyManager.Services
             var response = await _httpClient.PatchAsync(
                 new Uri(Endpoint.AbsoluteUri + resource), streamContent);
 
+            // Check response.
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(response.ReasonPhrase);
+            }
+
             // Parse the response.
             var result = JsonConvert.DeserializeObject<T>(
                 await response.Content.ReadAsStringAsync());
@@ -152,28 +170,5 @@ namespace PropertyManager.Services
             stream.Position = 0;
             return stream;
         }
-
-        //public async Task<T> PutAsync<T>(string resource, Stream stream, string contentType)
-        //{
-        //    if (AccessToken == null)
-        //    {
-        //        throw new Exception(
-        //            "The AccessToken is missing and needs " +
-        //            "to be set before using the HttpService.");
-        //    }
-
-        //    // Create content.
-        //    var streamContent = new StreamContent(stream);
-        //    streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-
-        //    // Get the response.
-        //    var response = await _httpClient.PutAsync(
-        //        new Uri(Endpoint.AbsoluteUri + resource), streamContent);
-
-        //    // Parse the response.
-        //    var result = JsonConvert.DeserializeObject<T>(
-        //        await response.Content.ReadAsStringAsync());
-        //    return result;
-        //}
     }
 }
