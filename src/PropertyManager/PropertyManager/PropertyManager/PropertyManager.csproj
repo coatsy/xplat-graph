@@ -61,6 +61,7 @@
     <Compile Include="Services\Implementations\GraphService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IGraphService.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\GroupsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

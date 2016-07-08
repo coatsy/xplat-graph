@@ -39,5 +39,14 @@ namespace PropertyManager.Models
             get { return GetString(5); }
             set { TrySetInt(5, value); }
         }
+
+        public PropertyTableRowModel()
+        {
+            // Add default values.
+            for (var i = 0; i < Constants.DataFilePropertyTableColumns; i++)
+            {
+                Add("");
+            }
+        }
     }
 }

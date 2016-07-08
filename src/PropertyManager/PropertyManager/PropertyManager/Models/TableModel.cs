@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace PropertyManager.Models
 {
@@ -26,7 +25,13 @@ namespace PropertyManager.Models
             for (var i = 1; i < Columns[0].Values.Count; i++)
             {
                 var row = new T();
-                row.AddRange(Columns.Select(column => column.Values[i][0]));
+
+                // Set data.
+                var cells = Columns.Select(column => column.Values[i][0]).ToArray();
+                for (var j = 0; j < cells.Length; j++)
+                {
+                    row[j] = cells[j];
+                }
                 rows.Add(row);
             }
             Rows = rows.ToArray();

@@ -23,7 +23,7 @@ namespace PropertyManager.ViewModels
             {
                 _query = value;
                 RaisePropertyChanged(() => Query);
-                FiltereGroupsCommand.Execute(null);
+                FilterGroupsCommand.Execute(null);
             }
         }
 
@@ -31,7 +31,9 @@ namespace PropertyManager.ViewModels
 
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
-        public ICommand FiltereGroupsCommand => new MvxCommand(FilterGroups);
+        public ICommand FilterGroupsCommand => new MvxCommand(FilterGroups);
+
+        public ICommand AddPropertyCommand => new MvxCommand(AddProperty);
 
         public GroupsViewModel(IConfigService configService)
         {
@@ -70,6 +72,12 @@ namespace PropertyManager.ViewModels
                     .Where(g => g.DisplayName.Contains(_query) ||
                                 g.Mail.Contains(_query)));
             }
+        }
+
+        private void AddProperty()
+        {
+            // Navigate to the details view.
+            ShowViewModel<DetailsViewModel>();
         }
     }
 }

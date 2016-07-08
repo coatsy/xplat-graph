@@ -105,9 +105,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <controls:TileListViewItem Header="{Binding DisplayName}"
-                                               Text="{Binding Mail}"
-                                               Icon="&#xE913;"
-                                               IconSize="26"
+                                               Text="{Binding Mail}" Icon="&#xE913;" IconSize="26"
                                                TileBackground="{StaticResource AccentColorBrush}"
                                                TileForeground="White"
                                                IsHitTestVisible="False"/>
@@ -116,10 +114,10 @@
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <controls:TileListViewItem Header="Add a property"
-                                               Icon="&#xE948;"
-                                               IconSize="18"
+                                               Icon="&#xE948;" IconSize="18"
                                                TileBackground="LightGray"
-                                               TileForeground="Black"/>
+                                               TileForeground="Black"
+                                               Tapped="OnAddPropertyItemTapped"/>
                 </DataTemplate>
             </ListView.HeaderTemplate>
             <ListView.ItemsPanel>

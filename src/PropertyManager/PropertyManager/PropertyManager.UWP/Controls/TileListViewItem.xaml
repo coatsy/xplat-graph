@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions>
 
             <Border Background="{x:Bind TileBackground, Mode=OneWay}" 
-                    Grid.Column="0">
+                    Grid.Column="0" VerticalAlignment="Top" Height="40">
                 <TextBlock Text="{x:Bind Icon, Mode=OneWay}" 
                            Foreground="{x:Bind TileForeground, Mode=OneWay}"
                            FontSize="{x:Bind IconSize, Mode=OneWay}"
@@ -27,9 +27,9 @@
             </Border>
 
             <StackPanel Orientation="Vertical" Grid.Column="2"
-                                    VerticalAlignment="Center" Height="39" Margin="0,1,0,0" >
+                                    VerticalAlignment="Center" MinHeight="39" Margin="0,1,0,0" >
                 <TextBlock Text="{x:Bind Header, Mode=OneWay}" TextTrimming="CharacterEllipsis" 
-                           TextWrapping="NoWrap"/>
+                           TextWrapping="Wrap"/>
                 <TextBlock Text="{x:Bind Text, Mode=OneWay}" TextTrimming="CharacterEllipsis" 
                            TextWrapping="NoWrap" Style="{StaticResource FadedBodyTextBlock}"/>
             </StackPanel>

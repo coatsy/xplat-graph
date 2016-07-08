@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,6 +11,8 @@ using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
+    public delegate void ConversationsChangedEventHandler(GroupViewModel sender);
+
     public class GroupViewModel
         : MvxViewModel
     {
@@ -43,7 +44,7 @@ namespace PropertyManager.ViewModels
             }
         }
 
-        public PropertyTableRowModel PropertyData { get; set; }
+        public PropertyTableRowModel Details { get; set; }
 
         public GroupModel Group { get; set; }
 
@@ -55,9 +56,11 @@ namespace PropertyManager.ViewModels
 
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
-        public ICommand SaveDetailsCommand => new MvxCommand(SaveDetailsAsync);
-
         public ICommand SendMessageCommand => new MvxCommand(SendMessageAsync);
+
+        public ICommand EditDetailsCommand => new MvxCommand(EditDetails);
+
+        public event ConversationsChangedEventHandler ConversationsChanged;
 
         public GroupViewModel(IGraphService graphService, IConfigService configService,
             ILauncherService launcherService)
@@ -81,8 +84,8 @@ namespace PropertyManager.ViewModels
         {
             IsLoading = true;
 
-            // Get property data.
-            PropertyData = _configService.DataFile.PropertyTable
+            // Get datails.
+            Details = _configService.DataFile.PropertyTable
                 .Rows.FirstOrDefault(r => r.Id == Group.Mail);
 
             // Update the rest of the data.
@@ -111,34 +114,16 @@ namespace PropertyManager.ViewModels
         private async Task UpdateConversationsAsync()
         {
             var conversations = await _graphService.GetGroupConversationsAsync(Group);
-            foreach (var conversation in conversations)
+            foreach (var conversation in conversations.Reverse())
             {
                 Conversations.Add(conversation);
             }
+            OnConversationsChanged();
         }
 
         public void LaunchDriveItemAsync(DriveItemModel driveItem)
         {
             _launcherService.LaunchWebUri(new Uri(driveItem.WebUrl));
-        }
-
-        private async void SaveDetailsAsync()
-        {
-            IsLoading = true;
-
-            // Calculate address (range).
-            const int startRow = 2;
-            var endRow = 2 + (_configService.DataFile.PropertyTable.Rows.Length - 1);
-            var address = $"{Constants.DataFilePropertyTableColumnStart}{startRow}:" +
-                          $"{Constants.DataFilePropertyTableColumnEnd}{endRow}";
-
-            // Update the table row.
-            await _graphService.UpdateTableRowsAsync(_configService.DataFile.DriveItem,
-                Constants.DataFileDataSheet,
-                address, _configService.DataFile.PropertyTable.Rows
-                    .Cast<TableRowModel>().ToArray(), _configService.AppGroup);
-
-            IsLoading = false;
         }
 
         private async void SendMessageAsync()
@@ -155,15 +140,8 @@ namespace PropertyManager.ViewModels
                 Preview = message,
                 UniqueSenders = new List<string> {_configService.User.DisplayName}
             };
-
-            if (Conversations.Any())
-            {
-                Conversations.Insert(0, newConversation);
-            }
-            else
-            {
-                Conversations.Add(newConversation);
-            }
+            Conversations.Add(newConversation);
+            OnConversationsChanged();
 
             // Create the request object.
             var newThread = new NewConversationModel
@@ -186,6 +164,17 @@ namespace PropertyManager.ViewModels
             // Send the message.
             await _graphService.AddGroupConversation(Group, newThread);
             IsLoading = false;
+        }
+
+        private void EditDetails()
+        {
+            // Navigate to the details view.
+            ShowViewModel<DetailsViewModel>(new { id = Group.Mail });
+        }
+
+        protected virtual void OnConversationsChanged()
+        {
+            ConversationsChanged?.Invoke(this);
         }
     }
 }

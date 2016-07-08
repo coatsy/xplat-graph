@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MvvmCross.WindowsUWP.Views"
     xmlns:controls="using:PropertyManager.UWP.Controls"
+    xmlns:extensions="using:PropertyManager.UWP.Extensions"
     mc:Ignorable="d">
 
     <views:MvxWindowsPage.Transitions>
@@ -74,24 +75,35 @@
             <!--Details-->
             <PivotItem Header="Details">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-                    <TextBox Style="{StaticResource MultiLineEditableTextBoxStyle}"
-                             Header="Description"
-                             Margin="0,0,0,15" Text="{Binding PropertyData.Description, Mode=TwoWay}">
-                    </TextBox>
-                    <TextBlock Style="{StaticResource HeaderTextBlock}" Text="Sizes"/>
-                    <TextBlock Text="Find the details about the sizes of the property." 
-                               TextWrapping="Wrap" Margin="0,15"></TextBlock>
-                    <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Rooms" Margin="0,15" Text="{Binding PropertyData.Rooms, Mode=TwoWay}"/>
-                    <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Living area" Margin="0,15" Text="{Binding PropertyData.LivingArea, Mode=TwoWay}"/>
-                    <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Lot size" Margin="0,15" Text="{Binding PropertyData.LotSize, Mode=TwoWay}"/>
-                    <TextBlock Style="{StaticResource HeaderTextBlock}" Text="Costs"/>
-                    <TextBlock Text="Find the details about the costs of the property." 
-                               TextWrapping="Wrap" Margin="0,15"/>
-                    <TextBox Style="{StaticResource EditableTextBoxStyle}" 
-                             Header="Operating costs" Margin="0,15" Text="{Binding PropertyData.OperatingCosts, Mode=TwoWay}"/>
+                    <TextBlock Text="Find the details of this property down below, these are stored in Office 365 and be available to all user of this app." 
+                           TextWrapping="Wrap" Margin="0,0,0,15"/>
+                    <controls:TileListViewItem Header="{Binding Details.Description}"
+                                               Text="Description" IsHitTestVisible="False"
+                                               Icon="&#xE913;" IconSize="26"
+                                               TileBackground="Transparent" TileForeground="Black"
+                                               Margin="-20,0,-15,0"/>
+                    <controls:TileListViewItem Header="{Binding Details.Rooms}"
+                                               Text="Rooms" IsHitTestVisible="False"
+                                               Icon="&#xE8D7;" IconSize="26"
+                                               TileBackground="Transparent" TileForeground="Black"
+                                               Margin="-20,0,-15,0"/>
+                    <controls:TileListViewItem Header="{Binding Details.LivingArea}"
+                                               Text="Living area" IsHitTestVisible="False"
+                                               Icon="&#xE80F;" IconSize="26"
+                                               TileBackground="Transparent" TileForeground="Black"
+                                               Margin="-20,0,-15,0"/>
+                    <controls:TileListViewItem Header="{Binding Details.LotSize}"
+                                               Text="Lot size" IsHitTestVisible="False"
+                                               Icon="&#xE707;" IconSize="26"
+                                               TileBackground="Transparent" TileForeground="Black"
+                                               Margin="-20,0,-15,0"/>
+                    <controls:TileListViewItem Header="{Binding Details.OperatingCosts}"
+                                               Text="Operating costs" IsHitTestVisible="False"
+                                               Icon="&#xE8EC;" IconSize="26"
+                                               TileBackground="Transparent" TileForeground="Black"
+                                               Margin="-20,0,-15,0"/>
+                    <controls:PointerTextBlock Text="Edit details" Foreground="{StaticResource AccentColorBrush}"
+                                               Margin="0,15,0,0" Tapped="OnEditDetailsButtonTapped"/>
                 </StackPanel>
             </PivotItem>
 
@@ -104,7 +116,8 @@
                     </Grid.RowDefinitions>
 
                     <!--Messages-->
-                    <GridView Grid.Row="0" ItemsSource="{Binding Conversations}"
+                    <GridView x:Name="ConversationsGridView" Grid.Row="0" 
+                              ItemsSource="{Binding Conversations}"
                               Style="{StaticResource GridViewStyle}"
                               ItemTemplateSelector="{StaticResource ConversationMessageTemplateSelector}">
                         <GridView.ItemsPanel>
@@ -131,7 +144,8 @@
             <!--Media Files-->
             <PivotItem Header="Media" Margin="0">
                <Grid>
-                    <ListView ItemsSource="{Binding MediaFiles}" Style="{StaticResource ListViewStyle}">
+                    <ListView ItemsSource="{Binding MediaFiles}" Style="{StaticResource ListViewStyle}"
+                              ItemClick="OnDriveItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <controls:TileListViewItem Header="{Binding Name}"
@@ -164,7 +178,8 @@
             <!--Document Files-->
             <PivotItem Header="Documents" Margin="0">
                 <Grid>
-                    <ListView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource ListViewStyle}">
+                    <ListView ItemsSource="{Binding DocumentFiles}" Style="{StaticResource ListViewStyle}"
+                              ItemClick="OnDriveItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <controls:TileListViewItem Header="{Binding Name}"

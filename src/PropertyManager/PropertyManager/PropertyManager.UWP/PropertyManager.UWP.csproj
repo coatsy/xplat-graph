@@ -96,6 +96,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConversationMessageTemplateSelector.cs" />
+    <Compile Include="Controls\PointerTextBlock.xaml.cs">
+      <DependentUpon>PointerTextBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TileListViewItem.xaml.cs">
       <DependentUpon>TileListViewItem.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,9 @@
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\LauncherService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Views\DetailsView.xaml.cs">
+      <DependentUpon>DetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupView.xaml.cs">
       <DependentUpon>GroupView.xaml</DependentUpon>
     </Compile>
@@ -138,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\PointerTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TileListViewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -146,6 +156,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\DetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GroupView.xaml">
       <Generator>MSBuild:Compile</Generator>

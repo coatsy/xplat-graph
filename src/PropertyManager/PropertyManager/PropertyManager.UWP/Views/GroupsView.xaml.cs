@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using MvvmCross.WindowsUWP.Views;
 using PropertyManager.Models;
 using PropertyManager.ViewModels;
@@ -8,11 +9,13 @@ namespace PropertyManager.UWP.Views
 {
     public sealed partial class GroupsView : MvxWindowsPage
     {
+        public new GroupsViewModel ViewModel => base.ViewModel as GroupsViewModel;
+
         public GroupsView()
         { 
             InitializeComponent();
 
-            // Register for Back Requests.
+            // Register for back requests.
             var systemNavigationManager = SystemNavigationManager.GetForCurrentView();
             systemNavigationManager.AppViewBackButtonVisibility = 
                 AppViewBackButtonVisibility.Visible;
@@ -21,21 +24,23 @@ namespace PropertyManager.UWP.Views
 
         private void OnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
         {
-            var groupsViewModel = ViewModel as GroupsViewModel;
-            groupsViewModel?.GoBackCommand.Execute(null);
+            ViewModel?.GoBackCommand.Execute(null);
         }
 
         private void OnItemClick(object sender, ItemClickEventArgs e)
         {
             var group = e.ClickedItem as GroupModel;
-            var groupsViewModel = ViewModel as GroupsViewModel;
-            groupsViewModel?.ShowGroup(group);
+            ViewModel?.ShowGroup(group);
         }
 
         private void OnQuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
         {
-            var groupsViewModel = ViewModel as GroupsViewModel;
-            groupsViewModel?.FiltereGroupsCommand.Execute(null);
+            ViewModel?.FilterGroupsCommand.Execute(null);
+        }
+
+        private void OnAddPropertyItemTapped(object sender, TappedRoutedEventArgs e)
+        {
+            ViewModel?.AddPropertyCommand.Execute(null);
         }
     }
 }
