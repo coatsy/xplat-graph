@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using PropertyManager.Models;
@@ -13,7 +14,7 @@ namespace PropertyManager.Services
 
         private readonly IAuthenticationService _authenticationService;
 
-        public string Endpoint => "https://graph.microsoft.com/beta/";
+        public string Resource => "https://graph.microsoft.com/beta/";
 
         public GraphService(IHttpService httpService,
             IAuthenticationService authenticationService)
@@ -24,12 +25,10 @@ namespace PropertyManager.Services
 
         private async Task EnsureTokenIsPresentAsync()
         {
-            // TODO: This is probably not a good pattern... fix this.
-            // Not sure if ADAL is smart enough to just grap the valid tokens from
-            // memory or not... 
             var authenticationResult = await GetAuthenticationResultAsync();
-            _httpService.Endpoint = new Uri(Endpoint);
-            _httpService.AccessToken = authenticationResult.AccessToken;
+            _httpService.Resource = new Uri(Resource);
+            _httpService.GetRequestHeaders().Authorization = new AuthenticationHeaderValue("Bearer", 
+                authenticationResult.AccessToken);
         }
 
         private async Task<AuthenticationResult> GetAuthenticationResultAsync()
@@ -168,6 +167,11 @@ namespace PropertyManager.Services
             return GetManyAsync<ConversationModel>($"groups/{group.Id}/conversations");
         }
 
+        public Task<PlanModel[]> GetGroupPlansAsync(GroupModel group)
+        {
+            return GetManyAsync<PlanModel>($"groups/{group.Id}/plans");
+        }
+
         public Task<GroupModel> AddGroupAsync(GroupModel group)
         {
             return PostAsync("groups/", group);
@@ -185,13 +189,18 @@ namespace PropertyManager.Services
         {
             return PostAsync($"groups/{group.Id}/members/$ref", new IdModel
             {
-                Id = _httpService.Endpoint.AbsoluteUri + "directoryObjects/" + user.Id
+                Id = _httpService.Resource.AbsoluteUri + "directoryObjects/" + user.Id
             });
         }
 
         public Task<NewConversationModel> AddGroupConversation(GroupModel group, NewConversationModel conversation)
         {
             return PostAsync($"groups/{group.Id}/threads", conversation);
+        }
+
+        public Task<PlanModel> AddGroupPlanAsync(GroupModel group, PlanModel plan)
+        {
+            return PostAsync("plans", plan);
         }
 
         public async Task WaitForGroupDriveAsync(GroupModel group)
@@ -210,6 +219,41 @@ namespace PropertyManager.Services
                     await Task.Delay(2500);
                 }
             }
+        }
+
+        public Task<BucketModel[]> GetPlanBucketsAsync(PlanModel plan)
+        {
+            return GetManyAsync<BucketModel>($"plans/{plan.Id}/buckets");
+        }
+
+        public Task<TaskModel[]> GetBucketTasksAsync(BucketModel bucket)
+        {
+            return GetManyAsync<TaskModel>($"buckets/{bucket.Id}/tasks");
+        }
+
+        public Task<BucketModel> AddBucketAsync(BucketModel bucket)
+        {
+            return PostAsync("/buckets", bucket);
+        }
+
+        public Task<TaskModel> AddTaskAsync(TaskModel task)
+        {
+            return PostAsync("/tasks", task);
+        }
+
+        public async Task<TaskModel> UpdateTaskAsync(TaskModel task)
+        {
+            // Set ETag.
+            var headers = _httpService.GetRequestHeaders();
+            headers.IfMatch.Add(new EntityTagHeaderValue(task.ETag.Substring(2,
+                task.ETag.Length - 2), true));
+
+            // Get result.
+            var result = await PatchAsync($"/tasks/{task.Id}", task);
+
+            // Clear ETag and return the result.
+            headers.IfMatch.Clear();
+            return result;
         }
 
         public async Task<TableModel<T>> GetTableAsync<T>(DriveItemModel driveItem, string tableName,

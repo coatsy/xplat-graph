@@ -64,13 +64,31 @@ namespace PropertyManager.UWP.Views
             }
         }
 
-        private void OnKeyUp(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        private void OnTaskItemClick(object sender, ItemClickEventArgs e)
+        {
+            var task = e.ClickedItem as TaskModel;
+            if (task != null)
+            {
+                ViewModel?.CompleteTaskAsync(task);
+            }
+        }
+
+        private void OnMessageKeyUp(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             if (e.Key != VirtualKey.Enter || !e.KeyStatus.WasKeyDown)
             {
                 return;
             }
-            ViewModel?.SendMessageCommand.Execute(null);
+            ViewModel?.AddConversationCommand.Execute(null);
+        }
+
+        private void OnTaskKeyUp(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key != VirtualKey.Enter || !e.KeyStatus.WasKeyDown)
+            {
+                return;
+            }
+            ViewModel?.AddTaskCommand.Execute(null);
         }
 
         private void OnEditDetailsButtonTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

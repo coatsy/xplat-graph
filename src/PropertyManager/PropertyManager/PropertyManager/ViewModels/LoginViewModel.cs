@@ -36,7 +36,6 @@ namespace PropertyManager.ViewModels
         {
             _graphService = graphService;
             _configService = configService;
-            //LoginCommand.Execute(null);
         }
 
         private async void LoginAsync()
@@ -49,22 +48,25 @@ namespace PropertyManager.ViewModels
 
             // Get the group belonging to this app.
             var appGroup = allGroups.FirstOrDefault(g => g.Mail.StartsWith(
-                Constants.AppGroupMail + "@"));
+                Constants.AppGroupMail));
 
             // If the app group doesn't exist, create it.
             if (appGroup == null)
             {
+                // Create a unique mail nickname.
+                var mailNickname = Constants.AppGroupMail +
+                                   new string(DateTime.UtcNow.Ticks
+                                       .ToString()
+                                       .ToCharArray()
+                                       .Take(10)
+                                       .ToArray());
                 appGroup = await _graphService.AddGroupAsync(GroupModel.CreateUnified(
-                    Constants.AppGroupDisplayName, 
-                    Constants.AppGroupDescription, 
-                    Constants.AppGroupMail));
+                    Constants.AppGroupDisplayName,
+                    Constants.AppGroupDescription,
+                    mailNickname));
 
                 // Add the current user as a member of the app group.
-                await _graphService.AddGroupUserAsync(appGroup, _configService.User);
-
-                // We need the file storage to be ready in order to place the data file. 
-                // Wait for it to be configured.
-                await _graphService.WaitForGroupDriveAsync(appGroup);
+                await _graphService.AddGroupUserAsync(appGroup, user);
             }
 
             // Add the current user as a member of the app group.
@@ -73,6 +75,10 @@ namespace PropertyManager.ViewModels
             {
                 await _graphService.AddGroupUserAsync(appGroup, user);
             }
+
+            // We need the file storage to be ready in order to place the data file. 
+            // Wait for it to be configured.
+            await _graphService.WaitForGroupDriveAsync(appGroup);
 
             // Get the app group files and the property data file.
             var appGroupDriveItems = await _graphService.GetGroupDriveItemsAsync(appGroup);

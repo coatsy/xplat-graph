@@ -36,6 +36,7 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Models\BodyModel.cs" />
+    <Compile Include="Models\BucketModel.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\NewConversationModel.cs" />
@@ -46,7 +47,9 @@
     <Compile Include="Models\NewPostModel.cs" />
     <Compile Include="Models\ParticipantModel.cs" />
     <Compile Include="Models\PickedFileModel.cs" />
+    <Compile Include="Models\PlanModel.cs" />
     <Compile Include="Models\TableModel.cs" />
+    <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\DriveItemModel.cs" />
     <Compile Include="Models\PropertyTableRowModel.cs" />

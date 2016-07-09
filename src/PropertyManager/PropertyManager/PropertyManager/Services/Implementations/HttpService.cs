@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using PropertyManager.Extensions;
 
 namespace PropertyManager.Services
@@ -12,35 +13,29 @@ namespace PropertyManager.Services
     {
         private readonly HttpClient _httpClient;
 
-        public Uri Endpoint { get; set; }
-
-        public string AccessToken
+        private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
         {
-            get { return _httpClient.DefaultRequestHeaders.Authorization?.Parameter; }
-            set
-            {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", value);
-            }
-        }
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            NullValueHandling = NullValueHandling.Ignore
+        };
 
         public HttpService()
         {
             _httpClient = new HttpClient();
         }
 
+        public Uri Resource { get; set; }
+
+        public HttpRequestHeaders GetRequestHeaders()
+        {
+            return _httpClient.DefaultRequestHeaders;
+        }
+
         public async Task<T> GetAsync<T>(string resource)
         {
-            if (AccessToken == null)
-            {
-                throw new Exception(
-                    "The AccessToken is missing and needs " +
-                    "to be set before using the HttpService.");
-            }
-
             // Get the response.
             var response = await _httpClient.GetStringAsync(
-                new Uri(Endpoint.AbsoluteUri + resource));
+                new Uri(Resource.AbsoluteUri + resource));
 
             // Parse the response.
             var result = JsonConvert.DeserializeObject<T>(response);
@@ -49,7 +44,7 @@ namespace PropertyManager.Services
 
         public async Task<T> PostAsync<T>(string resource, object data)
         {
-            var str = JsonConvert.SerializeObject(data);
+            var str = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
             using (var stream = GenerateStreamFromString(str))
             {
                 return await PostAsync<T>(resource, stream, Constants.JsonContentType);
@@ -58,20 +53,13 @@ namespace PropertyManager.Services
 
         public async Task<T> PostAsync<T>(string resource, Stream stream, string contentType)
         {
-            if (AccessToken == null)
-            {
-                throw new Exception(
-                    "The AccessToken is missing and needs " +
-                    "to be set before using the HttpService.");
-            }
-
             // Create content.
             var streamContent = new StreamContent(stream);
             streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
             // Get the response.
             var response = await _httpClient.PostAsync(
-                new Uri(Endpoint.AbsoluteUri + resource), streamContent);
+                new Uri(Resource.AbsoluteUri + resource), streamContent);
 
             // Check response.
             if (!response.IsSuccessStatusCode)
@@ -87,7 +75,7 @@ namespace PropertyManager.Services
 
         public async Task<T> PutAsync<T>(string resource, object data)
         {
-            var str = JsonConvert.SerializeObject(data);
+            var str = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
             using (var stream = GenerateStreamFromString(str))
             {
                 return await PutAsync<T>(resource, stream, Constants.JsonContentType);
@@ -96,20 +84,13 @@ namespace PropertyManager.Services
 
         public async Task<T> PutAsync<T>(string resource, Stream stream, string contentType)
         {
-            if (AccessToken == null)
-            {
-                throw new Exception(
-                    "The AccessToken is missing and needs " +
-                    "to be set before using the HttpService.");
-            }
-
             // Create content.
             var streamContent = new StreamContent(stream);
             streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
             // Get the response.
             var response = await _httpClient.PutAsync(
-                new Uri(Endpoint.AbsoluteUri + resource), streamContent);
+                new Uri(Resource.AbsoluteUri + resource), streamContent);
 
             // Check response.
             if (!response.IsSuccessStatusCode)
@@ -125,7 +106,7 @@ namespace PropertyManager.Services
 
         public async Task<T> PatchAsync<T>(string resource, object data)
         {
-            var str = JsonConvert.SerializeObject(data);
+            var str = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
             using (var stream = GenerateStreamFromString(str))
             {
                 return await PatchAsync<T>(resource, stream, Constants.JsonContentType);
@@ -134,20 +115,13 @@ namespace PropertyManager.Services
 
         public async Task<T> PatchAsync<T>(string resource, Stream stream, string contentType)
         {
-            if (AccessToken == null)
-            {
-                throw new Exception(
-                    "The AccessToken is missing and needs " +
-                    "to be set before using the HttpService.");
-            }
-
             // Create content.
             var streamContent = new StreamContent(stream);
             streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
             // Get the response.
             var response = await _httpClient.PatchAsync(
-                new Uri(Endpoint.AbsoluteUri + resource), streamContent);
+                new Uri(Resource.AbsoluteUri + resource), streamContent);
 
             // Check response.
             if (!response.IsSuccessStatusCode)

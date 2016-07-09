@@ -133,11 +133,11 @@
                     <Border Grid.Row="1" Style="{StaticResource MessageTextBoxFrameBorderStyle}">
                         <Grid>
                             <TextBox Style="{StaticResource MessageTextBoxStyle}"
-                                     PlaceholderText="Type a message" Text="{Binding Message, 
-                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyUp="OnKeyUp"/>
+                                     PlaceholderText="Type a message" Text="{Binding ConversationText, 
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyUp="OnMessageKeyUp"/>
                             <Button Style="{StaticResource AccentTextBoxButtonStyle}"
                                     Content="&#xE724;"
-                                    Command="{Binding SendMessageCommand}"/>
+                                    Command="{Binding AddConversationCommand}"/>
                         </Grid>
                     </Border>
                 </Grid>
@@ -145,7 +145,7 @@
 
             <!--Files-->
             <PivotItem Header="Files" Margin="0">
-               <Grid>
+                <Grid>
                     <ListView ItemsSource="{Binding Files}" Style="{StaticResource ListViewStyle}"
                               ItemClick="OnFileItemClick">
                         <ListView.ItemTemplate>
@@ -175,11 +175,43 @@
                 </Grid>
             </PivotItem>
 
-            <!--xEB9F-->
-            <!--xE8E5-->
-
             <!--Tasks-->
-            <PivotItem Header="Tasks">
+            <PivotItem Header="Tasks" Margin="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <ListView ItemsSource="{Binding Tasks}" Style="{StaticResource ListViewStyle}"
+                              ItemClick="OnTaskItemClick">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:TileListViewItem Header="{Binding Title}"
+                                                           Icon="&#xEADF;"
+                                                           IconSize="26"
+                                                           TileBackground="{StaticResource AccentColorBrush}"
+                                                           TileForeground="White" IsHitTestVisible="False"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+
+                    <!--TextBox-->
+                    <Border Grid.Row="1" Style="{StaticResource MessageTextBoxFrameBorderStyle}">
+                        <Grid>
+                            <TextBox Style="{StaticResource MessageTextBoxStyle}"
+                                     PlaceholderText="Type a task" Text="{Binding TaskText, 
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyUp="OnTaskKeyUp"/>
+                            <Button Style="{StaticResource AccentTextBoxButtonStyle}"
+                                    Content="&#xE724;"
+                                    Command="{Binding AddTaskCommand}"/>
+                        </Grid>
+                    </Border>
+                </Grid>
             </PivotItem>
         </Pivot>
     </Grid>

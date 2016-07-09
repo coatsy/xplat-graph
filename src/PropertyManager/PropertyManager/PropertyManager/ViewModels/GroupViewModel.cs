@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
+using PropertyManager.Extensions;
 using PropertyManager.Models;
 using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
     public delegate void ConversationsChangedEventHandler(GroupViewModel sender);
+
+    public delegate void TasksChangedEventHandler(GroupViewModel sender);
 
     public class GroupViewModel
         : MvxViewModel
@@ -20,6 +23,9 @@ namespace PropertyManager.ViewModels
         private readonly IConfigService _configService;
         private readonly ILauncherService _launcherService;
         private readonly IFilePickerService _filePickerService;
+
+        private PlanModel _groupPlan;
+        private BucketModel _taskBucket;
 
         private bool _isLoading;
 
@@ -33,15 +39,27 @@ namespace PropertyManager.ViewModels
             }
         }
 
-        private string _message;
+        private string _conversationText;
 
-        public string Message
+        public string ConversationText
         {
-            get { return _message; }
+            get { return _conversationText; }
             set
             {
-                _message = value;
-                RaisePropertyChanged(() => Message);
+                _conversationText = value;
+                RaisePropertyChanged(() => ConversationText);
+            }
+        }
+
+        private string _taskText;
+
+        public string TaskText
+        {
+            get { return _taskText; }
+            set
+            {
+                _taskText = value;
+                RaisePropertyChanged(() => TaskText);
             }
         }
 
@@ -53,15 +71,21 @@ namespace PropertyManager.ViewModels
 
         public ObservableCollection<ConversationModel> Conversations { get; set; }
 
+        public ObservableCollection<TaskModel> Tasks { get; set; }
+
         public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
-        public ICommand SendMessageCommand => new MvxCommand(SendMessageAsync);
+        public ICommand AddConversationCommand => new MvxCommand(AddConversationAsync);
 
         public ICommand EditDetailsCommand => new MvxCommand(EditDetails);
 
         public ICommand AddFileCommand => new MvxCommand(AddFileAsync);
 
+        public ICommand AddTaskCommand => new MvxCommand(AddTaskAsync);
+
         public event ConversationsChangedEventHandler ConversationsChanged;
+
+        public event TasksChangedEventHandler TasksChanged;
 
         public GroupViewModel(IGraphService graphService, IConfigService configService,
             ILauncherService launcherService, IFilePickerService filePickerService)
@@ -72,6 +96,7 @@ namespace PropertyManager.ViewModels
             _filePickerService = filePickerService;
             Files = new ObservableCollection<FileModel>();
             Conversations = new ObservableCollection<ConversationModel>();
+            Tasks = new ObservableCollection<TaskModel>();
         }
 
         public void Init(string groupData)
@@ -90,7 +115,10 @@ namespace PropertyManager.ViewModels
                 .Rows.FirstOrDefault(r => r.Id == Group.Mail);
 
             // Update the rest of the data.
-            await Task.WhenAll(UpdateDriveItemsAsync(), UpdateConversationsAsync());
+            await Task.WhenAll(
+                UpdateDriveItemsAsync(), 
+                UpdateConversationsAsync(), 
+                UpdateTasksAsync());
 
             IsLoading = false;
             base.Start();
@@ -122,24 +150,66 @@ namespace PropertyManager.ViewModels
             OnConversationsChanged();
         }
 
-        public void LaunchDriveItemAsync(DriveItemModel driveItem)
+        public async Task UpdateTasksAsync()
         {
-            _launcherService.LaunchWebUri(new Uri(driveItem.WebUrl));
+            // Get a group plan.
+            var plans = await _graphService.GetGroupPlansAsync(Group);
+            var plan = plans.FirstOrDefault();
+
+            // If a group plan doesn't exist, create it.
+            if (plan == null)
+            {
+                plan = await _graphService.AddGroupPlanAsync(Group,
+                    new PlanModel
+                    {
+                        Title = Group.DisplayName,
+                        Owner = Group.Id
+                    });
+            }
+
+            // Get the task bucket.
+            var buckets = await _graphService.GetPlanBucketsAsync(plan);
+            var taskBucket = buckets.FirstOrDefault(b => b.Name.Equals(Constants.TaskBucketName));
+
+            // If the task bucket doesn't exist, create it.
+            if (taskBucket == null)
+            {
+                taskBucket = await _graphService.AddBucketAsync(new BucketModel
+                {
+                    Name = Constants.TaskBucketName,
+                    PlanId = plan.Id
+                });
+            }
+
+            // Get the tasks and add the ones that aren't completed.
+            var tasks = await _graphService.GetBucketTasksAsync(taskBucket);
+            Tasks.AddRange(tasks.Where(t => t.PercentComplete < 100));
+            OnTasksChanged();
+
+            // Store values.
+            _groupPlan = plan;
+            _taskBucket = taskBucket;
         }
 
-        private async void SendMessageAsync()
+        private void EditDetails()
+        {
+            // Navigate to the details view.
+            ShowViewModel<DetailsViewModel>(new { id = Group.Mail });
+        }
+
+        private async void AddConversationAsync()
         {
             IsLoading = true;
 
             // Reset the text box.
-            var message = Message;
-            Message = "";
+            var text = ConversationText;
+            ConversationText = "";
 
-            // Create a local message entry and add it.
+            // Create a local message and add it.
             var newConversation = new ConversationModel
             {
-                Preview = message,
-                UniqueSenders = new List<string> {_configService.User.DisplayName}
+                Preview = text,
+                UniqueSenders = new List<string> { _configService.User.DisplayName }
             };
             Conversations.Add(newConversation);
             OnConversationsChanged();
@@ -152,7 +222,7 @@ namespace PropertyManager.ViewModels
                 {
                     new NewPostModel
                     {
-                        Body = new BodyModel(message, "html"),
+                        Body = new BodyModel(text, "html"),
                         NewParticipants = new List<ParticipantModel>
                         {
                             new ParticipantModel(_configService.User.DisplayName,
@@ -162,15 +232,33 @@ namespace PropertyManager.ViewModels
                 }
             };
 
-            // Send the message.
+            // Add the message.
             await _graphService.AddGroupConversation(Group, newThread);
             IsLoading = false;
         }
 
-        private void EditDetails()
+        private async void AddTaskAsync()
         {
-            // Navigate to the details view.
-            ShowViewModel<DetailsViewModel>(new { id = Group.Mail });
+            IsLoading = true;
+
+            // Reset the text box.
+            var text = TaskText;
+            TaskText = "";
+
+            // Create the request object.
+            var task = new TaskModel
+            {
+                AssignedTo = _configService.User.Id,
+                PlanId = _groupPlan.Id,
+                BucketId = _taskBucket.Id,
+                Title = text
+            };
+
+            // Add the task.
+            task = await _graphService.AddTaskAsync(task);
+            Tasks.Add(task);
+            OnTasksChanged();
+            IsLoading = false;
         }
 
         private async void AddFileAsync()
@@ -208,9 +296,40 @@ namespace PropertyManager.ViewModels
             }
         }
 
+        public void LaunchDriveItemAsync(DriveItemModel driveItem)
+        {
+            _launcherService.LaunchWebUri(new Uri(driveItem.WebUrl));
+        }
+
+        public async void CompleteTaskAsync(TaskModel task)
+        {
+            IsLoading = true;
+
+            // Remove the task.
+            Tasks.Remove(task);
+            OnConversationsChanged();
+
+            // Update the task. We can use an empty task as the id
+            // used is grabbed from the request URL.
+            task.PercentComplete = 100;
+            await _graphService.UpdateTaskAsync(new TaskModel
+            {
+                Id = task.Id,
+                ETag = task.ETag,
+                PercentComplete = 100
+            });
+
+            IsLoading = false;
+        }
+
         protected virtual void OnConversationsChanged()
         {
             ConversationsChanged?.Invoke(this);
+        }
+
+        protected virtual void OnTasksChanged()
+        {
+            TasksChanged?.Invoke(this);
         }
     }
 }

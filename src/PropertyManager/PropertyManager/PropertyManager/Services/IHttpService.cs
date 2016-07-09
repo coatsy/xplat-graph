@@ -1,14 +1,15 @@
 ﻿using System;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace PropertyManager.Services
 {
     public interface IHttpService
     {
-        Uri Endpoint { get; set; }
+        Uri Resource { get; set; }
 
-        string AccessToken { get; set; }
+        HttpRequestHeaders GetRequestHeaders();
 
         Task<T> GetAsync<T>(string resource);
 
