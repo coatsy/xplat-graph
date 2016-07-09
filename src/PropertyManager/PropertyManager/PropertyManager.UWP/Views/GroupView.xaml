@@ -146,8 +146,8 @@
             <!--Files-->
             <PivotItem Header="Files" Margin="0">
                 <Grid>
-                    <ListView ItemsSource="{Binding Files}" Style="{StaticResource ListViewStyle}"
-                              ItemClick="OnFileItemClick">
+                    <ListView x:Name="FilesListView" ItemsSource="{Binding Files}" 
+                              Style="{StaticResource ListViewStyle}" ItemClick="OnFileItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <controls:TileListViewItem Header="{Binding DriveItem.Name}"
@@ -182,8 +182,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    <ListView ItemsSource="{Binding Tasks}" Style="{StaticResource ListViewStyle}"
-                              ItemClick="OnTaskItemClick">
+                    <ListView x:Name="TasksListView" ItemsSource="{Binding Tasks}" 
+                              Style="{StaticResource ListViewStyle}" ItemClick="OnTaskItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <controls:TileListViewItem Header="{Binding Title}"

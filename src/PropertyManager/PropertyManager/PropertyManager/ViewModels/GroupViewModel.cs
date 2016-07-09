@@ -14,6 +14,8 @@ namespace PropertyManager.ViewModels
 {
     public delegate void ConversationsChangedEventHandler(GroupViewModel sender);
 
+    public delegate void FilesChangedEventHandler(GroupViewModel sender);
+
     public delegate void TasksChangedEventHandler(GroupViewModel sender);
 
     public class GroupViewModel
@@ -85,6 +87,8 @@ namespace PropertyManager.ViewModels
 
         public event ConversationsChangedEventHandler ConversationsChanged;
 
+        public event FilesChangedEventHandler FilesChanged;
+
         public event TasksChangedEventHandler TasksChanged;
 
         public GroupViewModel(IGraphService graphService, IConfigService configService,
@@ -138,6 +142,7 @@ namespace PropertyManager.ViewModels
                     Files.Add(new FileModel(driveItem, FileType.Document));
                 }
             }
+            OnFilesChanged();
         }
 
         private async Task UpdateConversationsAsync()
@@ -290,6 +295,7 @@ namespace PropertyManager.ViewModels
                         Constants.MediaFileExtensions.Any(e => driveItem.Name.ToLower().Contains(e))
                             ? FileType.Media
                             : FileType.Document));
+                    OnFilesChanged();
                 }
 
                 IsLoading = false;
@@ -325,6 +331,11 @@ namespace PropertyManager.ViewModels
         protected virtual void OnConversationsChanged()
         {
             ConversationsChanged?.Invoke(this);
+        }
+
+        protected virtual void OnFilesChanged()
+        {
+            FilesChanged?.Invoke(this);
         }
 
         protected virtual void OnTasksChanged()

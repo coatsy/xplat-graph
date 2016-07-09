@@ -32,6 +32,8 @@ namespace PropertyManager.UWP.Views
                 return;
             }
             ViewModel.ConversationsChanged += ViewModelOnConversationsChanged;
+            ViewModel.FilesChanged += ViewModelOnFilesChanged;
+            ViewModel.TasksChanged += ViewModelOnTasksChanged;
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
@@ -42,13 +44,28 @@ namespace PropertyManager.UWP.Views
 
         private void ViewModelOnConversationsChanged(GroupViewModel sender)
         {
-            var conversation = ConversationsGridView.Items.LastOrDefault();
-            if (conversation == null)
+            ScrolLToBottom(ConversationsGridView);
+        }
+
+        private void ViewModelOnFilesChanged(GroupViewModel sender)
+        {
+            ScrolLToBottom(FilesListView);
+        }
+
+        private void ViewModelOnTasksChanged(GroupViewModel sender)
+        {
+            ScrolLToBottom(TasksListView);
+        }
+
+        private static void ScrolLToBottom(ListViewBase itemsControl)
+        {
+            var item = itemsControl.Items.LastOrDefault();
+            if (item == null)
             {
                 return;
             }
-            ConversationsGridView.UpdateLayout();
-            ConversationsGridView.ScrollIntoView(conversation);
+            itemsControl.UpdateLayout();
+            itemsControl.ScrollIntoView(item);
         }
 
         private void OnFileItemClick(object sender, ItemClickEventArgs e)
