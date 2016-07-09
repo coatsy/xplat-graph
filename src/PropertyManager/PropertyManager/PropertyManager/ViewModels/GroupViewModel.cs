@@ -119,10 +119,17 @@ namespace PropertyManager.ViewModels
                 .Rows.FirstOrDefault(r => r.Id == Group.Mail);
 
             // Update the rest of the data.
-            await Task.WhenAll(
-                UpdateDriveItemsAsync(), 
-                UpdateConversationsAsync(), 
-                UpdateTasksAsync());
+            try
+            {
+                await Task.WhenAll(
+                    UpdateDriveItemsAsync(),
+                    UpdateConversationsAsync(),
+                    UpdateTasksAsync());
+            }
+            catch
+            {
+                // Ignored.
+            }
 
             IsLoading = false;
             base.Start();
