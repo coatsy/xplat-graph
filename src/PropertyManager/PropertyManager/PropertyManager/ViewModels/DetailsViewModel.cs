@@ -109,9 +109,9 @@ namespace PropertyManager.ViewModels
                               $"{Constants.DataFilePropertyTableColumnEnd}{endRow}";
 
                 // Update the table row.
-                await _graphService.UpdateTableRowsAsync(_configService.DataFile.DriveItem,
-                    Constants.DataFileDataSheet, address, _configService.DataFile.PropertyTable.Rows
-                        .Cast<TableRowModel>().ToArray(), _configService.AppGroup);
+                await _graphService.UpdateGroupTableRowsAsync(_configService.AppGroup, 
+                    _configService.DataFile.DriveItem, Constants.DataFileDataSheet, address, 
+                    _configService.DataFile.PropertyTable.Rows .Cast<TableRowModel>().ToArray());
             }
             else
             {
@@ -134,8 +134,8 @@ namespace PropertyManager.ViewModels
 
                 // Add details to data file.
                 Details.Id = propertyGroup.Mail;
-                await _graphService.AddTableRowAsync(_configService.DataFile.DriveItem,
-                    Constants.DataFilePropertyTable, Details, _configService.AppGroup);
+                await _graphService.AddGroupTableRowAsync(_configService.AppGroup, 
+                    _configService.DataFile.DriveItem, Constants.DataFilePropertyTable, Details);
 
                 // Add group and details to local config.
                 _configService.Groups.Add(propertyGroup);

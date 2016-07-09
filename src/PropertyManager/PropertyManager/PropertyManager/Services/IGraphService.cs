@@ -34,6 +34,14 @@ namespace PropertyManager.Services
 
         Task<PlanModel> AddGroupPlanAsync(GroupModel group, PlanModel plan);
 
+        Task<TableModel<T>> GetGroupTableAsync<T>(GroupModel group, DriveItemModel driveItem, string tableName) where T : TableRowModel, new();
+
+        Task<TableColumnModel[]> GetGroupTableColumnsAsync(GroupModel group, DriveItemModel driveItem, string tableName);
+
+        Task<TableRowModel> AddGroupTableRowAsync(GroupModel group, DriveItemModel driveItem, string tableName, TableRowModel tableRow);
+
+        Task<TableRowsModel> UpdateGroupTableRowsAsync(GroupModel group, DriveItemModel driveItem, string sheetName, string address, TableRowModel[] tableRows);
+
         Task WaitForGroupDriveAsync(GroupModel group);
 
         Task<BucketModel[]> GetPlanBucketsAsync(PlanModel plan);
@@ -45,13 +53,5 @@ namespace PropertyManager.Services
         Task<TaskModel> AddTaskAsync(TaskModel task);
 
         Task<TaskModel> UpdateTaskAsync(TaskModel task);
-
-        Task<TableModel<T>> GetTableAsync<T>(DriveItemModel driveItem, string tableName, GroupModel group = null) where T : TableRowModel, new();
-
-        Task<TableColumnModel[]> GetTableColumnsAsync(DriveItemModel driveItem, string tableName, GroupModel group = null);
-
-        Task<TableRowModel> AddTableRowAsync(DriveItemModel driveItem, string tableName, TableRowModel tableRow, GroupModel group = null);
-
-        Task<TableRowsModel> UpdateTableRowsAsync(DriveItemModel driveItem, string sheetName, string address, TableRowModel[] tableRows, GroupModel group = null);
     }
 }

@@ -101,8 +101,8 @@ namespace PropertyManager.ViewModels
             }
 
             // Get the property table.
-            var propertyTable = await _graphService.GetTableAsync<PropertyTableRowModel>(
-                dataDriveItem, Constants.DataFilePropertyTable, appGroup);
+            var propertyTable = await _graphService.GetGroupTableAsync<PropertyTableRowModel>(
+                appGroup, dataDriveItem, Constants.DataFilePropertyTable);
 
             // Create the data file represenation.
             var dataFile = new DataFileModel

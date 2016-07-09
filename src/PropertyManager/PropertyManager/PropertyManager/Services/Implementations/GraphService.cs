@@ -203,6 +203,38 @@ namespace PropertyManager.Services
             return PostAsync("plans", plan);
         }
 
+        public async Task<TableModel<T>> GetGroupTableAsync<T>(GroupModel group, DriveItemModel driveItem, string tableName) where T : TableRowModel, new()
+        {
+            return new TableModel<T>
+            {
+                Columns = await GetGroupTableColumnsAsync(group, driveItem, "PropertyTable")
+            };
+        }
+
+        public Task<TableColumnModel[]> GetGroupTableColumnsAsync(GroupModel group, DriveItemModel driveItem, string tableName)
+        {
+            return GetManyAsync<TableColumnModel>($"groups/{group.Id}/drive/items/{driveItem.Id}/workbook/tables/{tableName}/columns");
+        }
+
+        public async Task<TableRowModel> AddGroupTableRowAsync(GroupModel group, DriveItemModel driveItem, string tableName, TableRowModel tableRow)
+        {
+            return (await PostAsync($"groups/{group.Id}/drive/items/{driveItem.Id}/workbook/tables/{tableName}/rows",
+                new TableRowsModel
+                {
+                    Values = new[] { tableRow }
+                })).Values.FirstOrDefault();
+        }
+
+        public Task<TableRowsModel> UpdateGroupTableRowsAsync(GroupModel group, DriveItemModel driveItem, string sheetName, string address,
+            TableRowModel[] tableRows)
+        {
+            return PatchAsync($"groups/{group.Id}/drive/items/{driveItem.Id}/workbook/worksheets/{sheetName}/range(address='{sheetName}!{address}')",
+                new TableRowsModel
+                {
+                    Values = tableRows
+                });
+        }
+
         public async Task WaitForGroupDriveAsync(GroupModel group)
         {
             while (true)
@@ -254,44 +286,6 @@ namespace PropertyManager.Services
             // Clear ETag and return the result.
             headers.IfMatch.Clear();
             return result;
-        }
-
-        public async Task<TableModel<T>> GetTableAsync<T>(DriveItemModel driveItem, string tableName,
-            GroupModel group = null) where T : TableRowModel, new()
-        {
-            return new TableModel<T>
-            {
-                Columns = await GetTableColumnsAsync(driveItem, "PropertyTable", group)
-            };
-        }
-
-        public Task<TableColumnModel[]> GetTableColumnsAsync(DriveItemModel driveItem, string tableName,
-            GroupModel group = null)
-        {
-            var owner = group == null ? "me/" : $"groups/{group.Id}/";
-            return GetManyAsync<TableColumnModel>($"{owner}/drive/items/{driveItem.Id}/workbook/tables/{tableName}/columns");
-        }
-
-        public async Task<TableRowModel> AddTableRowAsync(DriveItemModel driveItem, string tableName,
-            TableRowModel tableRow, GroupModel group = null)
-        {
-            var owner = group == null ? "me/" : $"groups/{group.Id}/";
-            return (await PostAsync($"{owner}/drive/items/{driveItem.Id}/workbook/tables/{tableName}/rows",
-                new TableRowsModel
-                {
-                    Values = new[] {tableRow}
-                })).Values.FirstOrDefault();
-        }
-
-        public Task<TableRowsModel> UpdateTableRowsAsync(DriveItemModel driveItem, string sheetName, string address,
-            TableRowModel[] tableRows, GroupModel group = null)
-        {
-            var owner = group == null ? "me/" : $"groups/{group.Id}/";
-            return PatchAsync($"{owner}/drive/items/{driveItem.Id}/workbook/worksheets/{sheetName}/range(address='{sheetName}!{address}')",
-                new TableRowsModel
-                {
-                    Values = tableRows
-                });
         }
     }
 }
