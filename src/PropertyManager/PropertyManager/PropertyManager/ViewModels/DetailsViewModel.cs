@@ -110,13 +110,13 @@ namespace PropertyManager.ViewModels
                     StreetName, 
                     Details.Description, 
                     mailNickname));
-  
-                // We need the file storage to be ready in order to place any files.
-                // Wait for it to be configured.
-                await _graphService.WaitForGroupDriveAsync(propertyGroup);
 
                 // Add the current user as a member of the app group.
                 await _graphService.AddGroupUserAsync(propertyGroup, _configService.User);
+
+                // We need the file storage to be ready in order to place any files.
+                // Wait for it to be configured.
+                await _graphService.WaitForGroupDriveAsync(propertyGroup);
 
                 // Add details to data file.
                 Details.Id = propertyGroup.Mail;

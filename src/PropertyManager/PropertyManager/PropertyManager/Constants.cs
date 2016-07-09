@@ -4,7 +4,7 @@
     {
         public static string AppGroupDisplayName => "Property Managers";
         public static string AppGroupDescription => "Group for all of the users of the Property Manager app.";
-        public static string AppGroupMail => "propertymanagerapp2";
+        public static string AppGroupMail => "propertymanagerapp3";
 
         public static string DataFileName => "Data.xlsx";
         public static string DataFileResourceName => 

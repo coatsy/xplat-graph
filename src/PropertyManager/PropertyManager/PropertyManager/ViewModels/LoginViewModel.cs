@@ -58,7 +58,10 @@ namespace PropertyManager.ViewModels
                     Constants.AppGroupDisplayName, 
                     Constants.AppGroupDescription, 
                     Constants.AppGroupMail));
-       
+
+                // Add the current user as a member of the app group.
+                await _graphService.AddGroupUserAsync(appGroup, _configService.User);
+
                 // We need the file storage to be ready in order to place the data file. 
                 // Wait for it to be configured.
                 await _graphService.WaitForGroupDriveAsync(appGroup);
