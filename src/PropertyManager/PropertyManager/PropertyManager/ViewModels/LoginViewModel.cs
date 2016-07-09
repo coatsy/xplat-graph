@@ -130,7 +130,6 @@ namespace PropertyManager.ViewModels
 
             // Navigate to the groups view.
             ShowViewModel<GroupsViewModel>();
-            IsLoading = false;
         }
     }
 }
