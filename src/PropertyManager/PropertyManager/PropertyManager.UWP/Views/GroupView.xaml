@@ -75,38 +75,41 @@
 
         <Pivot Grid.Row="1">
             <!--Details-->
-            <PivotItem Header="Details">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-                    <TextBlock Text="Find the details of this property down below, these are stored in Office 365 and be available to all user of this app." 
+            <PivotItem Header="Details" Margin="0">
+                <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto"
+                              Padding="15,0,15,15">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                        <TextBlock Text="Find the details of this property down below, these are stored in Office 365 and be available to all user of this app." 
                            TextWrapping="Wrap" Margin="0,0,0,15"/>
-                    <controls:TileListViewItem Header="{Binding Details.Description}"
+                        <controls:TileListViewItem Header="{Binding Details.Description}"
                                                Text="Description" IsHitTestVisible="False"
                                                Icon="&#xE913;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
-                    <controls:TileListViewItem Header="{Binding Details.Rooms}"
+                        <controls:TileListViewItem Header="{Binding Details.Rooms}"
                                                Text="Rooms" IsHitTestVisible="False"
                                                Icon="&#xE8D7;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
-                    <controls:TileListViewItem Header="{Binding Details.LivingArea}"
+                        <controls:TileListViewItem Header="{Binding Details.LivingArea}"
                                                Text="Living area" IsHitTestVisible="False"
                                                Icon="&#xE80F;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
-                    <controls:TileListViewItem Header="{Binding Details.LotSize}"
+                        <controls:TileListViewItem Header="{Binding Details.LotSize}"
                                                Text="Lot size" IsHitTestVisible="False"
                                                Icon="&#xE707;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
-                    <controls:TileListViewItem Header="{Binding Details.OperatingCosts}"
+                        <controls:TileListViewItem Header="{Binding Details.OperatingCosts}"
                                                Text="Operating costs" IsHitTestVisible="False"
                                                Icon="&#xE8EC;" IconSize="26" TextWrapping="Wrap"
                                                TileBackground="Transparent" TileForeground="Black"
                                                Margin="-20,0,-15,0"/>
-                    <controls:PointerTextBlock Text="Edit details" Foreground="{StaticResource AccentColorBrush}"
+                        <controls:PointerTextBlock Text="Edit details" Foreground="{StaticResource AccentColorBrush}"
                                                Margin="0,15,0,0" Tapped="OnEditDetailsButtonTapped"/>
-                </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </PivotItem>
 
             <!--Conversations-->
