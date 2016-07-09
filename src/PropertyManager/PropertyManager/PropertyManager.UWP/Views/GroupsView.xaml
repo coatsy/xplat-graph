@@ -17,13 +17,13 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </views:MvxWindowsPage.Transitions>
-    
+
     <views:MvxWindowsPage.Resources>
         <Style x:Key="ListViewStyle" TargetType="ListView">
             <Setter Property="IsItemClickEnabled" Value="True"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="SelectionMode" Value="None"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Margin" Value="0,70,0,0"/>
             <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
@@ -39,7 +39,8 @@
         <Style x:Key="GridViewStyle" TargetType="GridView">
             <Setter Property="IsItemClickEnabled" Value="True"/>
             <Setter Property="SelectionMode" Value="None"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0,125,0,0"/>
             <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
@@ -51,23 +52,28 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock"
+               BasedOn="{StaticResource PageTitleTextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0,15,0,0"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
     </views:MvxWindowsPage.Resources>
 
     <Grid Style="{StaticResource PageRootGridStyle}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Normal">
                     <VisualState.Setters>
-                        <Setter Target="SearchBox.HorizontalAlignment" Value="Right"></Setter>
-                        <Setter Target="SearchBox.VerticalAlignment" Value="Top"></Setter>
-                        <Setter Target="SearchBox.MinWidth" Value="280"></Setter>
+                        <Setter Target="SearchBox.HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Target="SearchBox.Width" Value="340"></Setter>
+                        <Setter Target="SearchBox.Margin" Value="0,75,0,0"></Setter>
                         <Setter Target="SlimGridView.Visibility" Value="Collapsed"></Setter>
                         <Setter Target="NormalGridView.Visibility" Value="Visible"></Setter>
+                        <Setter Target="TitleTextBlock.Visibility" Value="Visible"></Setter>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="700"></AdaptiveTrigger>
@@ -76,9 +82,9 @@
                 <VisualState x:Name="Slim">
                     <VisualState.Setters>
                         <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch"></Setter>
-                        <Setter Target="SearchBox.VerticalAlignment" Value="Top"></Setter>
                         <Setter Target="SlimGridView.Visibility" Value="Visible"></Setter>
                         <Setter Target="NormalGridView.Visibility" Value="Collapsed"></Setter>
+                        <Setter Target="TitleTextBlock.Visibility" Value="Collapsed"></Setter>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
@@ -86,17 +92,12 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-    
-        <!--Header-->
-        <Grid Grid.Row="0">
-            <SearchBox x:Name="SearchBox" 
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Top" Margin="15,20,15,0"
-                       PlaceholderText="Find a property" 
-                       QueryText="{Binding Query, Mode=TwoWay}"
-                       Style="{StaticResource AccentSearchBoxStyle}" 
-                       QuerySubmitted="OnQuerySubmitted"/>
-        </Grid>
+
+        <!--SearchBox-->
+        <SearchBox x:Name="SearchBox" HorizontalAlignment="Stretch"
+                   VerticalAlignment="Top" Margin="15,20,15,0" PlaceholderText="Find a property" 
+                   QueryText="{Binding Query, Mode=TwoWay}" Style="{StaticResource AccentSearchBoxStyle}" 
+                   QuerySubmitted="OnQuerySubmitted"/>
 
         <!--Slim Grid View-->
         <ListView x:Name="SlimGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
@@ -127,6 +128,9 @@
             </ListView.ItemsPanel>
         </ListView>
 
+        <TextBlock x:Name="TitleTextBlock" Style="{StaticResource TitleTextBlockStyle}"
+                   Text="Property Manager"/>
+
         <!--Normal Grid View-->
         <GridView x:Name="NormalGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
                   Style="{StaticResource GridViewStyle}"
@@ -134,7 +138,7 @@
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="175" Height="175" Margin="15">
-                     <StackPanel Orientation="Vertical"
+                        <StackPanel Orientation="Vertical"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center">
                             <TextBlock Text="&#xE913;"

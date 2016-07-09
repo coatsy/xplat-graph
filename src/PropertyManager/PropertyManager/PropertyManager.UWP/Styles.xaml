@@ -10,30 +10,17 @@
     <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     
     <!--Colors-->
-    <!--<SolidColorBrush x:Key="AccentColorBrush" Color="#4dc3d3"/>-->
-    <SolidColorBrush x:Key="AccentColorBrush" Color="#ea225f"/>
-    <SolidColorBrush x:Key="LightAccentColorBrush" Color="#f12865"/>
-    <SolidColorBrush x:Key="DarkAccentColorBrush" Color="#cc134c"/>
+    <SolidColorBrush x:Key="AccentColorBrush" Color="#0078d7"/>
+    <SolidColorBrush x:Key="LightAccentColorBrush" Color="#007fe4"/>
+    <SolidColorBrush x:Key="DarkAccentColorBrush" Color="#006bc0"/>
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#4c565e"/>
     <SolidColorBrush x:Key="SecondaryColorBrush" Color="#fff"/>
     <SolidColorBrush x:Key="DarkSecondaryColorBrush" Color="#9a9fa3"/>
-    <!--<SolidColorBrush x:Key="BackgroundColorBrush" Color="#f6f7f9"/>-->
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="#fff"/>
 
     <!--Styles-->
     <Style x:Key="PageRootGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}"/>
-        <!--<Setter Property="Transitions">
-            <Setter.Value>
-                <TransitionCollection>
-                    <NavigationThemeTransition>
-                        <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                            <ContinuumNavigationTransitionInfo/>
-                        </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    </NavigationThemeTransition>
-                </TransitionCollection>
-            </Setter.Value>
-        </Setter>-->
     </Style>
 
     <Style x:Key="PageTitleTextBlock" TargetType="TextBlock">
@@ -84,13 +71,13 @@
 
     <Style x:Key="PageIconTextBlock" TargetType="TextBlock"
            BasedOn="{StaticResource GridIconTextBlock}">
-        <Setter Property="Foreground" Value="{StaticResource DarkSecondaryColorBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="PageIconFrameEllipse" TargetType="Ellipse">
-        <Setter Property="Stroke" Value="{StaticResource DarkSecondaryColorBrush}"/>
+        <Setter Property="Stroke" Value="{StaticResource AccentColorBrush}"/>
         <Setter Property="StrokeThickness" Value="3"/>
         <Setter Property="Width" Value="150"/>
         <Setter Property="Height" Value="150"/>
@@ -109,24 +96,20 @@
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Margin" Value="0,0,10,0"/>
     </Style>
-    
+
     <Style x:Key="AccentButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
         <Setter Property="Foreground" Value="#fff"/>
-        <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="20,10"/>
-        <Setter Property="MinWidth" Value="200"/>
+        <Setter Property="BorderBrush" Value="{StaticResource AccentColorBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="MinHeight" Value="38"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
-        <!--<Setter Property="CharacterSpacing" Value="35"/>-->
-        <!--<Setter Property="FontFamily" Value="ms-appx:/Assets/Fonts/Roboto-Bold.ttf#Roboto"/>-->
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <!--<Border x:Name="RootGrid" Background="{TemplateBinding Background}" 
-                            CornerRadius="23">-->
                     <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -137,8 +120,11 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource LightAccentColorBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>-->
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumLowBrush}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
                                     </Storyboard>
@@ -146,6 +132,9 @@
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource DarkAccentColorBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource DarkAccentColorBrush}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>

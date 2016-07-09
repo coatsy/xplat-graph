@@ -71,8 +71,10 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="Cancel" HorizontalAlignment="Stretch"
                     Command="{Binding GoBackCommand}"
+                    Height="38"
                     IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"/>
             <Button Grid.Column="2" Content="Save" HorizontalAlignment="Stretch"
+                    Style="{StaticResource AccentButtonStyle}"
                     Command="{Binding SaveDetailsCommand}"
                     IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"/>
         </Grid>
