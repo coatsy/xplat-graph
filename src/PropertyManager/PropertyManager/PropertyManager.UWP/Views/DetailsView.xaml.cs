@@ -24,5 +24,10 @@ namespace PropertyManager.UWP.Views
             backRequestedEventArgs.Handled = true;
             ViewModel?.GoBackCommand.Execute(null);
         }
+
+        private void OnTextChanged(object sender, Windows.UI.Xaml.Controls.TextChangedEventArgs e)
+        {
+            ViewModel?.Validate();
+        }
     }
 }

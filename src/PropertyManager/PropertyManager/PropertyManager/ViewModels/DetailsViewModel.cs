@@ -26,6 +26,19 @@ namespace PropertyManager.ViewModels
             {
                 _isLoading = value;
                 RaisePropertyChanged(() => IsLoading);
+                RaisePropertyChanged(() => IsValid);
+            }
+        }
+
+        private bool _isValid;
+
+        public bool IsValid
+        {
+            get { return !_isLoading && _isValid; }
+            set
+            {
+                _isValid = value;
+                RaisePropertyChanged(() => IsValid);
             }
         }
 
@@ -50,6 +63,7 @@ namespace PropertyManager.ViewModels
             {
                 _streetName = value;
                 RaisePropertyChanged(() => StreetName);
+                Validate();
             }
         }
 
@@ -130,6 +144,19 @@ namespace PropertyManager.ViewModels
 
             IsLoading = false;
             GoBackCommand.Execute(null);
+        }
+
+        public void Validate()
+        {
+            // Validate street name if needed.
+            var isStreetNameValid = IsExisting ||
+                                    (!string.IsNullOrWhiteSpace(_streetName) && _streetName.Length > 4);
+            IsValid = isStreetNameValid &&
+                      !string.IsNullOrWhiteSpace(Details.Description) &&
+                      !string.IsNullOrWhiteSpace(Details.Rooms) &&
+                      !string.IsNullOrWhiteSpace(Details.LivingArea) &&
+                      !string.IsNullOrWhiteSpace(Details.LotSize) &&
+                      !string.IsNullOrWhiteSpace(Details.OperatingCosts);
         }
     }
 }
