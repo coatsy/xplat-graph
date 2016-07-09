@@ -132,7 +132,7 @@
                    Text="Property Manager"/>
 
         <!--Normal Grid View-->
-        <GridView x:Name="NormalGridView" Grid.Row="1" ItemsSource="{Binding FilteredGroups}"
+        <GridView x:Name="NormalGridView" ItemsSource="{Binding FilteredGroups}"
                   Style="{StaticResource GridViewStyle}"
                   ItemClick="OnItemClick">
             <GridView.ItemTemplate>

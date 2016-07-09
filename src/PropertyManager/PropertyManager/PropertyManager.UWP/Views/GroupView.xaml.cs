@@ -1,15 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
-using MvvmCross.Platform;
 using MvvmCross.WindowsUWP.Views;
 using PropertyManager.Models;
-using PropertyManager.Services;
 using PropertyManager.ViewModels;
 
 namespace PropertyManager.UWP.Views
@@ -39,6 +34,12 @@ namespace PropertyManager.UWP.Views
             ViewModel.ConversationsChanged += ViewModelOnConversationsChanged;
         }
 
+        private void OnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
+        {
+            backRequestedEventArgs.Handled = true;
+            ViewModel?.GoBackCommand.Execute(null);
+        }
+
         private void ViewModelOnConversationsChanged(GroupViewModel sender)
         {
             var conversation = ConversationsGridView.Items.LastOrDefault();
@@ -48,11 +49,6 @@ namespace PropertyManager.UWP.Views
             }
             ConversationsGridView.UpdateLayout();
             ConversationsGridView.ScrollIntoView(conversation);
-        }
-
-        private void OnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
-        {
-            ViewModel?.GoBackCommand.Execute(null);
         }
 
         private void OnFileItemClick(object sender, ItemClickEventArgs e)

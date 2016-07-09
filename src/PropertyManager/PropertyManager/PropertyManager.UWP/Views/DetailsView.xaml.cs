@@ -21,6 +21,7 @@ namespace PropertyManager.UWP.Views
 
         private void OnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
         {
+            backRequestedEventArgs.Handled = true;
             ViewModel?.GoBackCommand.Execute(null);
         }
     }
