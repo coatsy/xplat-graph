@@ -19,6 +19,7 @@ namespace PropertyManager.ViewModels
         private readonly IGraphService _graphService;
         private readonly IConfigService _configService;
         private readonly ILauncherService _launcherService;
+        private readonly IFilePickerService _filePickerService;
 
         private bool _isLoading;
 
@@ -58,14 +59,17 @@ namespace PropertyManager.ViewModels
 
         public ICommand EditDetailsCommand => new MvxCommand(EditDetails);
 
+        public ICommand AddFileCommand => new MvxCommand(AddFileAsync);
+
         public event ConversationsChangedEventHandler ConversationsChanged;
 
         public GroupViewModel(IGraphService graphService, IConfigService configService,
-            ILauncherService launcherService)
+            ILauncherService launcherService, IFilePickerService filePickerService)
         {
             _graphService = graphService;
             _configService = configService;
             _launcherService = launcherService;
+            _filePickerService = filePickerService;
             Files = new ObservableCollection<FileModel>();
             Conversations = new ObservableCollection<ConversationModel>();
         }
@@ -97,11 +101,11 @@ namespace PropertyManager.ViewModels
             var driveItems = await _graphService.GetGroupDriveItemsAsync(Group);
             foreach (var driveItem in driveItems)
             {
-                if (Constants.MediaFileExtensions.Any(e => driveItem.Name.Contains(e)))
+                if (Constants.MediaFileExtensions.Any(e => driveItem.Name.ToLower().Contains(e)))
                 {
                     Files.Add(new FileModel(driveItem, FileType.Media));
                 }
-                else if (Constants.DocumentFileExtensions.Any(e => driveItem.Name.Contains(e)))
+                else if (Constants.DocumentFileExtensions.Any(e => driveItem.Name.ToLower().Contains(e)))
                 {
                     Files.Add(new FileModel(driveItem, FileType.Document));
                 }
@@ -167,6 +171,41 @@ namespace PropertyManager.ViewModels
         {
             // Navigate to the details view.
             ShowViewModel<DetailsViewModel>(new { id = Group.Mail });
+        }
+
+        private async void AddFileAsync()
+        {
+            // Let the current user pick a file.
+            using (var file = await _filePickerService.GetFileAsync())
+            {
+                if (file == null)
+                {
+                    return;
+                }
+
+                IsLoading = true;
+
+                // Upload file to group.
+                var driveItem = await _graphService.AddGroupDriveItemAsync(Group, file.Name,
+                    file.Stream, Constants.StreamContentType);
+                if (driveItem != null)
+                {
+                    // Remove a potential duplicate.
+                    var existingDriveItem = Files
+                        .FirstOrDefault(f => f.DriveItem.Name.Equals(driveItem.Name));
+                    if (existingDriveItem != null)
+                    {
+                        Files.Remove(existingDriveItem);
+                    }
+
+                    Files.Add(new FileModel(driveItem,
+                        Constants.MediaFileExtensions.Any(e => driveItem.Name.ToLower().Contains(e))
+                            ? FileType.Media
+                            : FileType.Document));
+                }
+
+                IsLoading = false;
+            }
         }
 
         protected virtual void OnConversationsChanged()

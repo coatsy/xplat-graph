@@ -17,6 +17,7 @@
 
         public static string ExcelContentType => "application/xlsx";
         public static string JsonContentType => "application/json";
+        public static string StreamContentType => "application/octet-stream";
 
         public static string[] MediaFileExtensions => 
             new [] { ".png", ".jpg", ".jpeg" };

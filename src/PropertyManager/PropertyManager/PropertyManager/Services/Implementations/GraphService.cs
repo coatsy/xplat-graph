@@ -143,6 +143,7 @@ namespace PropertyManager.Services
 
         public Task<DriveItemModel> AddUserDriveItemAsync(string name, Stream stream, string contentType)
         {
+            // This method only supports files up to 4MB in size.
             return PutAsync<DriveItemModel>($"me/drive/special/approot:/{name}:/content",
                 stream, contentType);
         }
@@ -175,6 +176,7 @@ namespace PropertyManager.Services
         public Task<DriveItemModel> AddGroupDriveItemAsync(GroupModel group, string name, Stream stream,
             string contentType)
         {
+            // This method only supports files up to 4MB in size.
             return PutAsync<DriveItemModel>($"groups/{group.Id}/drive/root:/{name}:/content",
                 stream, contentType);
         }

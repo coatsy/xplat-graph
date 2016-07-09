@@ -45,6 +45,7 @@
     <Compile Include="Models\IdModel.cs" />
     <Compile Include="Models\NewPostModel.cs" />
     <Compile Include="Models\ParticipantModel.cs" />
+    <Compile Include="Models\PickedFileModel.cs" />
     <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\DriveItemModel.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IFilePickerService.cs" />
     <Compile Include="Services\ILauncherService.cs" />
     <Compile Include="Services\IConfigService.cs" />
     <Compile Include="Services\IHttpService.cs" />

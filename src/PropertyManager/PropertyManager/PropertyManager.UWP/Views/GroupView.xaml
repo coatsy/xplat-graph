@@ -151,21 +151,19 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <controls:TileListViewItem Header="{Binding DriveItem.Name}"
-                                               Text="{Binding DriveItem.WebUrl}"
-                                               Icon="{Binding Type, Converter={StaticResource FileTypeToIconConverter}}"
-                                               IconSize="26"
-                                               TileBackground="{StaticResource AccentColorBrush}"
-                                               TileForeground="White"
-                                               IsHitTestVisible="False"/>
+                                                           Text="{Binding DriveItem.WebUrl}"
+                                                           Icon="{Binding Type, Converter={StaticResource FileTypeToIconConverter}}"
+                                                           IconSize="26"
+                                                           TileBackground="{StaticResource AccentColorBrush}"
+                                                           TileForeground="White" IsHitTestVisible="False"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         <ListView.HeaderTemplate>
                             <DataTemplate>
                                 <controls:TileListViewItem Header="Add a file"
-                                               Icon="&#xE948;"
-                                               IconSize="18"
-                                               TileBackground="LightGray"
-                                               TileForeground="Black"/>
+                                                           Icon="&#xE948;" IconSize="18"
+                                                           TileBackground="LightGray" TileForeground="Black"
+                                                           Tapped="OnAddFileItemTapped"/>
                             </DataTemplate>
                         </ListView.HeaderTemplate>
                         <ListView.ItemsPanel>

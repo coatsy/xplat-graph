@@ -1,11 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using MvvmCross.Platform;
 using MvvmCross.WindowsUWP.Views;
 using PropertyManager.Models;
+using PropertyManager.Services;
 using PropertyManager.ViewModels;
 
 namespace PropertyManager.UWP.Views
@@ -72,6 +76,11 @@ namespace PropertyManager.UWP.Views
         private void OnEditDetailsButtonTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             ViewModel?.EditDetailsCommand.Execute(null);
+        }
+
+        private void OnAddFileItemTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ViewModel?.AddFileCommand.Execute(null);
         }
     }
 }
