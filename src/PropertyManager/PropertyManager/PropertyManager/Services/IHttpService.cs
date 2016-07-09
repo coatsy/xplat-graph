@@ -24,5 +24,9 @@ namespace PropertyManager.Services
         Task<T> PatchAsync<T>(string resource, object data);
 
         Task<T> PatchAsync<T>(string resource, Stream stream, string contentType);
+
+        Task<T> SendAsync<T>(string resource, HttpMethod httpMethod, object data);
+
+        Task<T> SendAsync<T>(string resource, HttpMethod httpMethod, Stream stream, string contentType);
     }
 }

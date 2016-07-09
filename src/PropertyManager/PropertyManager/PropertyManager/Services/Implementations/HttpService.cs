@@ -31,97 +31,99 @@ namespace PropertyManager.Services
             return _httpClient.DefaultRequestHeaders;
         }
 
-        public async Task<T> GetAsync<T>(string resource)
+        public Task<T> GetAsync<T>(string resource)
         {
-            // Get the response.
-            var response = await _httpClient.GetStringAsync(
-                new Uri(Resource.AbsoluteUri + resource));
-
-            // Parse the response.
-            var result = JsonConvert.DeserializeObject<T>(response);
-            return result;
+            return SendAsync<T>(resource, HttpMethod.Get);
         }
 
-        public async Task<T> PostAsync<T>(string resource, object data)
+        public Task<T> PostAsync<T>(string resource, object data)
+        {
+            return SendAsync<T>(resource, HttpMethod.Post, data);
+        }
+
+        public Task<T> PostAsync<T>(string resource, Stream stream, string contentType)
+        {
+            return SendAsync<T>(resource, HttpMethod.Post, stream, contentType);
+        }
+
+        public Task<T> PutAsync<T>(string resource, object data)
+        {
+            return SendAsync<T>(resource, HttpMethod.Put, data);
+        }
+
+        public Task<T> PutAsync<T>(string resource, Stream stream, string contentType)
+        {
+            return SendAsync<T>(resource, HttpMethod.Put, stream, contentType);
+        }
+
+        public Task<T> PatchAsync<T>(string resource, object data)
+        {
+            return SendAsync<T>(resource, HttpMethod.Patch, data);
+        }
+
+        public Task<T> PatchAsync<T>(string resource, Stream stream, string contentType)
+        {
+            return SendAsync<T>(resource, HttpMethod.Patch, stream, contentType);
+        }
+
+        public async Task<T> SendAsync<T>(string resource, HttpMethod httpMethod, object data)
         {
             var str = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
             using (var stream = GenerateStreamFromString(str))
             {
-                return await PostAsync<T>(resource, stream, Constants.JsonContentType);
+                return await SendAsync<T>(resource, httpMethod, 
+                    stream, Constants.JsonContentType);
             }
         }
 
-        public async Task<T> PostAsync<T>(string resource, Stream stream, string contentType)
+        public async Task<T> SendAsync<T>(string resource, HttpMethod httpMethod, Stream stream = null, string contentType = null)
         {
-            // Create content.
-            var streamContent = new StreamContent(stream);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            // Create request URI.
+            var requestUri = new Uri(Resource.AbsoluteUri + resource);
 
-            // Get the response.
-            var response = await _httpClient.PostAsync(
-                new Uri(Resource.AbsoluteUri + resource), streamContent);
-
-            // Check response.
-            if (!response.IsSuccessStatusCode)
+            // Get response.
+            HttpResponseMessage response = null;
+            switch (httpMethod)
             {
-                throw new HttpRequestException(response.ReasonPhrase);
+                case HttpMethod.Get:
+                {
+                    response = await _httpClient.GetAsync(requestUri);
+                }
+                    break;
+                case HttpMethod.Post:
+                case HttpMethod.Put:
+                case HttpMethod.Patch:
+                {
+                    // Create content.
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+
+                    switch (httpMethod)
+                    {
+                        case HttpMethod.Post:
+                        {
+                            response = await _httpClient.PostAsync(requestUri, streamContent);
+                        }
+                            break;
+                        case HttpMethod.Put:
+                        {
+                            response = await _httpClient.PutAsync(requestUri, streamContent);
+                        }
+                            break;
+                        case HttpMethod.Patch:
+                        {
+                            response = await _httpClient.PatchAsync(requestUri, streamContent);
+                        }
+                            break;
+                    }
+                }
+                    break;
             }
 
-            // Parse the response.
-            var result = JsonConvert.DeserializeObject<T>(
-                await response.Content.ReadAsStringAsync());
-            return result;
-        }
-
-        public async Task<T> PutAsync<T>(string resource, object data)
-        {
-            var str = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
-            using (var stream = GenerateStreamFromString(str))
+            if (response == null)
             {
-                return await PutAsync<T>(resource, stream, Constants.JsonContentType);
+                throw new NotImplementedException();
             }
-        }
-
-        public async Task<T> PutAsync<T>(string resource, Stream stream, string contentType)
-        {
-            // Create content.
-            var streamContent = new StreamContent(stream);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-
-            // Get the response.
-            var response = await _httpClient.PutAsync(
-                new Uri(Resource.AbsoluteUri + resource), streamContent);
-
-            // Check response.
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new HttpRequestException(response.ReasonPhrase);
-            }
-
-            // Parse the response.
-            var result = JsonConvert.DeserializeObject<T>(
-                await response.Content.ReadAsStringAsync());
-            return result;
-        }
-
-        public async Task<T> PatchAsync<T>(string resource, object data)
-        {
-            var str = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
-            using (var stream = GenerateStreamFromString(str))
-            {
-                return await PatchAsync<T>(resource, stream, Constants.JsonContentType);
-            }
-        }
-
-        public async Task<T> PatchAsync<T>(string resource, Stream stream, string contentType)
-        {
-            // Create content.
-            var streamContent = new StreamContent(stream);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-
-            // Get the response.
-            var response = await _httpClient.PatchAsync(
-                new Uri(Resource.AbsoluteUri + resource), streamContent);
 
             // Check response.
             if (!response.IsSuccessStatusCode)

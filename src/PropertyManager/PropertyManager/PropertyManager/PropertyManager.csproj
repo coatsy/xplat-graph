@@ -59,6 +59,7 @@
     <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\HttpMethod.cs" />
     <Compile Include="Services\IFilePickerService.cs" />
     <Compile Include="Services\ILauncherService.cs" />
     <Compile Include="Services\IConfigService.cs" />
