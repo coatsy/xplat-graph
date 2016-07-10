@@ -88,7 +88,7 @@ namespace PropertyManager.ViewModels
             IsExisting = Details != null;
 
             // Set title.
-            Title = (IsExisting ? "Add" : "Edit") + " a property";
+            Title = (!IsExisting ? "Add" : "Edit") + " a property";
             if (Details == null)
             {
                 Details = new PropertyTableRowModel();
