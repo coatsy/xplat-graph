@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json.Linq;
@@ -38,11 +40,28 @@ namespace PropertyManager.ViewModels
 
         private async void LoginAsync()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             IsLoading = true;
 
-            // Get the current user and all of the groups.
-            var user = await _graphService.GetUserAsync();
-            var allGroups = await _graphService.GetGroupsAsync();
+            UserModel user = null;
+            GroupModel[] userGroups = null;
+            GroupModel[] allGroups = null;
+
+            // Get the current user, its groups and all of the groups.
+            await Task.WhenAll(
+                Task.Run(async () =>
+                {
+                    user = await _graphService.GetUserAsync();
+                }),
+                Task.Run(async () =>
+                {
+                    userGroups = await _graphService.GetUserGroupsAsync();
+                }),
+                Task.Run(async () =>
+                {
+                    allGroups = await _graphService.GetGroupsAsync();
+                }));
 
             // Get the group belonging to this app.
             var appGroup = allGroups.FirstOrDefault(g => g.Mail.StartsWith(
@@ -113,7 +132,6 @@ namespace PropertyManager.ViewModels
 
             // Get groups that the user is a member of and represents 
             // a property.
-            var userGroups = await _graphService.GetUserGroupsAsync();
             var propertyGroups = userGroups
                 .Where(g => propertyTable["Id"]
                     .Values.Any(v => v.Any() &&
@@ -127,6 +145,9 @@ namespace PropertyManager.ViewModels
             _configService.AppGroup = appGroup;
             _configService.Groups = new List<GroupModel>(propertyGroups);
             _configService.DataFile = dataFile;
+
+            sw.Stop();
+            Debug.WriteLine(sw.ElapsedMilliseconds);
 
             // Navigate to the groups view.
             ShowViewModel<GroupsViewModel>();

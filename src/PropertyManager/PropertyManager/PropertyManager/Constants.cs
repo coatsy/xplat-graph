@@ -1,4 +1,7 @@
-﻿namespace PropertyManager
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace PropertyManager
 {
     public static class Constants
     {
@@ -24,5 +27,11 @@
             new [] { ".png", ".jpg", ".jpeg" };
         public static string[] DocumentFileExtensions => 
             new [] { ".docx", ".xlsx", ".one", ".pptx" };
+
+        public static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            NullValueHandling = NullValueHandling.Ignore
+        };
     }
 }

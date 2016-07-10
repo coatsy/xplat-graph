@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json;
+using PropertyManager.Extensions;
 using PropertyManager.Models;
 
 namespace PropertyManager.Services
@@ -50,73 +53,71 @@ namespace PropertyManager.Services
             return authenticationResult;
         }
 
-        private async Task<T> GetOneAsync<T>(string resource)
+        private async Task<T> GetOneAsync<T>(string resource) where T : class
         {
-            try
-            {
-                await EnsureTokenIsPresentAsync();
-                return await _httpService.GetAsync<T>(resource);
-            }
-            catch
-            {
-                // Ignored.
-            }
-            return default(T);
+            return await SendAsync<T>(resource, HttpMethod.Get);
         }
 
         private async Task<T[]> GetManyAsync<T>(string resource)
         {
-            return (await GetOneAsync<ResponseModel<T>>(resource)).Value;
+            return (await SendAsync<ResponseModel<T>>(resource, HttpMethod.Get)).Value;
         }
 
-        private async Task<T> PostAsync<T>(string resource, T data)
+        private async Task<T> PostAsync<T>(string resource, T data) where T : class
         {
+            return await SendAsync(resource, HttpMethod.Post, data);
+        }
+
+        public async Task<T> PutAsync<T>(string resource, T data) where T : class
+        {
+            return await SendAsync(resource, HttpMethod.Put, data);
+        }
+
+        public async Task<T> PutAsync<T>(string resource, Stream stream, string contentType) where T : class
+        {
+            return await SendAsync<T>(resource, HttpMethod.Put, stream, contentType);
+        }
+
+        private async Task<T> PatchAsync<T>(string resource, T data) where T : class
+        {
+            return await SendAsync(resource, HttpMethod.Patch, data);
+        }
+
+        private async Task<T> SendAsync<T>(string resource, HttpMethod httpMethod, T data) where T : class
+        {
+            var str = JsonConvert.SerializeObject(data, Constants.JsonSerializerSettings);
+            using (var stream = str.GetStream())
+            {
+                return await SendAsync<T>(resource, httpMethod,
+                    stream, Constants.JsonContentType);
+            }
+        }
+
+        private async Task<T> SendAsync<T>(string resource, HttpMethod httpMethod, Stream stream = null, string contentType = null) where T : class
+        {
+            // Try to do the call without calling ADAL. This reduces the 
+            // execution time of this call drastically.
+            try
+            {
+                if (_httpService.GetRequestHeaders().Authorization == null)
+                {
+                    await EnsureTokenIsPresentAsync();
+                }
+                return await _httpService.SendAsync<T>(resource, httpMethod, stream, contentType);
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.Message != "Unauthorized")
+                {
+                    throw;
+                }
+            }
+
+            // Call ADAL to validate tokens.
             try
             {
                 await EnsureTokenIsPresentAsync();
-                return await _httpService.PostAsync<T>(resource, data);
-            }
-            catch
-            {
-                // Ignored.
-            }
-            return default(T);
-        }
-
-        private async Task<T> PatchAsync<T>(string resource, T data)
-        {
-            try
-            {
-                await EnsureTokenIsPresentAsync();
-                return await _httpService.PatchAsync<T>(resource, data);
-            }
-            catch
-            {
-                // Ignored.
-            }
-            return default(T);
-        }
-
-        public async Task<T> PutAsync<T>(string resource, T data)
-        {
-            try
-            {
-                await EnsureTokenIsPresentAsync();
-                return await _httpService.PutAsync<T>(resource, data);
-            }
-            catch
-            {
-                // Ignored.
-            }
-            return default(T);
-        }
-
-        public async Task<T> PutAsync<T>(string resource, Stream stream, string contentType)
-        {
-            try
-            {
-                await EnsureTokenIsPresentAsync();
-                return await _httpService.PutAsync<T>(resource, stream, contentType);
+                return await _httpService.SendAsync<T>(resource, httpMethod, stream, contentType);
             }
             catch
             {
