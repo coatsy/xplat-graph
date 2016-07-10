@@ -63,7 +63,6 @@ namespace PropertyManager.ViewModels
             {
                 _streetName = value;
                 RaisePropertyChanged(() => StreetName);
-                Validate();
             }
         }
 
@@ -94,6 +93,7 @@ namespace PropertyManager.ViewModels
             {
                 Details = new PropertyTableRowModel();
             }
+            Validate();
         }
 
         public async void SaveDetailsAsync()
