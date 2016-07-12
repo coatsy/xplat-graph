@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+  <style name="Theme.Splash" parent="android:Theme">
+    <item name="android:windowBackground">@drawable/splash</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+
+  <style name="Theme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+  </style>
+
+  <style name="Theme.Light.AccentButton" parent="Widget.AppCompat.Button.Colored">
+    <item name="colorButtonNormal">@color/accentColor</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+</resources>

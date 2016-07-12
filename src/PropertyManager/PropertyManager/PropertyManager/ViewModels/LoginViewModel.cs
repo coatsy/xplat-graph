@@ -40,9 +40,10 @@ namespace PropertyManager.ViewModels
 
         private async void LoginAsync()
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             IsLoading = true;
+
+            // Make sure that the Graph service is configured.
+            await _graphService.EnsureTokenIsPresentAsync();
 
             UserModel user = null;
             GroupModel[] userGroups = null;
@@ -145,9 +146,6 @@ namespace PropertyManager.ViewModels
             _configService.AppGroup = appGroup;
             _configService.Groups = new List<GroupModel>(propertyGroups);
             _configService.DataFile = dataFile;
-
-            sw.Stop();
-            Debug.WriteLine(sw.ElapsedMilliseconds);
 
             // Navigate to the groups view.
             ShowViewModel<GroupsViewModel>();

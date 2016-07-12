@@ -6,6 +6,8 @@ namespace PropertyManager.Services
 {
     public interface IGraphService
     {
+        Task EnsureTokenIsPresentAsync();
+
         Task<UserModel> GetUserAsync();
 
         Task<GroupModel[]> GetUserGroupsAsync();

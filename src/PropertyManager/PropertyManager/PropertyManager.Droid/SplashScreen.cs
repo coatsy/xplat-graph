@@ -7,7 +7,7 @@ namespace PropertyManager.Droid
     [Activity(
         Label = "PropertyManager.Droid"
         , MainLauncher = true
-        , Icon = "@drawable/Icon"
+        , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"
         , NoHistory = true
         , ScreenOrientation = ScreenOrientation.Portrait)]
@@ -16,6 +16,7 @@ namespace PropertyManager.Droid
         public SplashScreen()
             : base(Resource.Layout.SplashScreen)
         {
+            
         }
     }
 }

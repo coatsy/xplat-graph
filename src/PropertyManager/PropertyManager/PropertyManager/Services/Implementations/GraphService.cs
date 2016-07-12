@@ -26,11 +26,11 @@ namespace PropertyManager.Services
             _authenticationService = authenticationService;
         }
 
-        private async Task EnsureTokenIsPresentAsync()
+        public async Task EnsureTokenIsPresentAsync()
         {
             var authenticationResult = await GetAuthenticationResultAsync();
             _httpService.Resource = new Uri(Resource);
-            _httpService.GetRequestHeaders().Authorization = new AuthenticationHeaderValue("Bearer", 
+            _httpService.GetRequestHeaders().Authorization = new AuthenticationHeaderValue("Bearer",
                 authenticationResult.AccessToken);
         }
 
