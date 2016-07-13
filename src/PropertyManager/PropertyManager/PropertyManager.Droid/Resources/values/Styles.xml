@@ -5,11 +5,20 @@
     <item name="android:windowNoTitle">true</item>
   </style>
 
-  <style name="Theme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="Theme.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--Fix v14 version?-->
+    <item name="colorPrimary">@color/accentColor</item>
+    <item name="colorPrimaryDark">@color/darkAccentColor</item>
+  </style>
+
+  <style name="Theme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!--Fix v14 version?-->
+    <item name="colorPrimary">@color/accentColor</item>
+    <item name="colorPrimaryDark">@color/darkAccentColor</item>
   </style>
 
   <style name="Theme.Light.AccentButton" parent="Widget.AppCompat.Button.Colored">
     <item name="colorButtonNormal">@color/accentColor</item>
-    <item name="android:textColor">#ffffff</item>
+    <item name="android:textColor">@color/textColor</item>
   </style>
 </resources>

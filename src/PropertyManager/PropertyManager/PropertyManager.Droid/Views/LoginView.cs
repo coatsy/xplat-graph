@@ -7,7 +7,7 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 
 namespace PropertyManager.Droid.Views
 {
-    [Activity(Label = "LoginView", Theme = "@style/Theme.Light",
+    [Activity(Label = "LoginView", Theme = "@style/Theme.Light.NoActionBar",
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class LoginView : MvxAppCompatActivity
     {
