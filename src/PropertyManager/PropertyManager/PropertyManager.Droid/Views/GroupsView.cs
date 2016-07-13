@@ -26,10 +26,8 @@ namespace PropertyManager.Droid.Views
         protected override void OnViewModelSet()
         {
             Title = "Properties";
-
             SetContentView(Resource.Layout.GroupsView);
             base.OnViewModelSet();
-
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

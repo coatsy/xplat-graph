@@ -163,7 +163,7 @@
     <AndroidResource Include="Resources\layout\GroupsView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\TestListItem.axml">
+    <AndroidResource Include="Resources\layout\GroupListViewItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
