@@ -50,6 +50,15 @@ namespace PropertyManager.Droid.Views
             return base.OnCreateOptionsMenu(menu);
         }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.action_groups_add)
+            {
+                ViewModel.AddPropertyCommand.Execute(null);
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);

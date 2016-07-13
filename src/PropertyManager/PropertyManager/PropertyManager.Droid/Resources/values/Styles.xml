@@ -7,18 +7,23 @@
 
   <style name="Theme.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
     <!--Fix v14 version?-->
+    <item name="colorAccent">@color/accentColor</item>
     <item name="colorPrimary">@color/accentColor</item>
     <item name="colorPrimaryDark">@color/darkAccentColor</item>
   </style>
 
   <style name="Theme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
     <!--Fix v14 version?-->
+    <item name="colorAccent">@color/accentColor</item>
     <item name="colorPrimary">@color/accentColor</item>
     <item name="colorPrimaryDark">@color/darkAccentColor</item>
   </style>
 
-  <style name="Theme.Light.AccentButton" parent="Widget.AppCompat.Button.Colored">
+  <style name="Theme.Light.Button" parent="ThemeOverlay.AppCompat.Light">
+  </style>
+
+  <style name="Theme.Light.AccentButton" parent="ThemeOverlay.AppCompat.Dark">
     <item name="colorButtonNormal">@color/accentColor</item>
-    <item name="android:textColor">@color/textColor</item>
+    <item name="colorAccent">@color/accentColor</item>
   </style>
 </resources>

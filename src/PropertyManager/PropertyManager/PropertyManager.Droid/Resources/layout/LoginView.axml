@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/button1"
         android:theme="@style/Theme.Light.AccentButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         local:MvxBind="Click LoginCommand; Visibility InvertedVisibility(IsLoading)" />
     <ProgressBar
         android:layout_width="match_parent"

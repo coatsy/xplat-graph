@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView1">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="15dp"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+        <TextView
+            android:text="Fill out the details of this property down below, these will be stored in Office 365 and be available to all user of this app."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:layout_marginBottom="15dp" />
+        <EditText
+            android:inputType="textPostalAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/street_name_edit_text"
+            android:hint="Street name"
+            android:layout_marginBottom="15dp"
+            local:MvxBind="Text StreetName" />
+        <EditText
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/description_edit_text"
+            android:hint="Description"
+            android:layout_marginBottom="15dp"
+            local:MvxBind="Text Details.Description" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rooms_edit_text"
+            android:hint="Rooms"
+            android:layout_marginBottom="15dp"
+            local:MvxBind="Text Details.Rooms" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/living_area_edit_text"
+            android:hint="Living area"
+            android:layout_marginBottom="15dp"
+            local:MvxBind="Text Details.LivingArea" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lot_size_edit_text"
+            android:hint="Lot size"
+            android:layout_marginBottom="15dp"
+            local:MvxBind="Text Details.LotSize" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/operating_costs_edit_text"
+            android:hint="Operating costs"
+            android:layout_marginBottom="15dp"
+            local:MvxBind="Text Details.OperatingCosts" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout1"
+            android:weightSum="2"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+            <Button
+                android:text="Cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/button1"
+                android:layout_weight="1"
+                android:theme="@style/Theme.Light.Button"
+                style="@style/Widget.AppCompat.Button"
+                local:MvxBind="Click GoBackCommand" />
+            <Button
+                android:text="Save"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/save_details_button"
+                android:layout_weight="1"
+                android:theme="@style/Theme.Light.AccentButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                local:MvxBind="Click SaveDetailsCommand; Enabled IsValid" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
