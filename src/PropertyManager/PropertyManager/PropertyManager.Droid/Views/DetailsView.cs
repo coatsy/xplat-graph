@@ -12,12 +12,8 @@ namespace PropertyManager.Droid.Views
 {
     [Activity(Label = "DetailsView", Theme = "@style/Theme.Light",
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class DetailsView : MvxAppCompatActivity
+    public class DetailsView : MvxAppCompatActivity<DetailsViewModel>
     {
-        private ProgressDialog _progressDialog;
-
-        public new DetailsViewModel ViewModel => base.ViewModel as DetailsViewModel;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

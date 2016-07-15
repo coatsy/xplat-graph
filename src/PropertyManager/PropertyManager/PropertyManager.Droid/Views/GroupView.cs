@@ -5,18 +5,17 @@ using Android.OS;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using PropertyManager.ViewModels;
+using Android.Support.V4.View;
+using PropertyManager.Droid.Adapters;
 
 namespace PropertyManager.Droid.Views
 {
-    [Activity(Label = "GroupView", Theme = "@style/Theme.Light",
+    [Activity(Label = "GroupView", Theme = "@style/Theme.Light.NoActionBar",
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class GroupView : MvxAppCompatActivity
+    public class GroupView : MvxAppCompatActivity<GroupViewModel>
     {
-        public new GroupViewModel ViewModel => base.ViewModel as GroupViewModel;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             base.OnCreate(savedInstanceState);
         }
 
@@ -25,6 +24,18 @@ namespace PropertyManager.Droid.Views
             Title = ViewModel.Group.DisplayName;
             SetContentView(Resource.Layout.GroupView);
             base.OnViewModelSet();
+
+            // Get toolbar and set title.
+            var toolbar = (Android.Support.V7.Widget.Toolbar)FindViewById(Resource.Id.toolbar);
+            toolbar.Title = Title;
+
+            // Configure tab layout.
+            ViewPager viewPager = (ViewPager)FindViewById(Resource.Id.view_pager);
+            viewPager.Adapter = new GroupViewFragmentsAdapter(this);
+
+            var tabLayout = FindViewById<Android.Support.Design.Widget.TabLayout>(
+                Resource.Id.tab_layout);
+            tabLayout.SetupWithViewPager(viewPager);
         }
 
         protected override void OnResume()

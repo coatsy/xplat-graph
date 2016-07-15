@@ -2,7 +2,6 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.View;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -14,10 +13,8 @@ namespace PropertyManager.Droid.Views
 {
     [Activity(Label = "GroupsView", Theme = "@style/Theme.Light",
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class GroupsView : MvxAppCompatActivity
+    public class GroupsView : MvxAppCompatActivity<GroupsViewModel>
     {
-        public new GroupsViewModel ViewModel => base.ViewModel as GroupsViewModel;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

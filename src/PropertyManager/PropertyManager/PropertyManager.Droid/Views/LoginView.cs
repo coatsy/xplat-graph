@@ -10,10 +10,8 @@ namespace PropertyManager.Droid.Views
 {
     [Activity(Label = "LoginView", Theme = "@style/Theme.Light.NoActionBar",
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class LoginView : MvxAppCompatActivity
+    public class LoginView : MvxAppCompatActivity<LoginViewModel>
     {
-        public new LoginViewModel ViewModel => base.ViewModel as LoginViewModel;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
