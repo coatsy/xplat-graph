@@ -7,6 +7,6 @@
     <MvxListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        local:MvxBind="ItemsSource FilteredGroups"
+        local:MvxBind="ItemsSource FilteredGroups; ItemClick GroupClickCommand"
         local:MvxItemTemplate="@layout/grouplistviewitem"/>
 </LinearLayout>

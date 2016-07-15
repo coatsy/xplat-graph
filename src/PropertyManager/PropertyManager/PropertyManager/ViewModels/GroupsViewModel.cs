@@ -28,6 +28,8 @@ namespace PropertyManager.ViewModels
 
         public ObservableCollection<GroupModel> FilteredGroups { get; set; }
 
+        public ICommand GroupClickCommand => new MvxCommand<GroupModel>(group => ShowGroup(group));
+
         public ICommand FilterGroupsCommand => new MvxCommand(FilterGroups);
 
         public ICommand AddPropertyCommand => new MvxCommand(AddProperty);

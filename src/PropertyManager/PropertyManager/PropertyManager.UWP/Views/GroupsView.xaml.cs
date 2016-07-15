@@ -31,7 +31,7 @@ namespace PropertyManager.UWP.Views
         private void OnItemClick(object sender, ItemClickEventArgs e)
         {
             var group = e.ClickedItem as GroupModel;
-            ViewModel?.ShowGroup(group);
+            ViewModel?.GroupClickCommand.Execute(group);
         }
 
         private void OnQuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
