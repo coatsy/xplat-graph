@@ -151,6 +151,7 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\DetailsView.cs" />
+    <Compile Include="Views\GroupView.cs" />
     <Compile Include="Views\GroupsView.cs" />
     <Compile Include="Views\LoginView.cs" />
   </ItemGroup>
@@ -169,6 +170,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\DetailsView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GroupView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
