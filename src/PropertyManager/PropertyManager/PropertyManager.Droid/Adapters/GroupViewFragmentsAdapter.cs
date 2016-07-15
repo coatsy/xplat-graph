@@ -2,6 +2,7 @@ using Android.Support.V4.App;
 using Java.Lang;
 using MvvmCross.Droid.Support.V4;
 using PropertyManager.Droid.Views;
+using System.Linq;
 
 namespace PropertyManager.Droid.Adapters
 {
@@ -26,6 +27,12 @@ namespace PropertyManager.Droid.Adapters
                 new FragmentInfo("Files", new FilesFragment()),
                 new FragmentInfo("Tasks", new TasksFragment()),
             };
+
+            // Set view model for each fragment.
+            foreach (var fragment in _fragmentInfos.Select(i => i.Fragment))
+            {
+                fragment.ViewModel = groupView.ViewModel;
+            }
         }
 
         public override Fragment GetItem(int position, Fragment.SavedState fragmentSavedState = null)

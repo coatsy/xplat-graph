@@ -14,6 +14,9 @@ namespace PropertyManager.Droid.Views
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class GroupView : MvxAppCompatActivity<GroupViewModel>
     {
+        private Android.Support.Design.Widget.FloatingActionButton _addActionButton;
+        private Android.Support.Design.Widget.FloatingActionButton _editActionButton;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -36,6 +39,39 @@ namespace PropertyManager.Droid.Views
             var tabLayout = FindViewById<Android.Support.Design.Widget.TabLayout>(
                 Resource.Id.tab_layout);
             tabLayout.SetupWithViewPager(viewPager);
+
+            // Get the FABs and hook up the event listener.
+            _addActionButton = (Android.Support.Design.Widget.FloatingActionButton)
+                FindViewById(Resource.Id.add_fab);
+            _editActionButton = (Android.Support.Design.Widget.FloatingActionButton)
+             FindViewById(Resource.Id.edit_fab);
+            viewPager.PageSelected += OnPageSelected;
+            OnPageSelected(null, new ViewPager.PageSelectedEventArgs(
+                tabLayout.SelectedTabPosition));
+        }
+
+        private void OnPageSelected(object sender, ViewPager.PageSelectedEventArgs e)
+        {
+            // Check add FAB.
+            if (e.Position == 2)
+            {
+                _addActionButton.Show();
+            }
+            else
+            {
+                _addActionButton.Hide();
+            }
+
+            // Check edit FAB.
+            if (e.Position == 0)
+            {
+                _editActionButton.Show();
+            }
+            else
+            {
+                _editActionButton.Hide();
+            }
+
         }
 
         protected override void OnResume()

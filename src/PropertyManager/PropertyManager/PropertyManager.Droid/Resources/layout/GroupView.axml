@@ -27,4 +27,20 @@
       android:layout_width="match_parent"
       android:layout_height="fill_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/add_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="16dp"
+    android:clickable="true"
+    android:src="@drawable/ic_add_black_24dp_white" />
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/edit_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="16dp"
+    android:clickable="true"
+    android:src="@drawable/ic_mode_edit_black_24dp_white" />
 </android.support.design.widget.CoordinatorLayout>
