@@ -27,7 +27,7 @@
             android:id="@+id/street_name_edit_text"
             android:hint="Street name"
             android:layout_marginBottom="15dp"
-            local:MvxBind="Text StreetName" />
+            local:MvxBind="Text StreetName; Visibility InvertedVisibility(IsExisting)" />
         <EditText
             android:inputType="textMultiLine"
             android:layout_width="match_parent"

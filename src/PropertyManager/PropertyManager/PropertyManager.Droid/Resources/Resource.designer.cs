@@ -3572,7 +3572,7 @@ namespace PropertyManager.Droid
 			public const int activity_chooser_view_content = 2131099711;
 			
 			// aapt resource value: 0x7f060086
-			public const int add_fab = 2131099782;
+			public const int add_file_fab = 2131099782;
 			
 			// aapt resource value: 0x7f060096
 			public const int agentWebView = 2131099798;
@@ -3659,7 +3659,7 @@ namespace PropertyManager.Droid
 			public const int disableHome = 2131099664;
 			
 			// aapt resource value: 0x7f060087
-			public const int edit_fab = 2131099783;
+			public const int edit_details_fab = 2131099783;
 			
 			// aapt resource value: 0x7f06005e
 			public const int edit_query = 2131099742;

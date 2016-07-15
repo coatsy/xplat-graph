@@ -42,7 +42,7 @@ namespace PropertyManager.Droid.Adapters
 
         public override ICharSequence GetPageTitleFormatted(int position)
         {
-            return new Java.Lang.String(_fragmentInfos[position].Title);
+            return new String(_fragmentInfos[position].Title);
         }
     }
 }

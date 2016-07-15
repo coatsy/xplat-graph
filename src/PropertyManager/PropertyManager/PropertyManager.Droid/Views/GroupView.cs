@@ -14,8 +14,8 @@ namespace PropertyManager.Droid.Views
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class GroupView : MvxAppCompatActivity<GroupViewModel>
     {
-        private Android.Support.Design.Widget.FloatingActionButton _addActionButton;
-        private Android.Support.Design.Widget.FloatingActionButton _editActionButton;
+        private Android.Support.Design.Widget.FloatingActionButton _editDetailsActionButton;
+        private Android.Support.Design.Widget.FloatingActionButton _addFileActionButton;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -41,10 +41,10 @@ namespace PropertyManager.Droid.Views
             tabLayout.SetupWithViewPager(viewPager);
 
             // Get the FABs and hook up the event listener.
-            _addActionButton = (Android.Support.Design.Widget.FloatingActionButton)
-                FindViewById(Resource.Id.add_fab);
-            _editActionButton = (Android.Support.Design.Widget.FloatingActionButton)
-             FindViewById(Resource.Id.edit_fab);
+            _editDetailsActionButton = (Android.Support.Design.Widget.FloatingActionButton)
+             FindViewById(Resource.Id.edit_details_fab);
+            _addFileActionButton = (Android.Support.Design.Widget.FloatingActionButton)
+                FindViewById(Resource.Id.add_file_fab);
             viewPager.PageSelected += OnPageSelected;
             OnPageSelected(null, new ViewPager.PageSelectedEventArgs(
                 tabLayout.SelectedTabPosition));
@@ -52,24 +52,24 @@ namespace PropertyManager.Droid.Views
 
         private void OnPageSelected(object sender, ViewPager.PageSelectedEventArgs e)
         {
-            // Check add FAB.
-            if (e.Position == 2)
-            {
-                _addActionButton.Show();
-            }
-            else
-            {
-                _addActionButton.Hide();
-            }
-
             // Check edit FAB.
             if (e.Position == 0)
             {
-                _editActionButton.Show();
+                _editDetailsActionButton.Show();
             }
             else
             {
-                _editActionButton.Hide();
+                _editDetailsActionButton.Hide();
+            }
+
+            // Check add FAB.
+            if (e.Position == 2)
+            {
+                _addFileActionButton.Show();
+            }
+            else
+            {
+                _addFileActionButton.Hide();
             }
 
         }
