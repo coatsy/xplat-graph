@@ -111,6 +111,8 @@
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\FilePickerService.cs" />
     <Compile Include="Services\LauncherService.cs" />
+    <Compile Include="Services\ProgressDialogHandle.cs" />
+    <Compile Include="Services\DialogService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Views\DetailsView.xaml.cs">
       <DependentUpon>DetailsView.xaml</DependentUpon>

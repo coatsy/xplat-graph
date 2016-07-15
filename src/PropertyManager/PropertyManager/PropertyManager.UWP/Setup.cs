@@ -35,6 +35,7 @@ namespace PropertyManager.UWP
             Mvx.RegisterSingleton(typeof(IAuthenticationService), new AuthenticationService());
             Mvx.RegisterSingleton(typeof(ILauncherService), new LauncherService());
             Mvx.RegisterSingleton(typeof(IFilePickerService), new FilePickerService());
+            Mvx.RegisterSingleton(typeof(IDialogService), new DialogService());
             return new PropertyManager.App();
         }
 

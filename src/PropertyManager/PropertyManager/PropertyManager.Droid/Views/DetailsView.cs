@@ -7,10 +7,6 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using PropertyManager.ViewModels;
 using System.Collections.Generic;
-using Android.Views;
-using MvvmCross.Platform.WeakSubscription;
-using MvvmCross.Core.ViewModels;
-using System.ComponentModel;
 
 namespace PropertyManager.Droid.Views
 {
@@ -49,29 +45,6 @@ namespace PropertyManager.Droid.Views
             foreach (var editText in editTexts)
             {
                 editText.AfterTextChanged += (sender, e) => ViewModel.Validate();
-            }
-
-            // Watch the IsLoading property in order to show a progress
-            // prompt whenever requested.
-            IMvxNotifyPropertyChanged viewModel = ViewModel as IMvxNotifyPropertyChanged;
-            viewModel.WeakSubscribe(PropertyChanged);
-        }
-
-        private void PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ViewModel.IsLoading))
-            {
-                if (ViewModel.IsLoading && _progressDialog == null)
-                {
-                    _progressDialog = ProgressDialog.Show(this, 
-                        "Please wait...", 
-                        "Saving details...", true);
-                }
-                else if (!ViewModel.IsLoading && _progressDialog != null)
-                {
-                    _progressDialog.Hide();
-                    _progressDialog = null;
-                }
             }
         }
 

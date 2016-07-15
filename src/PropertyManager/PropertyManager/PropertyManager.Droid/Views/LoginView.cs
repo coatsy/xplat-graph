@@ -4,6 +4,7 @@ using Android.Content.PM;
 using Android.OS;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using MvvmCross.Droid.Support.V7.AppCompat;
+using PropertyManager.ViewModels;
 
 namespace PropertyManager.Droid.Views
 {
@@ -11,6 +12,8 @@ namespace PropertyManager.Droid.Views
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class LoginView : MvxAppCompatActivity
     {
+        public new LoginViewModel ViewModel => base.ViewModel as LoginViewModel;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -20,6 +23,12 @@ namespace PropertyManager.Droid.Views
         {
             SetContentView(Resource.Layout.LoginView);
             base.OnViewModelSet();
+        }
+
+        protected override void OnResume()
+        {
+            ViewModel.OnResume();
+            base.OnResume();
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)

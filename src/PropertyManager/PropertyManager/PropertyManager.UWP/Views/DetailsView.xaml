@@ -32,8 +32,6 @@
                     IsTabStop="False"/>
             <TextBlock Text="{Binding Title}"
                        Style="{StaticResource PageTitleTextBlock}"/>
-            <ProgressRing Style="{StaticResource AccentHeaderProgressRingStyle}"
-                          IsActive="{Binding IsLoading}"/>
         </Grid>
 
         <ScrollViewer Grid.Row="1" Padding="15" VerticalScrollBarVisibility="Auto"
@@ -43,27 +41,21 @@
                            TextWrapping="Wrap"/>
                 <TextBox Header="Street name" Margin="0,15" Text="{Binding StreetName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          PlaceholderText="Example: 915 Mulberry Lane"
-                         Visibility="{Binding IsExisting, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                         IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"/>
+                         Visibility="{Binding IsExisting, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
                 <TextBox AcceptsReturn="True" TextWrapping="Wrap" Header="Description"  Margin="0,15"
                          Text="{Binding Details.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinHeight="60"
-                         IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"
                          TextChanged="OnTextChanged"/>
                 <TextBox Header="Rooms" Margin="0,15" Text="{Binding Details.Rooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                         PlaceholderText="Use only digits"
-                         IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"
+                         PlaceholderText="Use only digits" InputScope="Number"
                          TextChanged="OnTextChanged"/>
                 <TextBox Header="Living area" Margin="0,15" Text="{Binding Details.LivingArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         PlaceholderText="Use only digits"
-                         IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"
+                         PlaceholderText="Use only digits" InputScope="Number"
                          TextChanged="OnTextChanged"/>
                 <TextBox Header="Lot size" Margin="0,15" Text="{Binding Details.LotSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         PlaceholderText="Use only digits"
-                         IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"
+                         PlaceholderText="Use only digits" InputScope="Number"
                          TextChanged="OnTextChanged"/>
                 <TextBox Header="Operating costs" Margin="0,15" Text="{Binding Details.OperatingCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         PlaceholderText="Use only digits"
-                         IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"
+                         PlaceholderText="Use only digits" InputScope="Number"
                          TextChanged="OnTextChanged"/>
             </StackPanel>
         </ScrollViewer>

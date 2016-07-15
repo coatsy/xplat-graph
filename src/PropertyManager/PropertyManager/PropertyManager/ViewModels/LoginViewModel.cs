@@ -12,23 +12,10 @@ using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
-    public class LoginViewModel
-        : MvxViewModel
+    public class LoginViewModel : BaseViewModel
     {
         private readonly IGraphService _graphService;
         private readonly IConfigService _configService;
-
-        private bool _isLoading;
-
-        public bool IsLoading
-        {
-            get { return _isLoading; }
-            set
-            {
-                _isLoading = value;
-                RaisePropertyChanged(() => IsLoading);
-            }
-        }
 
         public ICommand LoginCommand => new MvxCommand(LoginAsync);
 
@@ -150,6 +137,9 @@ namespace PropertyManager.ViewModels
 
             // Navigate to the groups view.
             ShowViewModel<GroupsViewModel>();
+
+            // Update only the underlying field for a better UI experience.
+            _isLoading = false;
         }
     }
 }

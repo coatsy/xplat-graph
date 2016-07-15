@@ -35,6 +35,7 @@ namespace PropertyManager.Droid
             Mvx.RegisterSingleton(typeof(IAuthenticationService), new AuthenticationService());
             Mvx.RegisterSingleton(typeof(ILauncherService), new FakeLauncherService());
             Mvx.RegisterSingleton(typeof(IFilePickerService), new FakeFilePickerService());
+            Mvx.RegisterSingleton(typeof(IDialogService), new DialogService());
             return new App();
         }
 

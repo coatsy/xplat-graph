@@ -11,30 +11,17 @@ using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
-    public class DetailsViewModel
-        : MvxViewModel
+    public class DetailsViewModel : BaseViewModel
     {
         private readonly IGraphService _graphService;
         private readonly IConfigService _configService;
-
-        private bool _isLoading;
-
-        public bool IsLoading
-        {
-            get { return _isLoading; }
-            set
-            {
-                _isLoading = value;
-                RaisePropertyChanged(() => IsLoading);
-                RaisePropertyChanged(() => IsValid);
-            }
-        }
+        private readonly IDialogService _dialogService;
 
         private bool _isValid;
 
         public bool IsValid
         {
-            get { return !_isLoading && _isValid; }
+            get { return !IsLoading && _isValid; }
             set
             {
                 _isValid = value;
@@ -70,14 +57,14 @@ namespace PropertyManager.ViewModels
 
         public bool IsExisting { get; set; }
 
-        public ICommand GoBackCommand => new MvxCommand(() => Close(this));
-
         public ICommand SaveDetailsCommand => new MvxCommand(SaveDetailsAsync);
 
-        public DetailsViewModel(IGraphService graphService, IConfigService configService)
+        public DetailsViewModel(IGraphService graphService, IConfigService configService,
+            IDialogService dialogService)
         {
             _graphService = graphService;
             _configService = configService;
+            _dialogService = dialogService;
         }
 
         public void Init(string id)
@@ -99,6 +86,9 @@ namespace PropertyManager.ViewModels
         public async void SaveDetailsAsync()
         {
             IsLoading = true;
+            // Show a progress dialog.
+            var progressDialog = _dialogService.ShowProgress("Please wait...", 
+                "The details are being saved to your Office 365 tenant.");
 
             if (IsExisting)
             {
@@ -142,6 +132,8 @@ namespace PropertyManager.ViewModels
                 _configService.DataFile.PropertyTable.AddRow(Details);
             }
 
+            // Close the progress dialog.
+            progressDialog.Close();
             IsLoading = false;
             GoBackCommand.Execute(null);
         }

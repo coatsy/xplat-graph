@@ -9,8 +9,7 @@ using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
-    public class GroupsViewModel
-        : MvxViewModel
+    public class GroupsViewModel : BaseViewModel
     {
         private readonly IConfigService _configService;
 
@@ -29,8 +28,6 @@ namespace PropertyManager.ViewModels
 
         public ObservableCollection<GroupModel> FilteredGroups { get; set; }
 
-        public ICommand GoBackCommand => new MvxCommand(() => Close(this));
-
         public ICommand FilterGroupsCommand => new MvxCommand(FilterGroups);
 
         public ICommand AddPropertyCommand => new MvxCommand(AddProperty);
@@ -47,6 +44,12 @@ namespace PropertyManager.ViewModels
             _query = null;
             FilterGroups();
             base.Start();
+        }
+
+        public override void OnResume()
+        {
+            FilterGroups();
+            base.OnResume();
         }
 
         public void ShowGroup(GroupModel group)

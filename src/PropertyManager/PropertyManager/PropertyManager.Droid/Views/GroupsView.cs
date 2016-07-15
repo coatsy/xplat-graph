@@ -30,6 +30,12 @@ namespace PropertyManager.Droid.Views
             base.OnViewModelSet();
         }
 
+        protected override void OnResume()
+        {
+            ViewModel.OnResume();
+            base.OnResume();
+        }
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.GroupsMenu, menu);

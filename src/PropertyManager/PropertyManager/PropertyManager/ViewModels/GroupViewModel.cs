@@ -18,8 +18,7 @@ namespace PropertyManager.ViewModels
 
     public delegate void TasksChangedEventHandler(GroupViewModel sender);
 
-    public class GroupViewModel
-        : MvxViewModel
+    public class GroupViewModel : BaseViewModel
     {
         private readonly IGraphService _graphService;
         private readonly IConfigService _configService;
@@ -28,18 +27,6 @@ namespace PropertyManager.ViewModels
 
         private PlanModel _groupPlan;
         private BucketModel _taskBucket;
-
-        private bool _isLoading;
-
-        public bool IsLoading
-        {
-            get { return _isLoading; }
-            set
-            {
-                _isLoading = value;
-                RaisePropertyChanged(() => IsLoading);
-            }
-        }
 
         private string _conversationText;
 
@@ -74,8 +61,6 @@ namespace PropertyManager.ViewModels
         public ObservableCollection<ConversationModel> Conversations { get; set; }
 
         public ObservableCollection<TaskModel> Tasks { get; set; }
-
-        public ICommand GoBackCommand => new MvxCommand(() => Close(this));
 
         public ICommand AddConversationCommand => new MvxCommand(AddConversationAsync);
 
