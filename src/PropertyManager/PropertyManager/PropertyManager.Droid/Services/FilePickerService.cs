@@ -5,7 +5,6 @@ using Android.App;
 using Android.Content;
 using System.IO;
 using Android.Net;
-using Android.Database;
 using Android.Provider;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Droid.Platform;
@@ -68,19 +67,19 @@ namespace PropertyManager.Droid.Services
 
         private string GetRealPathFromUri(ContentResolver contentResolver, Uri uri)
         {
-            ICursor cursor = contentResolver.Query(uri, null, null, null, null);
+            var cursor = contentResolver.Query(uri, null, null, null, null);
             cursor.MoveToFirst();
-            string documentId = cursor.GetString(0);
-            documentId = documentId.Split(':')[1];
+            var documentId = cursor.GetString(0);
+            var split = documentId.Split(':');
+            documentId = split.Length > 1 ? split[1] : documentId;
             cursor.Close();
 
             cursor = contentResolver.Query(
-            Android.Provider.MediaStore.Images.Media.ExternalContentUri,
+            MediaStore.Images.Media.ExternalContentUri,
             null, MediaStore.Images.Media.InterfaceConsts.Id + " = ? ", new[] { documentId }, null);
             cursor.MoveToFirst();
             string path = cursor.GetString(cursor.GetColumnIndex(MediaStore.Images.Media.InterfaceConsts.Data));
             cursor.Close();
-
             return path;
         }
 
