@@ -33,8 +33,8 @@ namespace PropertyManager.Droid
         {            
             // Register platform services.
             Mvx.RegisterSingleton(typeof(IAuthenticationService), new AuthenticationService());
-            Mvx.RegisterSingleton(typeof(ILauncherService), new FakeLauncherService());
-            Mvx.RegisterSingleton(typeof(IFilePickerService), new FakeFilePickerService());
+            Mvx.RegisterSingleton(typeof(ILauncherService), new LauncherService());
+            Mvx.RegisterSingleton(typeof(IFilePickerService), new FilePickerService());
             Mvx.RegisterSingleton(typeof(IDialogService), new DialogService());
             return new App();
         }

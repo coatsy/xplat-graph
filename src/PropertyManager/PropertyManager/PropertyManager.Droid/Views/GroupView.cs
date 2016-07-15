@@ -7,6 +7,7 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 using PropertyManager.ViewModels;
 using Android.Support.V4.View;
 using PropertyManager.Droid.Adapters;
+using PropertyManager.Droid.Services;
 
 namespace PropertyManager.Droid.Views
 {
@@ -71,7 +72,6 @@ namespace PropertyManager.Droid.Views
             {
                 _addFileActionButton.Hide();
             }
-
         }
 
         protected override void OnResume()
@@ -83,6 +83,13 @@ namespace PropertyManager.Droid.Views
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == FilePickerService.RequestCode)
+            {
+                FilePickerAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(
+                    ContentResolver, requestCode, resultCode, data);
+                return;
+            }
             AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(
                 requestCode, resultCode, data);
         }

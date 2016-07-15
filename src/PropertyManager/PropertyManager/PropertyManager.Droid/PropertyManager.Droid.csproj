@@ -160,9 +160,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\DialogService.cs" />
-    <Compile Include="Services\FakeAuthenticationService.cs" />
-    <Compile Include="Services\FakeFilePickerService.cs" />
-    <Compile Include="Services\FakeLauncherService.cs" />
+    <Compile Include="Services\FilePickerAgentContinuationHelper.cs" />
+    <Compile Include="Services\FilePickerService.cs" />
+    <Compile Include="Services\LauncherService.cs" />
     <Compile Include="Services\ProgressDialogHandle.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
