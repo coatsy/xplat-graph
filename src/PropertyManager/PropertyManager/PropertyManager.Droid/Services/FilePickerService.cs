@@ -44,7 +44,7 @@ namespace PropertyManager.Droid.Services
             if (requestCode == RequestCode && resultCode == Result.Ok && data != null &&
                 _taskCompletionSource != null)
             {
-                Uri uri = data.Data;
+                var uri = data.Data;
 
                 // Get the input stream, which by some reason cannot be seeked.
                 // Workaround is to read the bytes and create a new stream.
@@ -87,14 +87,14 @@ namespace PropertyManager.Droid.Services
         public static byte[] GetByteArray(Stream inputStream)
         {
             var buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
                 int read;
                 while ((read = inputStream.Read(buffer, 0, buffer.Length)) > 0)
                 {
-                    ms.Write(buffer, 0, read);
+                    memoryStream.Write(buffer, 0, read);
                 }
-                return ms.ToArray();
+                return memoryStream.ToArray();
             }
         }
     }
