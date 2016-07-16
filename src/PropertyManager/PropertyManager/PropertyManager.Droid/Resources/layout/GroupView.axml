@@ -11,8 +11,17 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:paddingRight="10dp"
             android:background="?attr/colorPrimary"
-            local:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            local:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:indeterminateTint="#fff"
+                android:indeterminateTintMode="src_in"
+                android:layout_gravity="right"
+                local:MvxBind="Visible IsLoading" />
+        </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
