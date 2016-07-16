@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace PropertyManager.Models
 {
@@ -15,5 +16,8 @@ namespace PropertyManager.Models
         public List<string> UniqueSenders { get; set; }
 
         public string Preview { get; set; }
+
+        [JsonIgnore]
+        public bool IsOwnedByUser { get; set; }
     }
 }

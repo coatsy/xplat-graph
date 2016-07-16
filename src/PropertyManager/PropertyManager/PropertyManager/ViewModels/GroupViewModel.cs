@@ -144,6 +144,8 @@ namespace PropertyManager.ViewModels
             var conversations = await _graphService.GetGroupConversationsAsync(Group);
             foreach (var conversation in conversations.Reverse())
             {
+                conversation.IsOwnedByUser = conversation.UniqueSenders
+                    .Any(us => us.Contains(_configService.User.DisplayName));
                 Conversations.Add(conversation);
             }
             OnConversationsChanged();

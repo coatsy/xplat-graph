@@ -3,6 +3,10 @@ using Android.Views;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Binding.Droid.BindingContext;
 using PropertyManager.ViewModels;
+using MvvmCross.Binding.Droid.Views;
+using Android.Content;
+using PropertyManager.Models;
+using PropertyManager.Droid.Adapters;
 
 namespace PropertyManager.Droid.Views
 {
@@ -23,6 +27,10 @@ namespace PropertyManager.Droid.Views
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
+
+            var conversationsListView = (MvxListView)view.FindViewById(Resource.Id.conversation_list_view);
+            conversationsListView.Adapter = new ConversationListViewAdapter(Context, 
+                (IMvxAndroidBindingContext)BindingContext);
 
             // Get EditText and hook up the event listeners.
             var conversationEditText = (Android.Support.V7.Widget.AppCompatEditText)

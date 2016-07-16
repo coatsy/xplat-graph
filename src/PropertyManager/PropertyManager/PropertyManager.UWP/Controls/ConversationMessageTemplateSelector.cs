@@ -16,7 +16,7 @@ namespace PropertyManager.UWP.Controls
             }
 
             var resources = Application.Current.Resources;
-            if (conversation.UniqueSenders.Any(s => s.Contains("Simon")))
+            if (conversation.IsOwnedByUser)
             {
                 return resources["ConversationMessageRightTemplate"] as DataTemplate;
             }
