@@ -210,7 +210,8 @@ namespace PropertyManager.ViewModels
             var newConversation = new ConversationModel
             {
                 Preview = text,
-                UniqueSenders = new List<string> { _configService.User.DisplayName }
+                UniqueSenders = new List<string> { _configService.User.DisplayName },
+                IsOwnedByUser = true
             };
             Conversations.Add(newConversation);
             OnConversationsChanged();
