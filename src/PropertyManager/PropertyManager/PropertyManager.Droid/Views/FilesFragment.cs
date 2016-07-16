@@ -33,7 +33,7 @@ namespace PropertyManager.Droid.Views
             viewModel.FilesChanged += OnFilesChanged;
 
             // Get the list view.
-            _filesListView = (MvxListView)view.FindViewById(Resource.Id.tasks_list_view);
+            _filesListView = (MvxListView)view.FindViewById(Resource.Id.files_list_view);
         }
 
         private void OnFilesChanged(GroupViewModel sender)
