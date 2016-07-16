@@ -74,15 +74,13 @@ namespace PropertyManager.Droid.Services
             documentId = split.Length > 1 ? split[1] : documentId;
             cursor.Close();
 
-            cursor = contentResolver.Query(
-            MediaStore.Images.Media.ExternalContentUri,
-            null, MediaStore.Images.Media.InterfaceConsts.Id + " = ? ", new[] { documentId }, null);
+            cursor = contentResolver.Query(MediaStore.Images.Media.ExternalContentUri,
+                null, MediaStore.Images.Media.InterfaceConsts.Id + " = ? ", new[] { documentId }, null);
             cursor.MoveToFirst();
             string path = cursor.GetString(cursor.GetColumnIndex(MediaStore.Images.Media.InterfaceConsts.Data));
             cursor.Close();
             return path;
         }
-
 
         public static byte[] GetByteArray(Stream inputStream)
         {

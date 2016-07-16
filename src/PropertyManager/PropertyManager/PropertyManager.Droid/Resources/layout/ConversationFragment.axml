@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="15dp">
-
-</LinearLayout>
+    android:layout_height="fill_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#d2d2d2"
+            android:layout_marginTop="1dp" />
+        <EditText
+            style="@style/FullWidthEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Type a message"
+            android:layout_marginRight="60dp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:imeOptions="actionSend"
+            local:MvxBind="Text ConversationText" />
+        <ImageButton
+            android:src="@drawable/ic_send_black_48dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:id="@+id/imageButton1"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:tint="@color/accentColor"
+            android:clickable="true"
+            android:scaleType="fitCenter"
+            android:padding="15dp" />
+    </RelativeLayout>
+</RelativeLayout>

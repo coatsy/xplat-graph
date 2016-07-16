@@ -16,7 +16,7 @@ namespace PropertyManager.Droid.Views
             Bundle savedInstanceState)
         {
             this.EnsureBindingContextIsSet(savedInstanceState);
-            return this.BindingInflate(Resource.Layout.TasksFragment, null);
+            return this.BindingInflate(Resource.Layout.ConversationFragment, null);
         }
     }
 }
