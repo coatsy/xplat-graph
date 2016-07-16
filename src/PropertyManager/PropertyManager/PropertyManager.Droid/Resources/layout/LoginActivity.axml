@@ -12,31 +12,27 @@
         android:src="@drawable/ic_account_circle_black_48dp"
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:id="@+id/imageView1"
         android:tint="@color/accentColor"
         android:layout_marginTop="-50dp" />
     <TextView
-        android:text="Who are you?"
+        android:text="@string/who_are_you"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
         android:gravity="center"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp" />
     <TextView
-        android:text="Sign in with your work or school account in order to use this sample application. Access the sample code for this application at https://github.com/coatsy/xplat-graph"
+        android:text="@string/login"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1"
         android:gravity="center"
         android:layout_marginBottom="15dp" />
     <Button
-        android:text="Sign in"
+        android:text="@string/sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button1"
         android:theme="@style/Theme.Light.AccentButton"
         style="@style/Widget.AppCompat.Button.Colored"
         local:MvxBind="Click LoginCommand; Visibility InvertedVisibility(IsLoading)" />

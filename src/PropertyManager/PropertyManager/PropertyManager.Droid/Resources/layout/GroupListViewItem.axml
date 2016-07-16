@@ -10,13 +10,11 @@
         android:src="@drawable/ic_home_black_48dp"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:id="@+id/imageView1"
         android:layout_marginTop="0dp" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="0dp">
         <TextView
@@ -24,7 +22,6 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView3"
             android:textStyle="bold"
             local:MvxBind="Text DisplayName" />
         <TextView
@@ -32,7 +29,6 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
             local:MvxBind="Text Mail" />
     </LinearLayout>
 </RelativeLayout>

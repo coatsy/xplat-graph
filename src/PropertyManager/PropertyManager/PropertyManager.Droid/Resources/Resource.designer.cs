@@ -3988,11 +3988,11 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f06007a
 			public const int textView1 = 2131099770;
 			
-			// aapt resource value: 0x7f060085
-			public const int textView2 = 2131099781;
-			
 			// aapt resource value: 0x7f060084
-			public const int textView3 = 2131099780;
+			public const int textView2 = 2131099780;
+			
+			// aapt resource value: 0x7f060085
+			public const int textView3 = 2131099781;
 			
 			// aapt resource value: 0x7f060095
 			public const int time = 2131099797;
@@ -4361,8 +4361,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f070012
 			public const int abc_toolbar_collapse_description = 2131165202;
 			
-			// aapt resource value: 0x7f07001b
-			public const int app_name = 2131165211;
+			// aapt resource value: 0x7f07001a
+			public const int app_name = 2131165210;
 			
 			// aapt resource value: 0x7f070014
 			public const int appbar_scrolling_view_behavior = 2131165204;
@@ -4373,17 +4373,50 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f070016
 			public const int character_counter_pattern = 2131165206;
 			
+			// aapt resource value: 0x7f070022
+			public const int description = 2131165218;
+			
+			// aapt resource value: 0x7f070020
+			public const int details = 2131165216;
+			
 			// aapt resource value: 0x7f070017
 			public const int fab_scroll_shrink_grow_autohide_behavior = 2131165207;
 			
 			// aapt resource value: 0x7f070018
 			public const int fab_scroll_translation_autohide_behavior = 2131165208;
 			
-			// aapt resource value: 0x7f07001a
-			public const int hello = 2131165210;
+			// aapt resource value: 0x7f070024
+			public const int living_area = 2131165220;
+			
+			// aapt resource value: 0x7f07001b
+			public const int login = 2131165211;
+			
+			// aapt resource value: 0x7f070025
+			public const int lot_size = 2131165221;
+			
+			// aapt resource value: 0x7f070026
+			public const int operating_costs = 2131165222;
+			
+			// aapt resource value: 0x7f070023
+			public const int rooms = 2131165219;
+			
+			// aapt resource value: 0x7f07001d
+			public const int sign_in = 2131165213;
 			
 			// aapt resource value: 0x7f070013
 			public const int status_bar_notification_info_overflow = 2131165203;
+			
+			// aapt resource value: 0x7f070021
+			public const int street_name = 2131165217;
+			
+			// aapt resource value: 0x7f07001e
+			public const int type_a_message = 2131165214;
+			
+			// aapt resource value: 0x7f07001f
+			public const int type_a_task = 2131165215;
+			
+			// aapt resource value: 0x7f07001c
+			public const int who_are_you = 2131165212;
 			
 			static String()
 			{

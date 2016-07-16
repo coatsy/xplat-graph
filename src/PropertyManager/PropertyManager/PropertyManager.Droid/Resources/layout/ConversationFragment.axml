@@ -27,7 +27,7 @@
             style="@style/FullWidthEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type a message..."
+            android:hint="@string/type_a_message"
             android:layout_marginRight="60dp"
             android:inputType="text"
             android:singleLine="true"
