@@ -3,7 +3,7 @@ using Android.Views;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Binding.Droid.BindingContext;
 
-namespace PropertyManager.Droid.Views
+namespace PropertyManager.Droid.Fragments
 {
     public class DetailsFragment : MvxFragment
     {

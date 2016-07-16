@@ -19,7 +19,7 @@ namespace PropertyManager.Droid.Views
 
         protected override void OnViewModelSet()
         {
-            SetContentView(Resource.Layout.LoginView);
+            SetContentView(Resource.Layout.LoginActivity);
             base.OnViewModelSet();
         }
 

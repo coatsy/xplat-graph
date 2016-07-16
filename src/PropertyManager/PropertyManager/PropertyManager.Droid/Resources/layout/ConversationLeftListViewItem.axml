@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12dp"
-        android:textColor="#444"
+        android:textColor="@color/darkGrayColor"
         android:textStyle="italic"
         android:padding="5dp" 
         local:MvxBind="Text UniqueSenders[0]"/>

@@ -23,7 +23,7 @@ namespace PropertyManager.Droid.Views
         protected override void OnViewModelSet()
         {
             Title = "Properties";
-            SetContentView(Resource.Layout.GroupsView);
+            SetContentView(Resource.Layout.GroupsActivity);
             base.OnViewModelSet();
         }
 

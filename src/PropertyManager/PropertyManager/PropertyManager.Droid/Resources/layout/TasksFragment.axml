@@ -17,7 +17,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="#d2d2d2"
+            android:background="@color/lightGrayColor"
             android:layout_marginTop="1dp" />
         <EditText
             android:id="@+id/task_edit_text"

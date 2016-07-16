@@ -1,6 +1,7 @@
 using Android.Support.V4.App;
 using Java.Lang;
 using MvvmCross.Droid.Support.V4;
+using PropertyManager.Droid.Fragments;
 using PropertyManager.Droid.Views;
 using System.Linq;
 

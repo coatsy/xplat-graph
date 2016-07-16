@@ -3631,8 +3631,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f06002c
 			public const int bottom = 2131099692;
 			
-			// aapt resource value: 0x7f060084
-			public const int button1 = 2131099780;
+			// aapt resource value: 0x7f060082
+			public const int button1 = 2131099778;
 			
 			// aapt resource value: 0x7f060046
 			public const int buttonPanel = 2131099718;
@@ -3685,8 +3685,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f060042
 			public const int default_activity_button = 2131099714;
 			
-			// aapt resource value: 0x7f06007e
-			public const int description_edit_text = 2131099774;
+			// aapt resource value: 0x7f06007c
+			public const int description_edit_text = 2131099772;
 			
 			// aapt resource value: 0x7f060071
 			public const int design_bottom_sheet = 2131099761;
@@ -3784,8 +3784,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f060098
 			public const int line3 = 2131099800;
 			
-			// aapt resource value: 0x7f060083
-			public const int linearLayout1 = 2131099779;
+			// aapt resource value: 0x7f060081
+			public const int linearLayout1 = 2131099777;
 			
 			// aapt resource value: 0x7f06000d
 			public const int listMode = 2131099661;
@@ -3793,11 +3793,11 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f060043
 			public const int list_item = 2131099715;
 			
-			// aapt resource value: 0x7f060080
-			public const int living_area_edit_text = 2131099776;
+			// aapt resource value: 0x7f06007e
+			public const int living_area_edit_text = 2131099774;
 			
-			// aapt resource value: 0x7f060081
-			public const int lot_size_edit_text = 2131099777;
+			// aapt resource value: 0x7f06007f
+			public const int lot_size_edit_text = 2131099775;
 			
 			// aapt resource value: 0x7f060092
 			public const int media_actions = 2131099794;
@@ -3826,8 +3826,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f06000e
 			public const int normal = 2131099662;
 			
-			// aapt resource value: 0x7f060082
-			public const int operating_costs_edit_text = 2131099778;
+			// aapt resource value: 0x7f060080
+			public const int operating_costs_edit_text = 2131099776;
 			
 			// aapt resource value: 0x7f06002a
 			public const int parallax = 2131099690;
@@ -3856,11 +3856,11 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f060032
 			public const int right = 2131099698;
 			
-			// aapt resource value: 0x7f06007f
-			public const int rooms_edit_text = 2131099775;
+			// aapt resource value: 0x7f06007d
+			public const int rooms_edit_text = 2131099773;
 			
-			// aapt resource value: 0x7f060085
-			public const int save_details_button = 2131099781;
+			// aapt resource value: 0x7f060083
+			public const int save_details_button = 2131099779;
 			
 			// aapt resource value: 0x7f060019
 			public const int screen = 2131099673;
@@ -3877,8 +3877,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f06004e
 			public const int scrollView = 2131099726;
 			
-			// aapt resource value: 0x7f06007b
-			public const int scrollView1 = 2131099771;
+			// aapt resource value: 0x7f060079
+			public const int scrollView1 = 2131099769;
 			
 			// aapt resource value: 0x7f06003b
 			public const int scrollable = 2131099707;
@@ -3958,8 +3958,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f060091
 			public const int status_bar_latest_event_content = 2131099793;
 			
-			// aapt resource value: 0x7f06007d
-			public const int street_name_edit_text = 2131099773;
+			// aapt resource value: 0x7f06007b
+			public const int street_name_edit_text = 2131099771;
 			
 			// aapt resource value: 0x7f060067
 			public const int submit_area = 2131099751;
@@ -3985,14 +3985,14 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f06004f
 			public const int textSpacerNoButtons = 2131099727;
 			
-			// aapt resource value: 0x7f06007c
-			public const int textView1 = 2131099772;
-			
 			// aapt resource value: 0x7f06007a
-			public const int textView2 = 2131099770;
+			public const int textView1 = 2131099770;
 			
-			// aapt resource value: 0x7f060079
-			public const int textView3 = 2131099769;
+			// aapt resource value: 0x7f060085
+			public const int textView2 = 2131099781;
+			
+			// aapt resource value: 0x7f060084
+			public const int textView3 = 2131099780;
 			
 			// aapt resource value: 0x7f060095
 			public const int time = 2131099797;
@@ -4201,10 +4201,10 @@ namespace PropertyManager.Droid
 			public const int design_navigation_menu_item = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int DetailsFragment = 2130903080;
+			public const int DetailsActivity = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int DetailsView = 2130903081;
+			public const int DetailsFragment = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
 			public const int FileListViewItem = 2130903082;
@@ -4213,16 +4213,16 @@ namespace PropertyManager.Droid
 			public const int FilesFragment = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int GroupListViewItem = 2130903084;
+			public const int GroupActivity = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int GroupsView = 2130903085;
+			public const int GroupListViewItem = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int GroupView = 2130903086;
+			public const int GroupsActivity = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int LoginView = 2130903087;
+			public const int LoginActivity = 2130903087;
 			
 			// aapt resource value: 0x7f030030
 			public const int notification_media_action = 2130903088;
@@ -4258,7 +4258,7 @@ namespace PropertyManager.Droid
 			public const int select_dialog_singlechoice_material = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int SplashView = 2130903099;
+			public const int SplashActivity = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
 			public const int support_simple_spinner_dropdown_item = 2130903100;

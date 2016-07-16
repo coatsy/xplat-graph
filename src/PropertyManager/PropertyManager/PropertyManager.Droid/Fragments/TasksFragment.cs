@@ -6,7 +6,7 @@ using PropertyManager.ViewModels;
 using MvvmCross.Binding.Droid.Views;
 using Java.Lang;
 
-namespace PropertyManager.Droid.Views
+namespace PropertyManager.Droid.Fragments
 {
     public class TasksFragment : MvxFragment
     {

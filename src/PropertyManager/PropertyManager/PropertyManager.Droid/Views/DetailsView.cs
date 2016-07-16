@@ -22,7 +22,7 @@ namespace PropertyManager.Droid.Views
         protected override void OnViewModelSet()
         {
             Title = ViewModel.Title;
-            SetContentView(Resource.Layout.DetailsView);
+            SetContentView(Resource.Layout.DetailsActivity);
             base.OnViewModelSet();
 
             // Get all of the EditTexts and trigger validation whenever

@@ -4,12 +4,10 @@ using MvvmCross.Droid.Support.V4;
 using MvvmCross.Binding.Droid.BindingContext;
 using PropertyManager.ViewModels;
 using MvvmCross.Binding.Droid.Views;
-using Android.Content;
-using PropertyManager.Models;
 using PropertyManager.Droid.Adapters;
 using Java.Lang;
 
-namespace PropertyManager.Droid.Views
+namespace PropertyManager.Droid.Fragments
 {
     public class ConversationsFragment : MvxFragment
     {

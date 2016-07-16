@@ -14,7 +14,7 @@ namespace PropertyManager.Droid.Views
     public class SplashView : MvxSplashScreenActivity
     {
         public SplashView()
-            : base(Resource.Layout.SplashView)
+            : base(Resource.Layout.SplashActivity)
         {
             
         }

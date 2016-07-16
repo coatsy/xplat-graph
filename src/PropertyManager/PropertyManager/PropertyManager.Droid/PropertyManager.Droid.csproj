@@ -164,14 +164,14 @@
     <Compile Include="Services\ProgressDialogHandle.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Views\SplashView.cs" />
-    <Compile Include="Views\ConversationsFragment.cs" />
-    <Compile Include="Views\DetailsFragment.cs" />
+    <Compile Include="Fragments\ConversationsFragment.cs" />
+    <Compile Include="Fragments\DetailsFragment.cs" />
     <Compile Include="Views\DetailsView.cs" />
-    <Compile Include="Views\FilesFragment.cs" />
+    <Compile Include="Fragments\FilesFragment.cs" />
     <Compile Include="Views\GroupView.cs" />
     <Compile Include="Views\GroupsView.cs" />
     <Compile Include="Views\LoginView.cs" />
-    <Compile Include="Views\TasksFragment.cs" />
+    <Compile Include="Fragments\TasksFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -186,20 +186,20 @@
     <AndroidResource Include="Resources\layout\FilesFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\LoginView.axml">
+    <AndroidResource Include="Resources\layout\LoginActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\SplashView.axml" />
-    <AndroidResource Include="Resources\layout\GroupsView.axml">
+    <AndroidResource Include="Resources\layout\SplashActivity.axml" />
+    <AndroidResource Include="Resources\layout\GroupsActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\GroupListViewItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\DetailsView.axml">
+    <AndroidResource Include="Resources\layout\DetailsActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\GroupView.axml">
+    <AndroidResource Include="Resources\layout\GroupActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FileListViewItem.axml">

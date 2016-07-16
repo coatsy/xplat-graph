@@ -26,7 +26,7 @@ namespace PropertyManager.Droid.Views
         protected override void OnViewModelSet()
         {
             Title = ViewModel.Group.DisplayName;
-            SetContentView(Resource.Layout.GroupView);
+            SetContentView(Resource.Layout.GroupActivity);
             base.OnViewModelSet();
 
             // Get toolbar and set title.
