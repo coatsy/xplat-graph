@@ -30,8 +30,17 @@ namespace PropertyManager.ViewModels
         {
             IsLoading = true;
 
-            // Make sure that the Graph service is configured.
-            await _graphService.EnsureTokenIsPresentAsync();
+            try
+            {
+
+                // Make sure that the Graph service is configured.
+                await _graphService.EnsureTokenIsPresentAsync();
+            }
+            catch
+            {
+                IsLoading = false;
+                return;
+            }
 
             UserModel user = null;
             GroupModel[] userGroups = null;

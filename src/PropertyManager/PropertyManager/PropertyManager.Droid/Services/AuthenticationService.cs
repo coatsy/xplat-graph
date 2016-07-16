@@ -56,14 +56,24 @@ namespace PropertyManager.Droid.Services
 
             // Create the platform parameters.
             var platformParameters = new PlatformParameters(topActivity);
+            try
+            {
+                // Authenticate the user.
+                var authenticationResult = await authenticationContext.AcquireTokenAsync(Resource,
+                    ClientId, RedirectUri, platformParameters);
 
-            // Authenticate the user.
-            var authenticationResult = await authenticationContext.AcquireTokenAsync(Resource,
-                ClientId, RedirectUri, platformParameters);
-
-            // Naively store the unique user id.
-            SaveCurrentUUID(authenticationResult.UserInfo.UniqueId);
-            return authenticationResult;
+                // Naively store the unique user id.
+                SaveCurrentUUID(authenticationResult.UserInfo.UniqueId);
+                return authenticationResult;
+            }
+            catch (AdalException ex)
+            {
+                if (ex.ErrorCode == AdalError.AuthenticationCanceled)
+                {
+                    return null;
+                }
+                throw;
+            }
         }
 
         public async Task<AuthenticationResult> AcquireTokenSilentAsync()

@@ -9,4 +9,4 @@
         android:layout_height="match_parent"
         local:MvxBind="ItemsSource FilteredGroups; ItemClick GroupClickCommand"
         local:MvxItemTemplate="@layout/grouplistviewitem" />
-</LinearLayout>
+</LinearLayout> 
