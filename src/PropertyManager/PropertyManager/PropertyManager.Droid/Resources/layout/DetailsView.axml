@@ -20,78 +20,78 @@
             android:layout_height="match_parent"
             android:id="@+id/textView1"
             android:layout_marginBottom="15dp" />
-      <android.support.design.widget.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-        <EditText
-            android:inputType="textPostalAddress"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/street_name_edit_text"
-            android:hint="Street name"
-            android:layout_marginBottom="15dp"
-            local:MvxBind="Text StreetName; Visibility InvertedVisibility(IsExisting)" />
-      </android.support.design.widget.TextInputLayout>
-      <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-        <EditText
-            android:inputType="textMultiLine"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="textPostalAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/street_name_edit_text"
+                android:hint="Street name"
+                android:layout_marginBottom="15dp"
+                local:MvxBind="Text StreetName; Visibility InvertedVisibility(IsExisting)" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/description_edit_text"
-            android:hint="Description"
-            android:layout_marginBottom="15dp"
-            local:MvxBind="Text Details.Description" />
-      </android.support.design.widget.TextInputLayout>
-      <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-        <EditText
-            android:inputType="number"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="textMultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/description_edit_text"
+                android:hint="Description"
+                android:layout_marginBottom="15dp"
+                local:MvxBind="Text Details.Description" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rooms_edit_text"
-            android:hint="Rooms"
-            android:layout_marginBottom="15dp"
-            local:MvxBind="Text Details.Rooms" />
-      </android.support.design.widget.TextInputLayout>
-      <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-        <EditText
-            android:inputType="number"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rooms_edit_text"
+                android:hint="Rooms"
+                android:layout_marginBottom="15dp"
+                local:MvxBind="Text Details.Rooms" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/living_area_edit_text"
-            android:hint="Living area"
-            android:layout_marginBottom="15dp"
-            local:MvxBind="Text Details.LivingArea" />
-      </android.support.design.widget.TextInputLayout>
-      <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-        <EditText
-            android:inputType="number"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/living_area_edit_text"
+                android:hint="Living area"
+                android:layout_marginBottom="15dp"
+                local:MvxBind="Text Details.LivingArea" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lot_size_edit_text"
-            android:hint="Lot size"
-            android:layout_marginBottom="15dp"
-            local:MvxBind="Text Details.LotSize" />
-      </android.support.design.widget.TextInputLayout>
-      <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-        <EditText
-            android:inputType="number"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lot_size_edit_text"
+                android:hint="Lot size"
+                android:layout_marginBottom="15dp"
+                local:MvxBind="Text Details.LotSize" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/operating_costs_edit_text"
-            android:hint="Operating costs"
-            android:layout_marginBottom="15dp"
-            local:MvxBind="Text Details.OperatingCosts" />
-      </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/operating_costs_edit_text"
+                android:hint="Operating costs"
+                android:layout_marginBottom="15dp"
+                local:MvxBind="Text Details.OperatingCosts" />
+        </android.support.design.widget.TextInputLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

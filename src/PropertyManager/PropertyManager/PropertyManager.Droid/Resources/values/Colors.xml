@@ -5,4 +5,6 @@
   <color name="darkAccentColor">#006bc0</color>
   <color name="textColor">#000000</color>
   <color name="backgroundColor">#ffffff</color>
+  <color name="darkGrayColor">#444</color>
+  <color name="lightGrayColor">#d2d2d2</color>
 </resources>
