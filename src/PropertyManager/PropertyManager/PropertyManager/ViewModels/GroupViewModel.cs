@@ -72,6 +72,8 @@ namespace PropertyManager.ViewModels
 
         public ICommand TaskClickCommand => new MvxCommand<TaskModel>(task => CompleteTaskAsync(task));
 
+        public ICommand FileClickCommand => new MvxCommand<FileModel>(file => LaunchDriveItemAsync(file.DriveItem));
+
         public event ConversationsChangedEventHandler ConversationsChanged;
 
         public event FilesChangedEventHandler FilesChanged;
