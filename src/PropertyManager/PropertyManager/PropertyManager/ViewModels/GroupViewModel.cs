@@ -70,6 +70,8 @@ namespace PropertyManager.ViewModels
 
         public ICommand AddTaskCommand => new MvxCommand(AddTaskAsync);
 
+        public ICommand TaskClickCommand => new MvxCommand<TaskModel>(task => CompleteTaskAsync(task));
+
         public event ConversationsChangedEventHandler ConversationsChanged;
 
         public event FilesChangedEventHandler FilesChanged;
