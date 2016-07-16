@@ -8,6 +8,7 @@ using PropertyManager.Droid.Services;
 using System;
 using System.Collections.Generic;
 using MvvmCross.Plugins.Visibility;
+using PropertyManager.Droid.Converters;
 
 namespace PropertyManager.Droid
 {
@@ -21,6 +22,7 @@ namespace PropertyManager.Droid
                 {
                     typeof(MvxVisibilityValueConverter),
                     typeof(MvxInvertedVisibilityValueConverter),
+                    typeof(FileTypeToIconConverter),
                 };
             }
         }

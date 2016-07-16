@@ -7,11 +7,11 @@
     android:padding="15dp">
     <ImageView
         android:tint="#444"
-        android:src="@drawable/ic_home_black_48dp"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:id="@+id/imageView1"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="0dp"
+        local:MvxBind="DrawableName FileTypeToIcon(Type)"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -27,8 +27,8 @@
             android:id="@+id/textView3"
             android:textStyle="bold"
             android:maxLines="1"
-            android:ellipsize="end" 
-            local:MvxBind="Text DriveItem.Name"/>
+            android:ellipsize="end"
+            local:MvxBind="Text DriveItem.Name" />
         <TextView
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
             android:maxLines="1"
-            android:ellipsize="end" 
-            local:MvxBind="Text DriveItem.WebUrl"/>
+            android:ellipsize="end"
+            local:MvxBind="Text DriveItem.WebUrl" />
     </LinearLayout>
 </RelativeLayout>
