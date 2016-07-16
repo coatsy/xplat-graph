@@ -41,7 +41,7 @@ namespace PropertyManager.Droid.Views
                 Resource.Id.tab_layout);
             tabLayout.SetupWithViewPager(viewPager);
 
-            // Get the FABs and hook up the event listener.
+            // Get the FABs and hook up the event listeners.
             _editDetailsActionButton = (Android.Support.Design.Widget.FloatingActionButton)
              FindViewById(Resource.Id.edit_details_fab);
             _addFileActionButton = (Android.Support.Design.Widget.FloatingActionButton)

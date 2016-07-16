@@ -165,7 +165,7 @@
     <Compile Include="Services\LauncherService.cs" />
     <Compile Include="Services\ProgressDialogHandle.cs" />
     <Compile Include="Setup.cs" />
-    <Compile Include="SplashScreen.cs" />
+    <Compile Include="Views\SplashView.cs" />
     <Compile Include="Views\ConversationsFragment.cs" />
     <Compile Include="Views\DetailsFragment.cs" />
     <Compile Include="Views\DetailsView.cs" />
@@ -191,7 +191,7 @@
     <AndroidResource Include="Resources\layout\LoginView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\SplashScreen.axml" />
+    <AndroidResource Include="Resources\layout\SplashView.axml" />
     <AndroidResource Include="Resources\layout\GroupsView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>

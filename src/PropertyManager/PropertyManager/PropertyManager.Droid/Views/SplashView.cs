@@ -2,19 +2,19 @@ using Android.App;
 using Android.Content.PM;
 using MvvmCross.Droid.Views;
 
-namespace PropertyManager.Droid
+namespace PropertyManager.Droid.Views
 {
     [Activity(
-        Label = "PropertyManager.Droid"
+        Label = "Property Manager"
         , MainLauncher = true
         , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"
         , NoHistory = true
         , ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SplashScreen : MvxSplashScreenActivity
+    public class SplashView : MvxSplashScreenActivity
     {
-        public SplashScreen()
-            : base(Resource.Layout.SplashScreen)
+        public SplashView()
+            : base(Resource.Layout.SplashView)
         {
             
         }
