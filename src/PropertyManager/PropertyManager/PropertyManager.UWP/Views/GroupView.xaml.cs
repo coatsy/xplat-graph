@@ -73,7 +73,7 @@ namespace PropertyManager.UWP.Views
             var file = e.ClickedItem as FileModel;
             if (file != null)
             {
-                ViewModel?.LaunchDriveItemAsync(file.DriveItem);
+                ViewModel?.FileClickCommand.Execute(file);
             }
         }
 
@@ -82,7 +82,7 @@ namespace PropertyManager.UWP.Views
             var task = e.ClickedItem as TaskModel;
             if (task != null)
             {
-                ViewModel?.CompleteTaskAsync(task);
+                ViewModel?.TaskClickCommand.Execute(task);
             }
         }
 

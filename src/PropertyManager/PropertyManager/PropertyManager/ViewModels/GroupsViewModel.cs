@@ -54,7 +54,7 @@ namespace PropertyManager.ViewModels
             base.OnResume();
         }
 
-        public void ShowGroup(GroupModel group)
+        private void ShowGroup(GroupModel group)
         {
             // Navigate to the group view.
             ShowViewModel<GroupViewModel>(new

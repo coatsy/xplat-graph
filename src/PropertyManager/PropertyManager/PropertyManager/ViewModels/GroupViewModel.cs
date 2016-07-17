@@ -301,12 +301,12 @@ namespace PropertyManager.ViewModels
             }
         }
 
-        public void LaunchDriveItemAsync(DriveItemModel driveItem)
+        private void LaunchDriveItemAsync(DriveItemModel driveItem)
         {
             _launcherService.LaunchWebUri(new Uri(driveItem.WebUrl));
         }
 
-        public async void CompleteTaskAsync(TaskModel task)
+        private async void CompleteTaskAsync(TaskModel task)
         {
             IsLoading = true;
 

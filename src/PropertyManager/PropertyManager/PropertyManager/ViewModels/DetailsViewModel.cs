@@ -83,7 +83,7 @@ namespace PropertyManager.ViewModels
             Validate();
         }
 
-        public async void SaveDetailsAsync()
+        private async void SaveDetailsAsync()
         {
             IsLoading = true;
             // Show a progress dialog.
