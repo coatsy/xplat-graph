@@ -39,24 +39,29 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                 <TextBlock Text="Fill out the details of this property down below, these will be stored in Office 365 and be available to all user of this app." 
                            TextWrapping="Wrap"/>
-                <TextBox Header="Street name" Margin="0,15" Text="{Binding StreetName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         PlaceholderText="Example: 915 Mulberry Lane"
+                <TextBox x:Name="StreetNameTextBox" Header="Street name" Margin="0,15" 
+                         Text="{Binding StreetName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         PlaceholderText="Example: 915 Mulberry Lane" KeyUp="OnTextBoxKeyUp"
                          Visibility="{Binding IsExisting, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
-                <TextBox AcceptsReturn="True" TextWrapping="Wrap" Header="Description"  Margin="0,15"
+                <TextBox x:Name="DescriptionTextBox" AcceptsReturn="True" TextWrapping="Wrap" Header="Description"  Margin="0,15"
                          Text="{Binding Details.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinHeight="60"
                          TextChanged="OnTextChanged"/>
-                <TextBox Header="Rooms" Margin="0,15" Text="{Binding Details.Rooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox x:Name="RoomsTextBox" Header="Rooms" Margin="0,15" 
+                         Text="{Binding Details.Rooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          PlaceholderText="Use only digits" InputScope="Number"
-                         TextChanged="OnTextChanged"/>
-                <TextBox Header="Living area" Margin="0,15" Text="{Binding Details.LivingArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         TextChanged="OnTextChanged" KeyUp="OnTextBoxKeyUp"/>
+                <TextBox x:Name="LivingAreaTextBox" Header="Living area" Margin="0,15" 
+                         Text="{Binding Details.LivingArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          PlaceholderText="Use only digits" InputScope="Number"
-                         TextChanged="OnTextChanged"/>
-                <TextBox Header="Lot size" Margin="0,15" Text="{Binding Details.LotSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         TextChanged="OnTextChanged" KeyUp="OnTextBoxKeyUp"/>
+                <TextBox x:Name="LotSizeTextBox" Header="Lot size" Margin="0,15" 
+                         Text="{Binding Details.LotSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          PlaceholderText="Use only digits" InputScope="Number"
-                         TextChanged="OnTextChanged"/>
-                <TextBox Header="Operating costs" Margin="0,15" Text="{Binding Details.OperatingCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         TextChanged="OnTextChanged" KeyUp="OnTextBoxKeyUp"/>
+                <TextBox x:Name="OperatingCostsTextBox" Header="Operating costs" 
+                         Margin="0,15" Text="{Binding Details.OperatingCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          PlaceholderText="Use only digits" InputScope="Number"
-                         TextChanged="OnTextChanged"/>
+                         TextChanged="OnTextChanged" KeyUp="OnTextBoxKeyUp"/>
             </StackPanel>
         </ScrollViewer>
         

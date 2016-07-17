@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Core;
 using MvvmCross.WindowsUWP.Views;
 using PropertyManager.ViewModels;
+using Windows.System;
 
 namespace PropertyManager.UWP.Views
 {
@@ -28,6 +29,30 @@ namespace PropertyManager.UWP.Views
         private void OnTextChanged(object sender, Windows.UI.Xaml.Controls.TextChangedEventArgs e)
         {
             ViewModel?.Validate();
+        }
+
+        private void OnTextBoxKeyUp(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key != VirtualKey.Enter || !e.KeyStatus.WasKeyDown)
+            {
+                return;
+            }
+            if (sender == StreetNameTextBox)
+            {
+                DescriptionTextBox.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+            }
+            else if (sender == RoomsTextBox)
+            {
+                LivingAreaTextBox.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+            }
+            else if (sender == LivingAreaTextBox)
+            {
+                LotSizeTextBox.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+            }
+            else if (sender == LotSizeTextBox)
+            {
+                OperatingCostsTextBox.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+            }
         }
     }
 }

@@ -120,7 +120,7 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
-                    <!--Messages-->
+                    <!--Conversations-->
                     <GridView x:Name="ConversationsGridView" Grid.Row="0" 
                               ItemsSource="{Binding Conversations}"
                               Style="{StaticResource GridViewStyle}"
