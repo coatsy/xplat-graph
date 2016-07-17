@@ -276,8 +276,9 @@ namespace PropertyManager.Services
 
         public async Task<TaskModel> UpdateTaskAsync(TaskModel task)
         {
-            // Set ETag.
+            // Set ETag. 
             var headers = _httpService.GetRequestHeaders();
+            headers.IfMatch.Clear();
             headers.IfMatch.Add(new EntityTagHeaderValue(task.ETag.Substring(2,
                 task.ETag.Length - 2), true));
 
