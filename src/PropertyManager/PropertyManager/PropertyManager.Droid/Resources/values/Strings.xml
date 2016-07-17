@@ -7,7 +7,8 @@
 	<string name="type_a_message">Type a message...</string>
 	<string name="type_a_task">Type a task...</string>
 	<string name="details">Fill out the details of this property down below, these will be stored in Office 365 and be available to all user of this app.</string>
-	<string name="street_name">Street name</string>
+  <string name="stored_details">Find the details of this property down below, these are stored in Office 365 and be available to all user of this app.</string>
+  <string name="street_name">Street name</string>
 	<string name="description">Description</string>
 	<string name="rooms">Rooms</string>
 	<string name="living_area">Living area</string>

@@ -3478,61 +3478,70 @@ namespace PropertyManager.Droid
 			public const int ic_assignment_black_48dp = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int ic_home_black_48dp = 2130837589;
+			public const int ic_attach_money_black_48dp = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int ic_image_black_24dp = 2130837590;
+			public const int ic_home_black_48dp = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int ic_image_black_48dp = 2130837591;
+			public const int ic_image_black_24dp = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int ic_insert_drive_file_black_24dp = 2130837592;
+			public const int ic_image_black_48dp = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int ic_insert_drive_file_black_48dp = 2130837593;
+			public const int ic_insert_drive_file_black_24dp = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int ic_mode_edit_black_24dp = 2130837594;
+			public const int ic_insert_drive_file_black_48dp = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int ic_mode_edit_black_24dp_white = 2130837595;
+			public const int ic_mode_edit_black_24dp = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int ic_more_vert_black_48dp = 2130837596;
+			public const int ic_mode_edit_black_24dp_white = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int ic_note_add_black_24dp = 2130837597;
+			public const int ic_more_vert_black_48dp = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int ic_note_add_black_24dp_white = 2130837598;
+			public const int ic_note_add_black_24dp = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int ic_note_add_black_48dp = 2130837599;
+			public const int ic_note_add_black_24dp_white = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int ic_search_black_24dp = 2130837600;
+			public const int ic_note_add_black_48dp = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int ic_search_black_24dp_white = 2130837601;
+			public const int ic_photo_size_select_large_black_48dp = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int ic_search_black_48dp = 2130837602;
+			public const int ic_search_black_24dp = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int ic_send_black_24dp = 2130837603;
+			public const int ic_search_black_24dp_white = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int ic_send_black_48dp = 2130837604;
+			public const int ic_search_black_48dp = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int Icon = 2130837605;
-			
-			// aapt resource value: 0x7f020067
-			public const int notification_template_icon_bg = 2130837607;
+			public const int ic_send_black_24dp = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int splash = 2130837606;
+			public const int ic_send_black_48dp = 2130837606;
+			
+			// aapt resource value: 0x7f020067
+			public const int ic_vpn_key_black_48dp = 2130837607;
+			
+			// aapt resource value: 0x7f020068
+			public const int Icon = 2130837608;
+			
+			// aapt resource value: 0x7f02006a
+			public const int notification_template_icon_bg = 2130837610;
+			
+			// aapt resource value: 0x7f020069
+			public const int splash = 2130837609;
 			
 			static Drawable()
 			{
@@ -3766,8 +3775,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f060041
 			public const int image = 2131099713;
 			
-			// aapt resource value: 0x7f060087
-			public const int imageView1 = 2131099783;
+			// aapt resource value: 0x7f060085
+			public const int imageView1 = 2131099781;
 			
 			// aapt resource value: 0x7f06009a
 			public const int info = 2131099802;
@@ -3850,8 +3859,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f060056
 			public const int radio = 2131099734;
 			
-			// aapt resource value: 0x7f060086
-			public const int relativeLayout1 = 2131099782;
+			// aapt resource value: 0x7f060084
+			public const int relativeLayout1 = 2131099780;
 			
 			// aapt resource value: 0x7f060032
 			public const int right = 2131099698;
@@ -3988,11 +3997,11 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f06007a
 			public const int textView1 = 2131099770;
 			
-			// aapt resource value: 0x7f060084
-			public const int textView2 = 2131099780;
+			// aapt resource value: 0x7f060087
+			public const int textView2 = 2131099783;
 			
-			// aapt resource value: 0x7f060085
-			public const int textView3 = 2131099781;
+			// aapt resource value: 0x7f060086
+			public const int textView3 = 2131099782;
 			
 			// aapt resource value: 0x7f060095
 			public const int time = 2131099797;
@@ -4373,8 +4382,8 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f070016
 			public const int character_counter_pattern = 2131165206;
 			
-			// aapt resource value: 0x7f070022
-			public const int description = 2131165218;
+			// aapt resource value: 0x7f070023
+			public const int description = 2131165219;
 			
 			// aapt resource value: 0x7f070020
 			public const int details = 2131165216;
@@ -4385,20 +4394,20 @@ namespace PropertyManager.Droid
 			// aapt resource value: 0x7f070018
 			public const int fab_scroll_translation_autohide_behavior = 2131165208;
 			
-			// aapt resource value: 0x7f070024
-			public const int living_area = 2131165220;
+			// aapt resource value: 0x7f070025
+			public const int living_area = 2131165221;
 			
 			// aapt resource value: 0x7f07001b
 			public const int login = 2131165211;
 			
-			// aapt resource value: 0x7f070025
-			public const int lot_size = 2131165221;
-			
 			// aapt resource value: 0x7f070026
-			public const int operating_costs = 2131165222;
+			public const int lot_size = 2131165222;
 			
-			// aapt resource value: 0x7f070023
-			public const int rooms = 2131165219;
+			// aapt resource value: 0x7f070027
+			public const int operating_costs = 2131165223;
+			
+			// aapt resource value: 0x7f070024
+			public const int rooms = 2131165220;
 			
 			// aapt resource value: 0x7f07001d
 			public const int sign_in = 2131165213;
@@ -4407,7 +4416,10 @@ namespace PropertyManager.Droid
 			public const int status_bar_notification_info_overflow = 2131165203;
 			
 			// aapt resource value: 0x7f070021
-			public const int street_name = 2131165217;
+			public const int stored_details = 2131165217;
+			
+			// aapt resource value: 0x7f070022
+			public const int street_name = 2131165218;
 			
 			// aapt resource value: 0x7f07001e
 			public const int type_a_message = 2131165214;
