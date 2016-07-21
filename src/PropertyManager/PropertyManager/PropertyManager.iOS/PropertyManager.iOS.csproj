@@ -185,7 +185,6 @@
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
     <InterfaceDefinition Include="Views\FirstView.xib" />
-    <InterfaceDefinition Include="Views\LoginView.xib" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DebugTrace.cs" />
@@ -203,14 +202,6 @@
     </Compile>
     <Compile Include="Views\FirstView.cs" />
     <Compile Include="Views\FirstView.designer.cs" />
-    <Compile Include="Views\LoginView.cs" />
-    <Compile Include="Views\LoginView.designer.cs">
-      <DependentUpon>LoginView.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AppDelegate.cs.txt" />
-    <Content Include="ToDo-MvvmCross\_ iOS UI.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
