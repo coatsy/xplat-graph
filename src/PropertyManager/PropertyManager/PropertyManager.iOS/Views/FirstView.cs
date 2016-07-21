@@ -1,5 +1,6 @@
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Views;
+using PropertyManager.ViewModels;
 
 namespace PropertyManager.iOS.Views
 {
@@ -13,9 +14,9 @@ namespace PropertyManager.iOS.Views
         {
             base.ViewDidLoad();
 
-            var set = this.CreateBindingSet<FirstView, Core.ViewModels.FirstViewModel>();
-            set.Bind(Label).To(vm => vm.Hello);
-            set.Bind(TextField).To(vm => vm.Hello);
+            var set = this.CreateBindingSet<FirstView, LoginViewModel>();
+            //set.Bind(Label).To(vm => vm.Hello);
+            set.Bind(TextField).To(vm => vm.IsLoading);
             set.Apply();
         }
     }

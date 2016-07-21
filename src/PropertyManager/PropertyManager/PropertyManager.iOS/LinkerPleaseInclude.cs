@@ -3,6 +3,7 @@ using System.Windows.Input;
 using MvvmCross.iOS.Views;
 using Foundation;
 using UIKit;
+using MvvmCross.Binding.BindingContext;
 
 namespace PropertyManager.iOS
 {
@@ -111,13 +112,6 @@ namespace PropertyManager.iOS
         public void Include(System.ComponentModel.INotifyPropertyChanged changed)
         {
             changed.PropertyChanged += (sender, e) => { var test = e.PropertyName; };
-        }
-        
-        public void Include(MvxTaskBasedBindingContext context)
-        {
-            context.Dispose();
-            var context2 = new MvxTaskBasedBindingContext();
-            context2.Dispose();
         }
     }
 }

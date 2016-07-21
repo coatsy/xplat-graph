@@ -9,38 +9,29 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace PropertyManager.iOS.Views
+namespace PropertyManager.iOS
 {
-    [Register ("FirstView")]
-    partial class FirstView
+    [Register ("LoginView")]
+    partial class LoginView
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel Label { get; set; }
+        UIKit.UIButton AButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel TestLabel { get; set; }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField TextField { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (Label != null) {
-                Label.Dispose ();
-                Label = null;
+            if (AButton != null) {
+                AButton.Dispose ();
+                AButton = null;
             }
 
             if (TestLabel != null) {
                 TestLabel.Dispose ();
                 TestLabel = null;
-            }
-
-            if (TextField != null) {
-                TextField.Dispose ();
-                TextField = null;
             }
         }
     }

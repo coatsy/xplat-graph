@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManager.Droid", "PropertyManager\PropertyManager.Droid\PropertyManager.Droid.csproj", "{4C8095E0-E838-4D8B-817E-43048EAE170F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManager.iOS", "PropertyManager\PropertyManager.iOS\PropertyManager.iOS.csproj", "{49E88EDB-6E0D-4A6D-ACA2-BDE0344391C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManageriOS", "PropertyManager\PropertyManager.iOS\PropertyManageriOS.csproj", "{49E88EDB-6E0D-4A6D-ACA2-BDE0344391C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManager", "PropertyManager\PropertyManager\PropertyManager.csproj", "{E3FA1BF7-8A72-44AC-964A-C46316886F4B}"
 EndProject
@@ -61,8 +61,6 @@ Global
 		{4C8095E0-E838-4D8B-817E-43048EAE170F}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{4C8095E0-E838-4D8B-817E-43048EAE170F}.Debug|iPhone.Deploy.0 = Debug|Any CPU
 		{4C8095E0-E838-4D8B-817E-43048EAE170F}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{4C8095E0-E838-4D8B-817E-43048EAE170F}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{4C8095E0-E838-4D8B-817E-43048EAE170F}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
 		{4C8095E0-E838-4D8B-817E-43048EAE170F}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{4C8095E0-E838-4D8B-817E-43048EAE170F}.Debug|x64.Build.0 = Debug|Any CPU
 		{4C8095E0-E838-4D8B-817E-43048EAE170F}.Debug|x64.Deploy.0 = Debug|Any CPU
