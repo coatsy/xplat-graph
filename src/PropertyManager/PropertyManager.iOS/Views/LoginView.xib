@@ -13,30 +13,59 @@
         <view contentMode="scaleToFill" id="2">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQe-H8-3pD">
-                    <rect key="frame" x="180" y="236" width="240" height="128"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQe-H8-3pD" userLabel="Image">
+                    <rect key="frame" x="194" y="56" width="196" height="182"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="6dF-CN-7Vg"/>
+                        <constraint firstAttribute="width" constant="200" id="yx9-DB-UPW"/>
+                    </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDD-hg-onh">
-                    <rect key="frame" x="279" y="372" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Who are you?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDD-hg-onh" userLabel="TitleLabel">
+                    <rect key="frame" x="277" y="289" width="42" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="250" id="7B9-DK-Ucw"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaK-Hg-r0n">
-                    <rect key="frame" x="279" y="401" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGL-2r-itf">
-                    <rect key="frame" x="277" y="430" width="46" height="30"/>
-                    <state key="normal" title="Button"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGL-2r-itf" userLabel="SignInButton">
+                    <rect key="frame" x="277" y="464" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.47058823529999999" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Sign in"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </button>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="uS6-2c-2gw">
-                    <rect key="frame" x="290" y="435" width="20" height="20"/>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="uS6-2c-2gw" userLabel="ActivityIndicator">
+                    <rect key="frame" x="336" y="495" width="20" height="20"/>
                 </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaK-Hg-r0n" userLabel="BodyLabel">
+                    <rect key="frame" x="277" y="401" width="42" height="21"/>
+                    <string key="text">Sign in with your work or school account in order to use this sample application. Access the sample code for this application at https://github.com/coatsy/xplat-graph</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="aGL-2r-itf" firstAttribute="width" secondItem="VaK-Hg-r0n" secondAttribute="width" id="69t-dk-igY"/>
+                <constraint firstItem="aGL-2r-itf" firstAttribute="top" secondItem="VaK-Hg-r0n" secondAttribute="bottom" constant="15" id="GYW-ht-9RC"/>
+                <constraint firstItem="uS6-2c-2gw" firstAttribute="centerY" secondItem="aGL-2r-itf" secondAttribute="centerY" id="NPY-83-qrX"/>
+                <constraint firstItem="aGL-2r-itf" firstAttribute="centerX" secondItem="VaK-Hg-r0n" secondAttribute="centerX" id="SEC-wl-eA4"/>
+                <constraint firstItem="uS6-2c-2gw" firstAttribute="centerX" secondItem="aGL-2r-itf" secondAttribute="centerX" id="TUj-76-4ja"/>
+                <constraint firstItem="VaK-Hg-r0n" firstAttribute="centerX" secondItem="eDD-hg-onh" secondAttribute="centerX" id="adm-iQ-C3j"/>
+                <constraint firstItem="ZQe-H8-3pD" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="bfV-ZO-wr9"/>
+                <constraint firstItem="VaK-Hg-r0n" firstAttribute="width" secondItem="eDD-hg-onh" secondAttribute="width" id="dJU-nz-76k"/>
+                <constraint firstItem="VaK-Hg-r0n" firstAttribute="top" secondItem="eDD-hg-onh" secondAttribute="bottom" constant="15" id="j4i-SK-eti"/>
+                <constraint firstItem="eDD-hg-onh" firstAttribute="top" secondItem="ZQe-H8-3pD" secondAttribute="bottom" id="qS1-LQ-bbD"/>
+                <constraint firstItem="eDD-hg-onh" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="vge-Kc-sHC"/>
+                <constraint firstItem="ZQe-H8-3pD" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="ybP-Az-beO"/>
+            </constraints>
         </view>
     </objects>
 </document>

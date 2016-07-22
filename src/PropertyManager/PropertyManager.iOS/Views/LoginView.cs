@@ -9,6 +9,7 @@ namespace PropertyManager.iOS
 	{
 		public LoginView() : base("LoginView", null)
 		{
+			
 		}
 
 		public override void ViewDidLoad()
