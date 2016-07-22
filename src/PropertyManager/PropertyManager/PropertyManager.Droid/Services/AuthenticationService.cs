@@ -30,14 +30,6 @@ namespace PropertyManager.Droid.Services
             return preferences.GetString("UUID", null);
         }
 
-        public string Authority => "https://login.microsoftonline.com/simonj.onmicrosoft.com";
-
-        public string Resource => "https://graph.microsoft.com/";
-
-        public string ClientId => "fdeaed4c-1bf1-4431-9033-3ef270889eb5";
-
-        public Uri RedirectUri => new Uri("https://propertymanager");
-
         public async Task<AuthenticationResult> AcquireTokenAsync()
         {
             // Get the top activity.
@@ -59,8 +51,8 @@ namespace PropertyManager.Droid.Services
             try
             {
                 // Authenticate the user.
-                var authenticationResult = await authenticationContext.AcquireTokenAsync(Resource,
-                    ClientId, RedirectUri, platformParameters);
+                var authenticationResult = await authenticationContext.AcquireTokenAsync(
+					Constants.GraphResource, Constants.ClientId, Constants.RedirectUri, platformParameters);
 
                 // Naively store the unique user id.
                 SaveCurrentUUID(authenticationResult.UserInfo.UniqueId);
@@ -86,7 +78,7 @@ namespace PropertyManager.Droid.Services
 
             // Authenticate the user.
             var authenticationResult = await authenticationContext.AcquireTokenSilentAsync(
-                Resource, ClientId, new UserIdentifier(uuid, UserIdentifierType.UniqueId));
+                Constants.GraphResource, Constants.ClientId, new UserIdentifier(uuid, UserIdentifierType.UniqueId));
             return authenticationResult;
         }
     }

@@ -8,9 +8,10 @@ namespace PropertyManager
     {
         public override void Initialize()
         {
-            Mvx.RegisterSingleton(typeof(IHttpService), typeof(HttpService));
-            Mvx.RegisterSingleton(typeof(IGraphService), typeof(GraphService));
-			Mvx.RegisterSingleton(typeof(IConfigService), new ConfigService());
+			
+			Mvx.LazyConstructAndRegisterSingleton<IHttpService, HttpService>();
+			Mvx.LazyConstructAndRegisterSingleton<IConfigService, ConfigService>();
+			Mvx.LazyConstructAndRegisterSingleton<IGraphService, GraphService>();
             RegisterAppStart<ViewModels.LoginViewModel>();
         }
     }

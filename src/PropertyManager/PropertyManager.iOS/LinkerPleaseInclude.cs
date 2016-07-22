@@ -4,6 +4,7 @@ using MvvmCross.iOS.Views;
 using Foundation;
 using UIKit;
 using MvvmCross.Binding.BindingContext;
+using PropertyManager.Services;
 
 namespace PropertyManager.iOS
 {
@@ -13,11 +14,11 @@ namespace PropertyManager.iOS
     public class LinkerPleaseInclude
     {
 		public void Include(MvxTaskBasedBindingContext c)
-        {
-            c.Dispose();
-            var c2 = new MvxTaskBasedBindingContext();
-            c2.Dispose();
-        }
+		{
+			c.Dispose();
+			var c2 = new MvxTaskBasedBindingContext();
+			c2.Dispose();
+		}
 
         public void Include(UIButton uiButton)
         {

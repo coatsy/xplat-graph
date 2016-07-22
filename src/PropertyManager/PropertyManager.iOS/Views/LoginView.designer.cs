@@ -1,22 +1,34 @@
-﻿// WARNING
+// WARNING
 //
-// This file has been generated automatically by Xamarin Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Xamarin Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace PropertyManager.iOS
 {
-	[Register("LoginView")]
+	[Register ("LoginView")]
 	partial class LoginView
 	{
-		void ReleaseDesignerOutlets()
+		[Outlet]
+		UIKit.UIActivityIndicatorView ActivityIndicator { get; set; }
+
+		[Outlet]
+		UIKit.UIButton SignInButton { get; set; }
+		
+		void ReleaseDesignerOutlets ()
 		{
+			if (SignInButton != null) {
+				SignInButton.Dispose ();
+				SignInButton = null;
+			}
+
+			if (ActivityIndicator != null) {
+				ActivityIndicator.Dispose ();
+				ActivityIndicator = null;
+			}
 		}
 	}
 }
-

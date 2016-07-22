@@ -7,11 +7,26 @@ using UIKit;
 using PropertyManager.ViewModels;
 using PropertyManager.Services;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System;
+using MvvmCross.Plugins.Visibility;
 
 namespace PropertyManager.iOS
 {
     public class Setup : MvxIosSetup
     {
+		protected override List<Type> ValueConverterHolders
+		{
+			get
+			{
+				return new List<Type>
+				{
+					typeof(MvxVisibilityValueConverter),
+					typeof(MvxInvertedVisibilityValueConverter)
+				};
+			}
+		}
+
         public Setup(MvxApplicationDelegate applicationDelegate, UIWindow window)
             : base(applicationDelegate, window)
         {

@@ -19,10 +19,6 @@ namespace PropertyManager.ViewModels
 
         public ICommand LoginCommand => new MvxCommand(LoginAsync);
 
-		public LoginViewModel()
-		{ 
-		}
-
         public LoginViewModel(IGraphService graphService, IConfigService configService)
         {
             _graphService = graphService;

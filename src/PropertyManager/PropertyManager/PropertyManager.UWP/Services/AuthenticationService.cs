@@ -7,14 +7,6 @@ namespace PropertyManager.UWP.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        public string Authority => "https://login.microsoftonline.com/common";
-
-        public string Resource => "https://graph.microsoft.com/";
-
-        public string ClientId => "fdeaed4c-1bf1-4431-9033-3ef270889eb5";
-
-        public Uri RedirectUri => new Uri("https://propertymanager");
-
         public async Task<AuthenticationResult> AcquireTokenAsync()
         {
             // Clear the cache.
@@ -29,7 +21,7 @@ namespace PropertyManager.UWP.Services
 
             // Authenticate the user.
             var authenticationResult = await authenticationContext.AcquireTokenAsync(
-                Resource, ClientId, RedirectUri, platformParameters); 
+                Constants.GraphResource, Constants.ClientId, Constants.RedirectUri, platformParameters); 
             return authenticationResult;
         }
 
@@ -40,7 +32,7 @@ namespace PropertyManager.UWP.Services
 
             // Authenticate the user.
             var authenticationResult = await authenticationContext.AcquireTokenSilentAsync(
-                Resource, ClientId);
+                Constants.Resource, Constants.ClientId);
             return authenticationResult;
         }
     }
