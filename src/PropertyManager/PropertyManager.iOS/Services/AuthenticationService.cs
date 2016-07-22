@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using MvvmCross.Platform;
 using PropertyManager.Services;
 using UIKit;
 

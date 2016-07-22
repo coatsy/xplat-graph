@@ -137,6 +137,9 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Views\LoginView.xib" />
+    <InterfaceDefinition Include="Views\GroupsView.xib" />
+    <InterfaceDefinition Include="Views\GroupView.xib" />
+    <InterfaceDefinition Include="Views\DetailsView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -159,6 +162,18 @@
     <Compile Include="Services\LauncherService.cs" />
     <Compile Include="Services\ProgressDialogHandle.cs" />
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
+    <Compile Include="Views\GroupsView.cs" />
+    <Compile Include="Views\GroupsView.designer.cs">
+      <DependentUpon>GroupsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupView.cs" />
+    <Compile Include="Views\GroupView.designer.cs">
+      <DependentUpon>GroupView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetailsView.cs" />
+    <Compile Include="Views\DetailsView.designer.cs">
+      <DependentUpon>DetailsView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PropertyManager\PropertyManager\PropertyManager.csproj">
