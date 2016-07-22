@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace PropertyManager.ViewModels
 {
-    public abstract class BaseViewModel : MvxViewModel
+	public abstract class BaseV : MvxViewModel
     {
         protected bool _isLoading;
 

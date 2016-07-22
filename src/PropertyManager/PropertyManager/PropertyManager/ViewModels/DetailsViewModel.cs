@@ -11,7 +11,7 @@ using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
-    public class DetailsViewModel : BaseViewModel
+    public class DetailsViewModel : BaseV
     {
         private readonly IGraphService _graphService;
         private readonly IConfigService _configService;

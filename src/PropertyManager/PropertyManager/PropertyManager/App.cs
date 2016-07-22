@@ -1,3 +1,4 @@
+using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using PropertyManager.Services;
 
@@ -7,9 +8,9 @@ namespace PropertyManager
     {
         public override void Initialize()
         {
-            Mvx.RegisterType(typeof(IHttpService), typeof(HttpService));
-            Mvx.RegisterType(typeof(IGraphService), typeof(GraphService));
-            Mvx.RegisterSingleton(typeof(IConfigService), new ConfigService());
+            Mvx.RegisterSingleton(typeof(IHttpService), typeof(HttpService));
+            Mvx.RegisterSingleton(typeof(IGraphService), typeof(GraphService));
+			Mvx.RegisterSingleton(typeof(IConfigService), new ConfigService());
             RegisterAppStart<ViewModels.LoginViewModel>();
         }
     }

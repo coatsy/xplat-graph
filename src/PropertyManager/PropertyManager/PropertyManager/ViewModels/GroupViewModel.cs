@@ -18,7 +18,7 @@ namespace PropertyManager.ViewModels
 
     public delegate void TasksChangedEventHandler(GroupViewModel sender);
 
-    public class GroupViewModel : BaseViewModel
+    public class GroupViewModel : BaseV
     {
         private readonly IGraphService _graphService;
         private readonly IConfigService _configService;

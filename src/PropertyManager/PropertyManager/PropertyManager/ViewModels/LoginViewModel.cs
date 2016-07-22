@@ -12,12 +12,16 @@ using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class LoginViewModel : BaseV
     {
         private readonly IGraphService _graphService;
         private readonly IConfigService _configService;
 
         public ICommand LoginCommand => new MvxCommand(LoginAsync);
+
+		public LoginViewModel()
+		{ 
+		}
 
         public LoginViewModel(IGraphService graphService, IConfigService configService)
         {

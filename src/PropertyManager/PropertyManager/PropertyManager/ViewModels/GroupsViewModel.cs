@@ -9,7 +9,7 @@ using PropertyManager.Services;
 
 namespace PropertyManager.ViewModels
 {
-    public class GroupsViewModel : BaseViewModel
+    public class GroupsViewModel : BaseV
     {
         private readonly IConfigService _configService;
 
