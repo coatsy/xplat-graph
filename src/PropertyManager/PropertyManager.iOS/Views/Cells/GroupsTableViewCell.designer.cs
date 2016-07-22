@@ -9,25 +9,25 @@ using System.CodeDom.Compiler;
 
 namespace PropertyManager.iOS
 {
-	[Register ("GroupsView")]
-	partial class GroupsView
+	[Register ("GroupsTableViewCell")]
+	partial class GroupsTableViewCell
 	{
 		[Outlet]
-		UIKit.UISearchBar SearchBar { get; set; }
+		UIKit.UILabel MailLabel { get; set; }
 
 		[Outlet]
-		UIKit.UITableView TableView { get; set; }
+		UIKit.UILabel NameLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SearchBar != null) {
-				SearchBar.Dispose ();
-				SearchBar = null;
+			if (NameLabel != null) {
+				NameLabel.Dispose ();
+				NameLabel = null;
 			}
 
-			if (TableView != null) {
-				TableView.Dispose ();
-				TableView = null;
+			if (MailLabel != null) {
+				MailLabel.Dispose ();
+				MailLabel = null;
 			}
 		}
 	}

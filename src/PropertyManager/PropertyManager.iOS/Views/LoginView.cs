@@ -19,27 +19,14 @@ namespace PropertyManager.iOS
 		{
 			base.ViewDidLoad();
 
-			// Hide navigation bar.
+			// Hide the navigation bar.
 			NavigationController.SetNavigationBarHidden(true, false);
 
-			// Create binding set.
+			// Create and apply the binding set.
 			var set = this.CreateBindingSet<LoginView, LoginViewModel>();
-
-			// Create SignInButton bindings.
-			set.Bind(SignInButton)
-			   .To(vm => vm.LoginCommand);
-			set.Bind(SignInButton)
-			   .For("Visibility")
-			   .To(vm => vm.IsLoading)
-			   .WithConversion("InvertedVisibility");
-
-			// Create ActivityIndicator bindings.
-			set.Bind(ActivityIndicator)
-			   .For("Visibility")
-			   .To(vm => vm.IsLoading)
-			   .WithConversion("Visibility");
-
-			// Apply bindings.
+			set.Bind(SignInButton).To(vm => vm.LoginCommand);
+			set.Bind(SignInButton).For("Visibility").To(vm => vm.IsLoading).WithConversion("InvertedVisibility");
+			set.Bind(ActivityIndicator).For("Visibility").To(vm => vm.IsLoading).WithConversion("Visibility");
 			set.Apply();
 		}
 
