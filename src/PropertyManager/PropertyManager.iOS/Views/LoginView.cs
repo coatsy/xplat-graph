@@ -1,10 +1,6 @@
-﻿using System;
-using MvvmCross.iOS.Views;
-using UIKit;
+﻿using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platform;
-using PropertyManager.Services;
 
 namespace PropertyManager.iOS
 {
@@ -19,8 +15,8 @@ namespace PropertyManager.iOS
 		{
 			base.ViewDidLoad();
 
-			// Hide the navigation bar.
-			NavigationController.SetNavigationBarHidden(true, false);
+			// Set navigation bar style.
+			this.SetNavigationBarStyle();
 
 			// Create and apply the binding set.
 			var set = this.CreateBindingSet<LoginView, LoginViewModel>();
@@ -28,6 +24,12 @@ namespace PropertyManager.iOS
 			set.Bind(SignInButton).For("Visibility").To(vm => vm.IsLoading).WithConversion("InvertedVisibility");
 			set.Bind(ActivityIndicator).For("Visibility").To(vm => vm.IsLoading).WithConversion("Visibility");
 			set.Apply();
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			this.HideNavigationBar();
+			base.ViewDidAppear(animated);
 		}
 
 		public override void DidReceiveMemoryWarning()

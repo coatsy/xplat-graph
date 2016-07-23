@@ -16,8 +16,10 @@
         <view contentMode="scaleToFill" id="2">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <subviews>
-                <searchBar contentMode="redraw" placeholder="Find a property" translatesAutoresizingMaskIntoConstraints="NO" id="NlL-2u-LLk">
-                    <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                <searchBar contentMode="redraw" placeholder="Find a property" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlL-2u-LLk">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" red="0.0" green="0.46014816798929487" blue="0.82574943438914028" alpha="1" colorSpace="calibratedRGB"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="yes"/>
                     <scopeButtonTitles>
                         <string>Title</string>
@@ -25,14 +27,14 @@
                     </scopeButtonTitles>
                 </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="veU-Lz-ZyJ">
-                    <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                    <rect key="frame" x="0.0" y="44" width="600" height="492"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="veU-Lz-ZyJ" firstAttribute="top" secondItem="NlL-2u-LLk" secondAttribute="bottom" id="00h-jz-EOZ"/>
-                <constraint firstItem="NlL-2u-LLk" firstAttribute="top" secondItem="2" secondAttribute="top" constant="64" id="CaY-tn-VMI"/>
+                <constraint firstItem="NlL-2u-LLk" firstAttribute="top" secondItem="2" secondAttribute="top" id="CaY-tn-VMI"/>
                 <constraint firstItem="veU-Lz-ZyJ" firstAttribute="width" secondItem="2" secondAttribute="width" id="JyW-Z2-mew"/>
                 <constraint firstItem="veU-Lz-ZyJ" firstAttribute="height" secondItem="2" secondAttribute="height" constant="-108" id="LtE-vE-0IG"/>
                 <constraint firstItem="NlL-2u-LLk" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="Yfz-fx-nlI"/>

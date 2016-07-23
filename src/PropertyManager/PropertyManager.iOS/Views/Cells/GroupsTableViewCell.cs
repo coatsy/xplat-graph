@@ -1,10 +1,8 @@
 ﻿using System;
-
 using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.iOS.Views;
 using PropertyManager.Models;
-using PropertyManager.ViewModels;
 using UIKit;
 
 namespace PropertyManager.iOS

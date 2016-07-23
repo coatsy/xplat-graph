@@ -137,6 +137,7 @@
     <Folder Include="Assets.xcassets\AccountIcon.imageset\" />
     <Folder Include="Views\Cells\" />
     <Folder Include="Assets.xcassets\GroupIcon.imageset\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -184,6 +185,7 @@
     <Compile Include="Views\Cells\GroupsTableViewCell.designer.cs">
       <DependentUpon>GroupsTableViewCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\ViewControllerExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PropertyManager\PropertyManager\PropertyManager.csproj">

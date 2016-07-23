@@ -14,7 +14,15 @@ namespace PropertyManager.iOS
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Perform any additional setup after loading the view, typically from a nib.
+
+			// Set navigation bar style.
+			this.SetNavigationBarStyle();
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			this.ShowNavigationBar();
+			base.ViewDidAppear(animated);
 		}
 
 		public override void DidReceiveMemoryWarning()

@@ -18,12 +18,17 @@ namespace PropertyManager.iOS
 		{
 			base.ViewDidLoad();
 
-			// Show the navigation bar.
-			NavigationController.SetNavigationBarHidden(false, false);
+			// Set navigation bar style.
+			this.SetNavigationBarStyle();
 
 			// Add right navigation bar item.
-			var addPropertyButton = new UIBarButtonItem(UIBarButtonSystemItem.Add,
-														(sender, e) => ViewModel.AddPropertyCommand.Execute(null));
+			var addPropertyButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, (sender, e) => 
+			                                            ViewModel.AddPropertyCommand.Execute(null));
+
+			// Remove borders from the search bar.
+			SearchBar.BackgroundImage = new UIImage();
+			SearchBar.Layer.BorderColor = UIColor.Clear.CGColor;
+			SearchBar.Layer.BorderWidth = 0;
 			NavigationItem.RightBarButtonItem = addPropertyButton;
 
 			// Configure the search bar button event handler.
@@ -42,6 +47,12 @@ namespace PropertyManager.iOS
 			TableView.Source = source;
 			TableView.RowHeight = 65;
 			TableView.ReloadData();
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			this.ShowNavigationBar();
+			base.ViewDidAppear(animated);
 		}
 
 		public override void DidReceiveMemoryWarning()
