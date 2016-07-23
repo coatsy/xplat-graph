@@ -39,11 +39,11 @@ namespace PropertyManager.iOS
 			DescriptionTextView.Changed += (sender, e) =>
 			{
 				DescriptionTextField.Text = DescriptionTextView.Text;
+				ViewModel.Validate();
 			};
 
 			// Register event handlers to trigger validation.
 			StreetNameTextField.EditingChanged += (sender, e) => ViewModel.Validate();
-			DescriptionTextField.EditingChanged += (sender, e) => ViewModel.Validate();
 			RoomsTextField.EditingChanged += (sender, e) => ViewModel.Validate();
 			LivingAreaTextField.EditingChanged += (sender, e) => ViewModel.Validate();
 			LotSizeTextField.EditingChanged += (sender, e) => ViewModel.Validate();

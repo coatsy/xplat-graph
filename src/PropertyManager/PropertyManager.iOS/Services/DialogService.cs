@@ -7,7 +7,7 @@ namespace PropertyManager.iOS
 	{
 		public IDialogHandle ShowProgress(string title, string message)
 		{
-			throw new NotImplementedException();
+			return new ProgressDialogHandle(title, message);
 		}
 	}
 }

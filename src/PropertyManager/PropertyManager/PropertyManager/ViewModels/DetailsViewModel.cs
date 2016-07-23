@@ -90,6 +90,8 @@ namespace PropertyManager.ViewModels
             var progressDialog = _dialogService.ShowProgress("Please wait...", 
                 "The details are being saved to your Office 365 tenant.");
 
+			return;
+
             if (IsExisting)
             {
                 // Calculate address (range).
