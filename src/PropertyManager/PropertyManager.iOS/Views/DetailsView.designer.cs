@@ -1,22 +1,90 @@
-﻿// WARNING
+// WARNING
 //
-// This file has been generated automatically by Xamarin Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Xamarin Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace PropertyManager.iOS
 {
-	[Register("DetailsView")]
+	[Register ("DetailsView")]
 	partial class DetailsView
 	{
-		void ReleaseDesignerOutlets()
+		[Outlet]
+		UIKit.UIView ContentView { get; set; }
+
+		[Outlet]
+		UIKit.UITextField DescriptionTextField { get; set; }
+
+		[Outlet]
+		UIKit.UITextView DescriptionTextView { get; set; }
+
+		[Outlet]
+		UIKit.UITextField LivingAreaTextField { get; set; }
+
+		[Outlet]
+		UIKit.UITextField LotSizeTextField { get; set; }
+
+		[Outlet]
+		UIKit.UITextField OperatingCostsTextField { get; set; }
+
+		[Outlet]
+		UIKit.UITextField RoomsTextField { get; set; }
+
+		[Outlet]
+		UIKit.UIScrollView ScrollView { get; set; }
+
+		[Outlet]
+		UIKit.UITextField StreetNameTextField { get; set; }
+		
+		void ReleaseDesignerOutlets ()
 		{
+			if (ScrollView != null) {
+				ScrollView.Dispose ();
+				ScrollView = null;
+			}
+
+			if (ContentView != null) {
+				ContentView.Dispose ();
+				ContentView = null;
+			}
+
+			if (StreetNameTextField != null) {
+				StreetNameTextField.Dispose ();
+				StreetNameTextField = null;
+			}
+
+			if (DescriptionTextField != null) {
+				DescriptionTextField.Dispose ();
+				DescriptionTextField = null;
+			}
+
+			if (DescriptionTextView != null) {
+				DescriptionTextView.Dispose ();
+				DescriptionTextView = null;
+			}
+
+			if (LivingAreaTextField != null) {
+				LivingAreaTextField.Dispose ();
+				LivingAreaTextField = null;
+			}
+
+			if (LotSizeTextField != null) {
+				LotSizeTextField.Dispose ();
+				LotSizeTextField = null;
+			}
+
+			if (OperatingCostsTextField != null) {
+				OperatingCostsTextField.Dispose ();
+				OperatingCostsTextField = null;
+			}
+
+			if (RoomsTextField != null) {
+				RoomsTextField.Dispose ();
+				RoomsTextField = null;
+			}
 		}
 	}
 }
-

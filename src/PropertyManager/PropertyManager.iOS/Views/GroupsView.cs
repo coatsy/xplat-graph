@@ -22,14 +22,14 @@ namespace PropertyManager.iOS
 			this.SetNavigationBarStyle();
 
 			// Add right navigation bar item.
-			var addPropertyButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, (sender, e) => 
+			var rightNavigationButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, (sender, e) => 
 			                                            ViewModel.AddPropertyCommand.Execute(null));
+			NavigationItem.RightBarButtonItem = rightNavigationButton;
 
 			// Remove borders from the search bar.
 			SearchBar.BackgroundImage = new UIImage();
 			SearchBar.Layer.BorderColor = UIColor.Clear.CGColor;
 			SearchBar.Layer.BorderWidth = 0;
-			NavigationItem.RightBarButtonItem = addPropertyButton;
 
 			// Configure the search bar button event handler.
 			SearchBar.SearchButtonClicked += (sender, e) => ViewModel.FilterGroupsCommand.Execute(null);
