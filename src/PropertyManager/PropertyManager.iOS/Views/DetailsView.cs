@@ -1,4 +1,5 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using Foundation;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
 using UIKit;
@@ -43,11 +44,14 @@ namespace PropertyManager.iOS
 			};
 
 			// Register event handlers to trigger validation.
-			StreetNameTextField.EditingChanged += (sender, e) => ViewModel.Validate();
-			RoomsTextField.EditingChanged += (sender, e) => ViewModel.Validate();
-			LivingAreaTextField.EditingChanged += (sender, e) => ViewModel.Validate();
-			LotSizeTextField.EditingChanged += (sender, e) => ViewModel.Validate();
-			OperatingCostsTextField.EditingChanged += (sender, e) => ViewModel.Validate();
+			NSNotificationCenter.DefaultCenter.AddObserver(UITextField.TextFieldTextDidChangeNotification, (obj) =>
+			{
+				ViewModel.Validate();
+			});
+			NSNotificationCenter.DefaultCenter.AddObserver(UITextView.TextDidChangeNotification, (obj) =>
+			{
+				ViewModel.Validate();
+			});
 
 			// Register event handlers to trigger focus flow.
 			StreetNameTextField.ShouldReturn += (textField) => DescriptionTextView.BecomeFirstResponder();
