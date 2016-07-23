@@ -11,6 +11,7 @@ namespace PropertyManager.iOS
 			viewController.NavigationController.NavigationBar.TintColor = UIColor.White;
 			viewController.NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(0, 120, 215);
 			viewController.NavigationController.NavigationBar.BackgroundColor = UIColor.FromRGB(0, 120, 215);
+			viewController.NavigationController.View.BackgroundColor = UIColor.FromRGB(0, 120, 215);
 			viewController.NavigationController.NavigationBar.BarStyle = UIBarStyle.Black;
 			viewController.NavigationController.NavigationBar.Translucent = false;
 			viewController.NavigationController.NavigationBar.Layer.BorderWidth = 0;
@@ -23,14 +24,14 @@ namespace PropertyManager.iOS
 			});
 		}
 
-		public static void ShowNavigationBar(this MvxViewController viewController)
+		public static void ShowNavigationBar(this MvxViewController viewController, bool animated = false)
 		{
-			viewController.NavigationController.SetNavigationBarHidden(false, false);
+			viewController.NavigationController.SetNavigationBarHidden(false, animated);
 		}
 
-		public static void HideNavigationBar(this MvxViewController viewController)
+		public static void HideNavigationBar(this MvxViewController viewController, bool animated = false)
 		{
-			viewController.NavigationController.SetNavigationBarHidden(true, false);
+			viewController.NavigationController.SetNavigationBarHidden(true, animated);
 		}
 	}
 }

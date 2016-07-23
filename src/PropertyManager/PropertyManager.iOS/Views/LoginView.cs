@@ -18,6 +18,9 @@ namespace PropertyManager.iOS
 			// Set navigation bar style.
 			this.SetNavigationBarStyle();
 
+			// Hide the navigation bar.
+			this.HideNavigationBar();
+
 			// Create and apply the binding set.
 			var set = this.CreateBindingSet<LoginView, LoginViewModel>();
 			set.Bind(SignInButton).To(vm => vm.LoginCommand);
@@ -26,9 +29,16 @@ namespace PropertyManager.iOS
 			set.Apply();
 		}
 
+		public override void ViewWillAppear(bool animated)
+		{
+			// Hide the navigation bar.
+			this.HideNavigationBar(true);
+			ViewModel.OnResume();
+			base.ViewWillAppear(animated);
+		}
+
 		public override void ViewDidAppear(bool animated)
 		{
-			this.HideNavigationBar();
 			base.ViewDidAppear(animated);
 		}
 

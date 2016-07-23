@@ -72,10 +72,11 @@ namespace PropertyManager.ViewModels
             }
             else
             {
+				var lowerQuery = _query.ToLower();
                 FilteredGroups.Clear();
                 FilteredGroups.AddRange(_configService.Groups
-                    .Where(g => g.DisplayName.Contains(_query) ||
-                                g.Mail.Contains(_query)));
+				                        .Where(g => g.DisplayName.ToLower().Contains(lowerQuery) ||
+				                               g.Mail.ToLower().Contains(lowerQuery)));
             }
         }
 

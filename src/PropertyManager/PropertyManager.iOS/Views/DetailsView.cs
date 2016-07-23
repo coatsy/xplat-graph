@@ -19,10 +19,10 @@ namespace PropertyManager.iOS
 			this.SetNavigationBarStyle();
 		}
 
-		public override void ViewDidAppear(bool animated)
+		public override void ViewWillAppear(bool animated)
 		{
-			this.ShowNavigationBar();
-			base.ViewDidAppear(animated);
+			ViewModel.OnResume();
+			base.ViewWillAppear(animated);
 		}
 
 		public override void DidReceiveMemoryWarning()

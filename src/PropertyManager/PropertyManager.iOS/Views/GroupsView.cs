@@ -49,10 +49,12 @@ namespace PropertyManager.iOS
 			TableView.ReloadData();
 		}
 
-		public override void ViewDidAppear(bool animated)
+		public override void ViewWillAppear(bool animated)
 		{
-			this.ShowNavigationBar();
-			base.ViewDidAppear(animated);
+			// Show the navigation bar.
+			this.ShowNavigationBar(true);
+			ViewModel.OnResume();
+			base.ViewWillAppear(animated);
 		}
 
 		public override void DidReceiveMemoryWarning()
