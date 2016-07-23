@@ -141,6 +141,7 @@
     <Folder Include="Views\Cells\" />
     <Folder Include="Assets.xcassets\GroupIcon.imageset\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Views\Tabs\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -150,6 +151,10 @@
     <InterfaceDefinition Include="Views\DetailsView.xib" />
     <InterfaceDefinition Include="Views\GroupsView.xib" />
     <InterfaceDefinition Include="Views\Cells\GroupsTableViewCell.xib" />
+    <InterfaceDefinition Include="Views\Tabs\DetailsTabView.xib" />
+    <InterfaceDefinition Include="Views\Tabs\ConversationsTabView.xib" />
+    <InterfaceDefinition Include="Views\Tabs\FilesTabView.xib" />
+    <InterfaceDefinition Include="Views\Tabs\TasksTabView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -189,6 +194,22 @@
       <DependentUpon>GroupsTableViewCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ViewControllerExtensions.cs" />
+    <Compile Include="Views\Tabs\DetailsTabView.cs" />
+    <Compile Include="Views\Tabs\DetailsTabView.designer.cs">
+      <DependentUpon>DetailsTabView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\ConversationsTabView.cs" />
+    <Compile Include="Views\Tabs\ConversationsTabView.designer.cs">
+      <DependentUpon>ConversationsTabView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\FilesTabView.cs" />
+    <Compile Include="Views\Tabs\FilesTabView.designer.cs">
+      <DependentUpon>FilesTabView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\TasksTabView.cs" />
+    <Compile Include="Views\Tabs\TasksTabView.designer.cs">
+      <DependentUpon>TasksTabView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PropertyManager\PropertyManager\PropertyManager.csproj">

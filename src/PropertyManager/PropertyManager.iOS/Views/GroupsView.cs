@@ -40,6 +40,7 @@ namespace PropertyManager.iOS
 			// Create and apply the binding set.
 			var set = this.CreateBindingSet<GroupsView, GroupsViewModel>();
 			set.Bind(source).To(vm => vm.FilteredGroups);
+			set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.GroupClickCommand);
 			set.Bind(SearchBar).For(sb => sb.Text).To(vm => vm.Query);
 			set.Apply();
 
