@@ -45,7 +45,7 @@ namespace PropertyManager.iOS
 
 			// Set the table view source and refresh.
 			TableView.Source = source;
-			TableView.RowHeight = 65;
+			TableView.RowHeight = 60;
 			TableView.ReloadData();
 		}
 
