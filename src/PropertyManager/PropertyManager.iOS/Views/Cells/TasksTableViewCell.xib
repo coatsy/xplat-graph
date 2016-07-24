@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -28,7 +27,7 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Duk-Lw-fEG" firstAttribute="top" secondItem="Hyi-vD-nQC" secondAttribute="topMargin" constant="7" id="D7d-Se-hq7"/>
+                    <constraint firstItem="Duk-Lw-fEG" firstAttribute="centerY" secondItem="Hyi-vD-nQC" secondAttribute="centerY" id="9QS-2v-U2E"/>
                     <constraint firstItem="OHV-Lt-LMC" firstAttribute="width" secondItem="Hyi-vD-nQC" secondAttribute="height" id="IVb-JE-7hj"/>
                     <constraint firstItem="OHV-Lt-LMC" firstAttribute="height" secondItem="Hyi-vD-nQC" secondAttribute="height" constant="-20" id="YWM-z4-g18"/>
                     <constraint firstItem="OHV-Lt-LMC" firstAttribute="leading" secondItem="Hyi-vD-nQC" secondAttribute="leading" id="aMO-Nm-Mdp"/>
