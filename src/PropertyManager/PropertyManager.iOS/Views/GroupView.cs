@@ -39,10 +39,10 @@ namespace PropertyManager.iOS
 			// Create and set tabs.
 			var viewControllers = new UIViewController[]
 			{
-				CreateTabViewController<DetailsTabView>("Details", "AccountIcon", 0),
-				CreateTabViewController<ConversationsTabView>("Conversations", "AccountIcon", 1),
-				CreateTabViewController<FilesTabView>("Files", "AccountIcon", 2),
-				CreateTabViewController<TasksTabView>("Tasks", "AccountIcon", 3)
+				CreateTabViewController<DetailsTabView>("Details", "DetailsTabBarIcon", 0),
+				CreateTabViewController<ConversationsTabView>("Conversations", "ConversationsTabBarIcon", 1),
+				CreateTabViewController<FilesTabView>("Files", "FilesTabBarIcon", 2),
+				CreateTabViewController<TasksTabView>("Tasks", "TasksTabBarIcon", 3)
 			};
 			ViewControllers = viewControllers;
 			SelectedViewController = ViewControllers.First();
@@ -53,8 +53,8 @@ namespace PropertyManager.iOS
 			// Create view controller.
 			var viewController = Activator.CreateInstance(typeof(T)) as T;
 			viewController.Title = title;
-			//viewController.TabBarItem = new UITabBarItem(title, UIImage.FromBundle(icon), index);
-			viewController.TabBarItem = new UITabBarItem(UITabBarSystemItem.Contacts, index);
+			viewController.TabBarItem = new UITabBarItem(title, UIImage.FromBundle(icon), index);
+			//viewController.TabBarItem = new UITabBarItem(UITabBarSystemItem.Contacts, index);
 			viewController.ViewModel = ViewModel;
 
 

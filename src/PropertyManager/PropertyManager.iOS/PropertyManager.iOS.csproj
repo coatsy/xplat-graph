@@ -151,6 +151,14 @@
     <ImageAsset Include="Assets.xcassets\TaskIcon.imageset\TaskIcon%402x.png" />
     <ImageAsset Include="Assets.xcassets\DocumentFileIcon.imageset\DocumentFileIcon%402x.png" />
     <ImageAsset Include="Assets.xcassets\MediaFileIcon.imageset\MediaFileIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\DetailsTabBarIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ConversationsTabBarIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FilesTabBarIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\TasksTabBarIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DetailsTabBarIcon.imageset\DetailsTabBarIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ConversationsTabBarIcon.imageset\ConversationsTabBarIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\FilesTabBarIcon.imageset\FilesTabBarIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\TasksTabBarIcon.imageset\TasksTabBarIcon%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -169,6 +177,10 @@
     <Folder Include="Assets.xcassets\DocumentFileIcon.imageset\" />
     <Folder Include="Assets.xcassets\TaskIcon.imageset\" />
     <Folder Include="Converters\" />
+    <Folder Include="Assets.xcassets\DetailsTabBarIcon.imageset\" />
+    <Folder Include="Assets.xcassets\ConversationsTabBarIcon.imageset\" />
+    <Folder Include="Assets.xcassets\FilesTabBarIcon.imageset\" />
+    <Folder Include="Assets.xcassets\TasksTabBarIcon.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
