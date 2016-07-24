@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>PropertyManager.iOS</string>
+	<string>Property Manager</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.companyname.propertymanager-ios</string>
 	<key>CFBundleShortVersionString</key>

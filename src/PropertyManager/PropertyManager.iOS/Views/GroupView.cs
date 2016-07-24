@@ -54,9 +54,7 @@ namespace PropertyManager.iOS
 			var viewController = Activator.CreateInstance(typeof(T)) as T;
 			viewController.Title = title;
 			viewController.TabBarItem = new UITabBarItem(title, UIImage.FromBundle(icon), index);
-			//viewController.TabBarItem = new UITabBarItem(UITabBarSystemItem.Contacts, index);
 			viewController.ViewModel = ViewModel;
-
 
 			// Create the navigation controller.
 			var navigationController = new UINavigationController();
