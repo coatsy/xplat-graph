@@ -10,7 +10,7 @@ namespace PropertyManager.iOS
 
 		public ProgressDialogHandle(string title, string message)
 		{
-			// Create alert view controller.
+			// Create alert controller.
 			AlertController = UIAlertController.Create(title, message + "\n\n\n\n", UIAlertControllerStyle.Alert);
 			var activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
 			activityIndicator.Center = new CGPoint(130.5, 120);

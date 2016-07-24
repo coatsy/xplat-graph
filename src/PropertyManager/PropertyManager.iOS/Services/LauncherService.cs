@@ -1,5 +1,7 @@
 ﻿using System;
+using Foundation;
 using PropertyManager.Services;
+using UIKit;
 
 namespace PropertyManager.iOS
 {
@@ -7,7 +9,7 @@ namespace PropertyManager.iOS
 	{
 		public void LaunchWebUri(Uri uri)
 		{
-			throw new NotImplementedException();
+			UIApplication.SharedApplication.OpenUrl(NSUrl.FromString(uri.AbsoluteUri));
 		}
 	}
 }

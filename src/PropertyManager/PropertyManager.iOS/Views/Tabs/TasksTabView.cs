@@ -27,11 +27,6 @@ namespace PropertyManager.iOS
 															viewModel.GoBackCommand.Execute(null));
 			NavigationItem.LeftBarButtonItem = leftNavigationButton;
 
-			// Add right navigation bar item.
-			var rightNavigationButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, (sender, e) =>
-															viewModel.AddFileCommand.Execute(null));
-			NavigationItem.RightBarButtonItem = rightNavigationButton;
-
 			// Create the table view source.
 			var source = new MvxSimpleTableViewSource(TableView, TasksTableViewCell.Key, TasksTableViewCell.Key);
 
