@@ -8,6 +8,11 @@ namespace PropertyManager.iOS
 {
 	public partial class TasksTabView : MvxViewController
 	{
+		void HandleAction()
+		{
+
+		}
+
 		public TasksTabView() : base("TasksTabView", null)
 		{
 		}
@@ -27,6 +32,17 @@ namespace PropertyManager.iOS
 															viewModel.GoBackCommand.Execute(null));
 			NavigationItem.LeftBarButtonItem = leftNavigationButton;
 
+			// Add right navigation bar item.
+			var rightNavigationButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, async (sender, e) =>
+			{
+				var result = await this.GetTextFromAlertAsync("New Task", null, "Type a task...");
+				if (result != null) {
+					viewModel.TaskText = result;
+					viewModel.AddTaskCommand.Execute(null);
+				}
+			});
+			NavigationItem.RightBarButtonItem = rightNavigationButton;
+
 			// Create the table view source.
 			var source = new MvxSimpleTableViewSource(TableView, TasksTableViewCell.Key, TasksTableViewCell.Key);
 
@@ -40,6 +56,8 @@ namespace PropertyManager.iOS
 			TableView.Source = source;
 			TableView.RowHeight = 60;
 			TableView.ReloadData();
+
+		
 		}
 
 		public override void DidReceiveMemoryWarning()

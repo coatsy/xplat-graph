@@ -24,6 +24,18 @@ namespace PropertyManager.iOS
 			var leftNavigationButton = new UIBarButtonItem(UIBarButtonSystemItem.Cancel, (sender, e) =>
 															viewModel.GoBackCommand.Execute(null));
 			NavigationItem.LeftBarButtonItem = leftNavigationButton;
+
+			// Add right navigation bar item.
+			var rightNavigationButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, async (sender, e) =>
+			{
+				var result = await this.GetTextFromAlertAsync("New Message", null, "Type a message...");
+				if (result != null)
+				{
+					viewModel.ConversationText = result;
+					viewModel.AddConversationCommand.Execute(null);
+				}
+			});
+			NavigationItem.RightBarButtonItem = rightNavigationButton;
 		}
 
 		public override void DidReceiveMemoryWarning()
