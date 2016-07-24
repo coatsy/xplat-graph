@@ -23,6 +23,11 @@ namespace PropertyManager.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (ImageView != null) {
+				ImageView.Dispose ();
+				ImageView = null;
+			}
+
 			if (NameLabel != null) {
 				NameLabel.Dispose ();
 				NameLabel = null;
@@ -31,11 +36,6 @@ namespace PropertyManager.iOS
 			if (UrlLabel != null) {
 				UrlLabel.Dispose ();
 				UrlLabel = null;
-			}
-
-			if (ImageView != null) {
-				ImageView.Dispose ();
-				ImageView = null;
 			}
 		}
 	}

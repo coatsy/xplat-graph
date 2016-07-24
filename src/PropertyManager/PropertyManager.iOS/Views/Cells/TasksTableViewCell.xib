@@ -21,7 +21,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="GroupIcon" translatesAutoresizingMaskIntoConstraints="NO" id="OHV-Lt-LMC">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="TaskIcon" translatesAutoresizingMaskIntoConstraints="NO" id="OHV-Lt-LMC">
                         <rect key="frame" x="7" y="0.0" width="43" height="43"/>
                         <color key="tintColor" red="0.0" green="0.47058823529999999" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
@@ -42,6 +42,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="GroupIcon" width="50" height="50"/>
+        <image name="TaskIcon" width="50" height="50"/>
     </resources>
 </document>

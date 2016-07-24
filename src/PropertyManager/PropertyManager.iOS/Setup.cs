@@ -22,7 +22,8 @@ namespace PropertyManager.iOS
 				return new List<Type>
 				{
 					typeof(MvxVisibilityValueConverter),
-					typeof(MvxInvertedVisibilityValueConverter)
+					typeof(MvxInvertedVisibilityValueConverter),
+					typeof(FileTypeToIconConverter)
 				};
 			}
 		}

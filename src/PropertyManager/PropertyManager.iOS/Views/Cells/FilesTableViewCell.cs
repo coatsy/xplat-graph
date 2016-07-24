@@ -25,6 +25,7 @@ namespace PropertyManager.iOS
 				var set = this.CreateBindingSet<FilesTableViewCell, FileModel>();
 				set.Bind(NameLabel).To(vm => vm.DriveItem.Name);
 				set.Bind(UrlLabel).To(vm => vm.DriveItem.WebUrl);
+				set.Bind(ImageView).To(vm => vm.Type).WithConversion("FileTypeToIcon");
 				set.Apply();
 			});
 		}

@@ -133,6 +133,24 @@
     <ImageAsset Include="Assets.xcassets\AccountIcon.imageset\ic_account_circle_black_48dp.png" />
     <ImageAsset Include="Assets.xcassets\GroupIcon.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\GroupIcon.imageset\ic_home_black_48dp.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon120.png" />
+    <ImageAsset Include="Assets.xcassets\DescriptionIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DescriptionIcon.imageset\DescriptionIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\RoomsIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LivingAreaIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LotSizeIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OperatingCostsIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\RoomsIcon.imageset\RoomIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\LivingAreaIcon.imageset\LivingAreaIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\LotSizeIcon.imageset\LotSizeIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\OperatingCostsIcon.imageset\OperatingCostsIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\MediaFileIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DocumentFileIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\TaskIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\TaskIcon.imageset\TaskIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\DocumentFileIcon.imageset\DocumentFileIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\MediaFileIcon.imageset\MediaFileIcon%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -142,6 +160,15 @@
     <Folder Include="Assets.xcassets\GroupIcon.imageset\" />
     <Folder Include="Extensions\" />
     <Folder Include="Views\Tabs\" />
+    <Folder Include="Assets.xcassets\DescriptionIcon.imageset\" />
+    <Folder Include="Assets.xcassets\RoomsIcon.imageset\" />
+    <Folder Include="Assets.xcassets\LivingAreaIcon.imageset\" />
+    <Folder Include="Assets.xcassets\LotSizeIcon.imageset\" />
+    <Folder Include="Assets.xcassets\OperatingCostsIcon.imageset\" />
+    <Folder Include="Assets.xcassets\MediaFileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\DocumentFileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\TaskIcon.imageset\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -220,6 +247,7 @@
     <Compile Include="Views\Cells\TasksTableViewCell.designer.cs">
       <DependentUpon>TasksTableViewCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Converters\FileTypeToIconConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PropertyManager\PropertyManager\PropertyManager.csproj">

@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2">
-                    <rect key="frame" x="0.0" y="1" width="414" height="736"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Find the details of this property down below, these are stored in Office 365 and be available to all user of this app." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfT-XG-VMP" userLabel="Details Label">
                             <rect key="frame" x="8" y="10" width="398" height="59"/>
@@ -32,7 +32,7 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="GroupIcon" translatesAutoresizingMaskIntoConstraints="NO" id="LLL-1B-mLi" userLabel="Description Icon">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="DescriptionIcon" translatesAutoresizingMaskIntoConstraints="NO" id="LLL-1B-mLi" userLabel="Description Icon">
                             <rect key="frame" x="8" y="75" width="43" height="43"/>
                             <color key="tintColor" red="0.0" green="0.47058823529999999" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -52,7 +52,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="GroupIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Sth-fg-7gB" userLabel="Rooms Icon">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="RoomsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Sth-fg-7gB" userLabel="Rooms Icon">
                             <rect key="frame" x="8" y="143" width="43" height="43"/>
                             <color key="tintColor" red="0.0" green="0.47058823529999999" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -72,7 +72,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="GroupIcon" translatesAutoresizingMaskIntoConstraints="NO" id="V6o-2L-OIg" userLabel="Living Area Icon">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="LivingAreaIcon" translatesAutoresizingMaskIntoConstraints="NO" id="V6o-2L-OIg" userLabel="Living Area Icon">
                             <rect key="frame" x="8" y="206" width="43" height="43"/>
                             <color key="tintColor" red="0.0" green="0.47058823529999999" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -92,7 +92,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="GroupIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9e8-j9-hJN" userLabel="Lot Size Icon">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="LotSizeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9e8-j9-hJN" userLabel="Lot Size Icon">
                             <rect key="frame" x="8" y="285" width="43" height="43"/>
                             <color key="tintColor" red="0.0" green="0.47058823529999999" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -112,7 +112,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="GroupIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ZhY-uX-U5p" userLabel="Operating Costs Icon">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="OperatingCostsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ZhY-uX-U5p" userLabel="Operating Costs Icon">
                             <rect key="frame" x="8" y="353" width="43" height="43"/>
                             <color key="tintColor" red="0.0" green="0.47058823529999999" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -213,6 +213,10 @@
         </scrollView>
     </objects>
     <resources>
-        <image name="GroupIcon" width="50" height="50"/>
+        <image name="DescriptionIcon" width="50" height="50"/>
+        <image name="LivingAreaIcon" width="50" height="50"/>
+        <image name="LotSizeIcon" width="50" height="50"/>
+        <image name="OperatingCostsIcon" width="50" height="50"/>
+        <image name="RoomsIcon" width="50" height="50"/>
     </resources>
 </document>
