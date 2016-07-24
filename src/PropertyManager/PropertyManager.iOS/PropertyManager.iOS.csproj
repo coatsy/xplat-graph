@@ -155,6 +155,8 @@
     <InterfaceDefinition Include="Views\Tabs\ConversationsTabView.xib" />
     <InterfaceDefinition Include="Views\Tabs\FilesTabView.xib" />
     <InterfaceDefinition Include="Views\Tabs\TasksTabView.xib" />
+    <InterfaceDefinition Include="Views\Cells\FilesTableViewCell.xib" />
+    <InterfaceDefinition Include="Views\Cells\TasksTableViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -209,6 +211,14 @@
     <Compile Include="Views\Tabs\TasksTabView.cs" />
     <Compile Include="Views\Tabs\TasksTabView.designer.cs">
       <DependentUpon>TasksTabView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cells\FilesTableViewCell.cs" />
+    <Compile Include="Views\Cells\FilesTableViewCell.designer.cs">
+      <DependentUpon>FilesTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cells\TasksTableViewCell.cs" />
+    <Compile Include="Views\Cells\TasksTableViewCell.designer.cs">
+      <DependentUpon>TasksTableViewCell.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

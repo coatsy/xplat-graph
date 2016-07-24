@@ -1,4 +1,6 @@
-﻿using MvvmCross.iOS.Views;
+﻿using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.iOS.Views;
+using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
 using UIKit;
 
@@ -29,6 +31,20 @@ namespace PropertyManager.iOS
 			var rightNavigationButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, (sender, e) =>
 			                                                viewModel.AddFileCommand.Execute(null));
 			NavigationItem.RightBarButtonItem = rightNavigationButton;
+
+			// Create the table view source.
+			var source = new MvxSimpleTableViewSource(TableView, FilesTableViewCell.Key, FilesTableViewCell.Key);
+
+			// Create and apply the binding set.
+			var set = this.CreateBindingSet<FilesTabView, GroupViewModel>();
+			set.Bind(source).To(vm => vm.Files);
+			set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.FileClickCommand);
+			set.Apply();
+
+			// Set the table view source and refresh.
+			TableView.Source = source;
+			TableView.RowHeight = 60;
+			TableView.ReloadData();
 		}
 
 		public override void DidReceiveMemoryWarning()

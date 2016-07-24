@@ -9,17 +9,17 @@ using System.CodeDom.Compiler;
 
 namespace PropertyManager.iOS
 {
-	[Register ("TasksTabView")]
-	partial class TasksTabView
+	[Register ("TasksTableViewCell")]
+	partial class TasksTableViewCell
 	{
 		[Outlet]
-		UIKit.UITableView TableView { get; set; }
+		UIKit.UILabel TitleLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TableView != null) {
-				TableView.Dispose ();
-				TableView = null;
+			if (TitleLabel != null) {
+				TitleLabel.Dispose ();
+				TitleLabel = null;
 			}
 		}
 	}

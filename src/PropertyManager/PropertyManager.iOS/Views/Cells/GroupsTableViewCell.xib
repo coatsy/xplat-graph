@@ -53,6 +53,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="GroupIcon" width="72" height="72"/>
+        <image name="GroupIcon" width="50" height="50"/>
     </resources>
 </document>
