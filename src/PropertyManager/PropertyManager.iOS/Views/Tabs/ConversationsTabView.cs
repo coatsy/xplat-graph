@@ -1,5 +1,6 @@
 ﻿using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
+using UIKit;
 
 namespace PropertyManager.iOS
 {
@@ -12,7 +13,17 @@ namespace PropertyManager.iOS
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Perform any additional setup after loading the view, typically from a nib.
+
+			var viewModel = ViewModel as GroupViewModel;
+
+			// Set view title and prompt.
+			NavigationItem.Title = "Conversations";
+			NavigationItem.Prompt = viewModel.Group.DisplayName;
+
+			// Add left navigation bar item.
+			var leftNavigationButton = new UIBarButtonItem(UIBarButtonSystemItem.Cancel, (sender, e) =>
+															viewModel.GoBackCommand.Execute(null));
+			NavigationItem.LeftBarButtonItem = leftNavigationButton;
 		}
 
 		public override void DidReceiveMemoryWarning()

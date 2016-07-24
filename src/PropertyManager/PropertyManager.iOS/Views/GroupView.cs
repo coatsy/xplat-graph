@@ -2,6 +2,7 @@
 using System.Linq;
 using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
+using UIKit;
 
 namespace PropertyManager.iOS
 {
@@ -19,6 +20,13 @@ namespace PropertyManager.iOS
 			ViewDidLoad();
 		}
 
+		public override void ViewWillAppear(bool animated)
+		{
+			// Hide the navigation bar.
+			this.HideNavigationBar();
+			base.ViewDidAppear(animated);
+		}
+
 		public override void ViewDidLoad()
 		{
 			if (!_viewConstructed) 
@@ -29,30 +37,37 @@ namespace PropertyManager.iOS
 			base.ViewDidLoad();
 
 			// Create and set tabs.
-			var viewControllers = new MvxViewController[]
+			var viewControllers = new UIViewController[]
 			{
-				CreateTab<DetailsTabView>("Details"),
-				CreateTab<ConversationsTabView>("Conversations"),
-				CreateTab<FilesTabView>("Files"),
-				CreateTab<TasksTabView>("Tasks")
+				CreateTabViewController<DetailsTabView>("Details", "AccountIcon", 0),
+				CreateTabViewController<ConversationsTabView>("Conversations", "AccountIcon", 1),
+				CreateTabViewController<FilesTabView>("Files", "AccountIcon", 2),
+				CreateTabViewController<TasksTabView>("Tasks", "AccountIcon", 3)
 			};
 			ViewControllers = viewControllers;
 			SelectedViewController = ViewControllers.First();
 		}
 
-		private MvxViewController CreateTab<T>(string title) where T : MvxViewController
+		private UIViewController CreateTabViewController<T>(string title, string icon, nint index) where T : MvxViewController
 		{
 			// Create view controller.
 			var viewController = Activator.CreateInstance(typeof(T)) as T;
 			viewController.Title = title;
+			//viewController.TabBarItem = new UITabBarItem(title, UIImage.FromBundle(icon), index);
+			viewController.TabBarItem = new UITabBarItem(UITabBarSystemItem.Contacts, index);
 			viewController.ViewModel = ViewModel;
-			return viewController;
-		}
 
-		public override void ViewWillAppear(bool animated)
-		{
-			//ViewModel.OnResume();
-			base.ViewWillAppear(animated);
+
+			// Create the navigation controller.
+			var navigationController = new UINavigationController();
+
+			//navigationController.NavigationItem.Title = Title;
+			navigationController.PushViewController(viewController, false);
+
+			// Set the navigation bar style.
+			ViewControllerExtensions.SetNavigationBarStyle(viewController);
+
+			return navigationController;
 		}
 
 		public override void DidReceiveMemoryWarning()

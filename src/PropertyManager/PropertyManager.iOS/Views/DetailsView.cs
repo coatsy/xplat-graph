@@ -74,6 +74,8 @@ namespace PropertyManager.iOS
 
 		public override void ViewWillAppear(bool animated)
 		{
+			// Show the navigation bar.
+			this.ShowNavigationBar();
 			ViewModel.OnResume();
 			base.ViewWillAppear(animated);
 		}

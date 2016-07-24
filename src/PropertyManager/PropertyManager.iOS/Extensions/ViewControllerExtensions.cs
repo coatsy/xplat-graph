@@ -6,7 +6,7 @@ namespace PropertyManager.iOS
 {
 	public static class ViewControllerExtensions
 	{
-		public static void SetNavigationBarStyle(this MvxViewController viewController)
+		public static void SetNavigationBarStyle(this UIViewController viewController)
 		{
 			viewController.NavigationController.NavigationBar.TintColor = UIColor.White;
 			viewController.NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(0, 120, 215);
@@ -30,6 +30,16 @@ namespace PropertyManager.iOS
 		}
 
 		public static void HideNavigationBar(this MvxViewController viewController, bool animated = false)
+		{
+			viewController.NavigationController.SetNavigationBarHidden(true, animated);
+		}
+
+		public static void ShowNavigationBar(this MvxTabBarViewController viewController, bool animated = false)
+		{
+			viewController.NavigationController.SetNavigationBarHidden(false, animated);
+		}
+
+		public static void HideNavigationBar(this MvxTabBarViewController viewController, bool animated = false)
 		{
 			viewController.NavigationController.SetNavigationBarHidden(true, animated);
 		}
