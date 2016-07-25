@@ -16,6 +16,9 @@ namespace PropertyManager.iOS
 		UIKit.UIView ContentView { get; set; }
 
 		[Outlet]
+		UIKit.NSLayoutConstraint DescriptionLabelTopConstraint { get; set; }
+
+		[Outlet]
 		UIKit.UITextField DescriptionTextField { get; set; }
 
 		[Outlet]
@@ -37,23 +40,16 @@ namespace PropertyManager.iOS
 		UIKit.UIScrollView ScrollView { get; set; }
 
 		[Outlet]
+		UIKit.UILabel StreetNameLabel { get; set; }
+
+		[Outlet]
 		UIKit.UITextField StreetNameTextField { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (ScrollView != null) {
-				ScrollView.Dispose ();
-				ScrollView = null;
-			}
-
 			if (ContentView != null) {
 				ContentView.Dispose ();
 				ContentView = null;
-			}
-
-			if (StreetNameTextField != null) {
-				StreetNameTextField.Dispose ();
-				StreetNameTextField = null;
 			}
 
 			if (DescriptionTextField != null) {
@@ -84,6 +80,26 @@ namespace PropertyManager.iOS
 			if (RoomsTextField != null) {
 				RoomsTextField.Dispose ();
 				RoomsTextField = null;
+			}
+
+			if (ScrollView != null) {
+				ScrollView.Dispose ();
+				ScrollView = null;
+			}
+
+			if (StreetNameLabel != null) {
+				StreetNameLabel.Dispose ();
+				StreetNameLabel = null;
+			}
+
+			if (StreetNameTextField != null) {
+				StreetNameTextField.Dispose ();
+				StreetNameTextField = null;
+			}
+
+			if (DescriptionLabelTopConstraint != null) {
+				DescriptionLabelTopConstraint.Dispose ();
+				DescriptionLabelTopConstraint = null;
 			}
 		}
 	}

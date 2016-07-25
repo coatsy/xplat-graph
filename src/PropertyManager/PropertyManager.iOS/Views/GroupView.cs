@@ -25,6 +25,7 @@ namespace PropertyManager.iOS
 		{
 			// Hide the navigation bar.
 			this.HideNavigationBar();
+			ViewModel.OnResume();
 			base.ViewDidAppear(animated);
 		}
 

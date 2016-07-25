@@ -53,6 +53,12 @@ namespace PropertyManager.iOS
 				ViewModel.Validate();
 			});
 
+			// Move the labels and fields up if needed.
+			if (ViewModel.IsExisting)
+			{
+				DescriptionLabelTopConstraint.Constant = -50;
+			}
+
 			// Register event handlers to trigger focus flow.
 			StreetNameTextField.ShouldReturn += (textField) => DescriptionTextView.BecomeFirstResponder();
 			RoomsTextField.ShouldReturn += (textField) => LivingAreaTextField.BecomeFirstResponder();
@@ -63,6 +69,8 @@ namespace PropertyManager.iOS
 			// Create and apply the binding set.
 			var set = this.CreateBindingSet<DetailsView, DetailsViewModel>();
 			set.Bind(StreetNameTextField).To(vm => vm.StreetName);
+			set.Bind(StreetNameLabel).For("Visibility").To(vm => vm.IsExisting).WithConversion("InvertedVisibility");
+			set.Bind(StreetNameTextField).For("Visibility").To(vm => vm.IsExisting).WithConversion("InvertedVisibility");
 			set.Bind(DescriptionTextView).To(vm => vm.Details.Description);
 			set.Bind(RoomsTextField).To(vm => vm.Details.Rooms);
 			set.Bind(LivingAreaTextField).To(vm => vm.Details.LivingArea);
