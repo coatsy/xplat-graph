@@ -23,7 +23,6 @@ namespace PropertyManager.ViewModels
         {
             _graphService = graphService;
             _configService = configService;
-			LoginAsync();
         }
 
         private async void LoginAsync()
