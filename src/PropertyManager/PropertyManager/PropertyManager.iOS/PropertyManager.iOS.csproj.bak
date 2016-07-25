@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -7,7 +7,7 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
     <RootNamespace>PropertyManager.iOS</RootNamespace>
-    <AssemblyName>PropertyManageriOS</AssemblyName>
+    <AssemblyName>PropertyManager.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
@@ -33,8 +33,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Release</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
@@ -51,8 +50,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
@@ -83,8 +81,7 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
-    <CodesignProvision>
-    </CodesignProvision>
+    <CodesignProvision></CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -130,108 +127,62 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AccountIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AccountIcon.imageset\ic_account_circle_black_48dp.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon180.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon120.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\DescriptionIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\DescriptionIcon.imageset\DescriptionIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\RoomsIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\LivingAreaIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\LotSizeIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\OperatingCostsIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\RoomsIcon.imageset\RoomIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\LivingAreaIcon.imageset\LivingAreaIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\LotSizeIcon.imageset\LotSizeIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\OperatingCostsIcon.imageset\OperatingCostsIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\MediaFileIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\DocumentFileIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\TaskIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\TaskIcon.imageset\TaskIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\DocumentFileIcon.imageset\DocumentFileIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\MediaFileIcon.imageset\MediaFileIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\DetailsTabBarIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ConversationsTabBarIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FilesTabBarIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\TasksTabBarIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\DetailsTabBarIcon.imageset\DetailsTabBarIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ConversationsTabBarIcon.imageset\ConversationsTabBarIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FilesTabBarIcon.imageset\FilesTabBarIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\TasksTabBarIcon.imageset\TasksTabBarIcon%402x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Assets.xcassets\Image.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppLogoIcon.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppLogoIcon.imageset\AppIcon180.png">
-      <InProject>false</InProject>
-    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AccountIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AccountIcon.imageset\ic_account_circle_black_48dp.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon120.png" />
+    <ImageAsset Include="Assets.xcassets\DescriptionIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DescriptionIcon.imageset\DescriptionIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\RoomsIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LivingAreaIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LotSizeIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OperatingCostsIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\RoomsIcon.imageset\RoomIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\LivingAreaIcon.imageset\LivingAreaIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\LotSizeIcon.imageset\LotSizeIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\OperatingCostsIcon.imageset\OperatingCostsIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\MediaFileIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DocumentFileIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\TaskIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\TaskIcon.imageset\TaskIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\DocumentFileIcon.imageset\DocumentFileIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\MediaFileIcon.imageset\MediaFileIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\DetailsTabBarIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ConversationsTabBarIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FilesTabBarIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\TasksTabBarIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DetailsTabBarIcon.imageset\DetailsTabBarIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ConversationsTabBarIcon.imageset\ConversationsTabBarIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\FilesTabBarIcon.imageset\FilesTabBarIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\TasksTabBarIcon.imageset\TasksTabBarIcon%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\Image.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppLogoIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppLogoIcon.imageset\AppIcon180.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Services\" />
+    <Folder Include="Assets.xcassets\AccountIcon.imageset\" />
+    <Folder Include="Views\Cells\" />
     <Folder Include="Assets.xcassets\GroupIcon.imageset\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Views\Tabs\" />
+    <Folder Include="Assets.xcassets\DescriptionIcon.imageset\" />
+    <Folder Include="Assets.xcassets\RoomsIcon.imageset\" />
+    <Folder Include="Assets.xcassets\LivingAreaIcon.imageset\" />
+    <Folder Include="Assets.xcassets\LotSizeIcon.imageset\" />
+    <Folder Include="Assets.xcassets\OperatingCostsIcon.imageset\" />
+    <Folder Include="Assets.xcassets\MediaFileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\DocumentFileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\TaskIcon.imageset\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Assets.xcassets\DetailsTabBarIcon.imageset\" />
+    <Folder Include="Assets.xcassets\ConversationsTabBarIcon.imageset\" />
+    <Folder Include="Assets.xcassets\FilesTabBarIcon.imageset\" />
+    <Folder Include="Assets.xcassets\TasksTabBarIcon.imageset\" />
+    <Folder Include="Assets.xcassets\AppLogoIcon.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -324,7 +275,7 @@
     <Compile Include="Views\Tabs\ConversationsTabViewSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PropertyManager\PropertyManager.csproj">
+    <ProjectReference Include="..\PropertyManager\PropertyManager\PropertyManager.csproj">
       <Project>{E3FA1BF7-8A72-44AC-964A-C46316886F4B}</Project>
       <Name>PropertyManager</Name>
     </ProjectReference>

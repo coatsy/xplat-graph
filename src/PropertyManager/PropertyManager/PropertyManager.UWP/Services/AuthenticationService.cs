@@ -13,7 +13,7 @@ namespace PropertyManager.UWP.Services
             TokenCache.DefaultShared.Clear();
 
             // Create the authentication context.
-            var authenticationContext = new AuthenticationContext(Authority);
+            var authenticationContext = new AuthenticationContext(Constants.Authority);
 
             // Create the platform parameters.
             var platformParameters = new PlatformParameters(PromptBehavior.Always,
@@ -28,11 +28,11 @@ namespace PropertyManager.UWP.Services
         public async Task<AuthenticationResult> AcquireTokenSilentAsync()
         {
             // Create the authentication context.
-            var authenticationContext = new AuthenticationContext(Authority);
+            var authenticationContext = new AuthenticationContext(Constants.Authority);
 
             // Authenticate the user.
             var authenticationResult = await authenticationContext.AcquireTokenSilentAsync(
-                Constants.Resource, Constants.ClientId);
+                Constants.GraphResource, Constants.ClientId);
             return authenticationResult;
         }
     }
