@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManager", "Property
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManager.UWP", "PropertyManager\PropertyManager.UWP\PropertyManager.UWP.csproj", "{6AA539FE-F482-42B2-A81B-6875F4CDC8B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManager.iOS", "PropertyManager.iOS\PropertyManager.iOS.csproj", "{5C135F0A-7CE2-4C55-AAD2-80840F1F402B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManager.iOS", "PropertyManager\PropertyManager.iOS\PropertyManager.iOS.csproj", "{5C135F0A-7CE2-4C55-AAD2-80840F1F402B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
