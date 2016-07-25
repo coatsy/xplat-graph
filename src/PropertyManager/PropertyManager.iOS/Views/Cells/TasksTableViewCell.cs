@@ -19,6 +19,7 @@ namespace PropertyManager.iOS
 
 		protected TasksTableViewCell(IntPtr handle) : base(handle)
 		{
+			return;
 			this.DelayBind(() =>
 			{
 				// Create and apply the binding set.

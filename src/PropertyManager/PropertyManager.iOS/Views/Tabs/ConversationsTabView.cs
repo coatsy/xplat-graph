@@ -1,4 +1,7 @@
-﻿using MvvmCross.iOS.Views;
+﻿using System;
+using CoreGraphics;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
 using UIKit;
 
@@ -36,6 +39,22 @@ namespace PropertyManager.iOS
 				}
 			});
 			NavigationItem.RightBarButtonItem = rightNavigationButton;
+
+			// Register collection changed handler.
+			viewModel.ConversationsChanged += (sender) =>
+				TableView.SetContentOffset(new CGPoint(0, nfloat.MaxValue), true);
+
+			// Create the table view source.
+			var source = new ConversationsTabViewSource(TableView, viewModel);
+
+			// Create and apply the binding set.
+			var set = this.CreateBindingSet<ConversationsTabView, GroupViewModel>();
+			set.Bind(source).To(vm => vm.Conversations);
+			set.Apply();
+
+			// Set the table view source and refresh.
+			TableView.Source = source;
+			TableView.ReloadData();
 		}
 
 		public override void DidReceiveMemoryWarning()

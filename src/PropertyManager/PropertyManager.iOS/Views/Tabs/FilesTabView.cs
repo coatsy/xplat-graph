@@ -1,4 +1,6 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using System;
+using CoreGraphics;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.iOS.Views;
 using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
@@ -31,6 +33,10 @@ namespace PropertyManager.iOS
 			var rightNavigationButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, (sender, e) =>
 			                                                viewModel.AddFileCommand.Execute(null));
 			NavigationItem.RightBarButtonItem = rightNavigationButton;
+
+			// Register collection changed handler.
+			viewModel.FilesChanged += (sender) =>
+				TableView.SetContentOffset(new CGPoint(0, nfloat.MaxValue), true);
 
 			// Create the table view source.
 			var source = new MvxSimpleTableViewSource(TableView, FilesTableViewCell.Key, FilesTableViewCell.Key);

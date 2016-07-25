@@ -159,6 +159,7 @@
     <ImageAsset Include="Assets.xcassets\ConversationsTabBarIcon.imageset\ConversationsTabBarIcon%402x.png" />
     <ImageAsset Include="Assets.xcassets\FilesTabBarIcon.imageset\FilesTabBarIcon%402x.png" />
     <ImageAsset Include="Assets.xcassets\TasksTabBarIcon.imageset\TasksTabBarIcon%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\Image.imageset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -196,6 +197,8 @@
     <InterfaceDefinition Include="Views\Tabs\TasksTabView.xib" />
     <InterfaceDefinition Include="Views\Cells\FilesTableViewCell.xib" />
     <InterfaceDefinition Include="Views\Cells\TasksTableViewCell.xib" />
+    <InterfaceDefinition Include="Views\Cells\ConversationsTableLeftViewCell.xib" />
+    <InterfaceDefinition Include="Views\Cells\ConversationsTableRightViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -260,6 +263,15 @@
       <DependentUpon>TasksTableViewCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Converters\FileTypeToIconConverter.cs" />
+    <Compile Include="Views\Cells\ConversationsTableLeftViewCell.cs" />
+    <Compile Include="Views\Cells\ConversationsTableLeftViewCell.designer.cs">
+      <DependentUpon>ConversationsTableLeftViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cells\ConversationsTableRightViewCell.cs" />
+    <Compile Include="Views\Cells\ConversationsTableRightViewCell.designer.cs">
+      <DependentUpon>ConversationsTableRightViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\ConversationsTabViewSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PropertyManager\PropertyManager\PropertyManager.csproj">

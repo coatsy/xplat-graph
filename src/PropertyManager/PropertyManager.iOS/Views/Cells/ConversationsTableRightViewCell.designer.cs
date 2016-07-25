@@ -9,17 +9,25 @@ using System.CodeDom.Compiler;
 
 namespace PropertyManager.iOS
 {
-	[Register ("ConversationsTabView")]
-	partial class ConversationsTabView
+	[Register ("ConversationsTableRightViewCell")]
+	partial class ConversationsTableRightViewCell
 	{
 		[Outlet]
-		UIKit.UITableView TableView { get; set; }
+		UIKit.UILabel MessageLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel SenderLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TableView != null) {
-				TableView.Dispose ();
-				TableView = null;
+			if (MessageLabel != null) {
+				MessageLabel.Dispose ();
+				MessageLabel = null;
+			}
+
+			if (SenderLabel != null) {
+				SenderLabel.Dispose ();
+				SenderLabel = null;
 			}
 		}
 	}

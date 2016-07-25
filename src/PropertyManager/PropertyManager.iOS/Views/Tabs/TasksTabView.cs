@@ -1,4 +1,6 @@
-﻿using MvvmCross.Binding.BindingContext;
+﻿using System;
+using CoreGraphics;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.iOS.Views;
 using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
@@ -42,6 +44,10 @@ namespace PropertyManager.iOS
 				}
 			});
 			NavigationItem.RightBarButtonItem = rightNavigationButton;
+
+			// Register collection changed handler.
+			viewModel.TasksChanged += (sender) =>
+				TableView.SetContentOffset(new CGPoint(0, nfloat.MaxValue), true);
 
 			// Create the table view source.
 			var source = new MvxSimpleTableViewSource(TableView, TasksTableViewCell.Key, TasksTableViewCell.Key);
