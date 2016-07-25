@@ -1,6 +1,4 @@
-﻿using System;
-using CoreGraphics;
-using MvvmCross.Binding.BindingContext;
+﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
 using UIKit;
@@ -39,10 +37,6 @@ namespace PropertyManager.iOS
 				}
 			});
 			NavigationItem.RightBarButtonItem = rightNavigationButton;
-
-			// Register collection changed handler.
-			viewModel.ConversationsChanged += (sender) =>
-				TableView.SetContentOffset(new CGPoint(0, nfloat.MaxValue), true);
 
 			// Create the table view source.
 			var source = new ConversationsTabViewSource(TableView, viewModel);

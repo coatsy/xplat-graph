@@ -3,6 +3,7 @@ using System.Linq;
 using MvvmCross.iOS.Views;
 using PropertyManager.ViewModels;
 using UIKit;
+using MvvmCross.Platform.WeakSubscription;
 
 namespace PropertyManager.iOS
 {
@@ -46,6 +47,17 @@ namespace PropertyManager.iOS
 			};
 			ViewControllers = viewControllers;
 			SelectedViewController = ViewControllers.First();
+
+			// "Bind" the network activity indicator to the loading property.
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+			ViewModel.WeakSubscribe((sender, e) =>
+			{
+				if (e.PropertyName != nameof(ViewModel.IsLoading))
+				{
+					return;
+				}
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = ViewModel.IsLoading;
+			});
 		}
 
 		private UIViewController CreateTabViewController<T>(string title, string icon, nint index) where T : MvxViewController

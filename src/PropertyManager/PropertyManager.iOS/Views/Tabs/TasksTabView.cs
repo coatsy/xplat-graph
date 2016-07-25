@@ -45,10 +45,6 @@ namespace PropertyManager.iOS
 			});
 			NavigationItem.RightBarButtonItem = rightNavigationButton;
 
-			// Register collection changed handler.
-			viewModel.TasksChanged += (sender) =>
-				TableView.SetContentOffset(new CGPoint(0, nfloat.MaxValue), true);
-
 			// Create the table view source.
 			var source = new MvxSimpleTableViewSource(TableView, TasksTableViewCell.Key, TasksTableViewCell.Key);
 
@@ -62,8 +58,6 @@ namespace PropertyManager.iOS
 			TableView.Source = source;
 			TableView.RowHeight = 60;
 			TableView.ReloadData();
-
-		
 		}
 
 		public override void DidReceiveMemoryWarning()

@@ -131,8 +131,6 @@
     <ImageAsset Include="Assets.xcassets\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AccountIcon.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AccountIcon.imageset\ic_account_circle_black_48dp.png" />
-    <ImageAsset Include="Assets.xcassets\GroupIcon.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\GroupIcon.imageset\ic_home_black_48dp.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon180.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon120.png" />
     <ImageAsset Include="Assets.xcassets\DescriptionIcon.imageset\Contents.json" />
@@ -160,6 +158,8 @@
     <ImageAsset Include="Assets.xcassets\FilesTabBarIcon.imageset\FilesTabBarIcon%402x.png" />
     <ImageAsset Include="Assets.xcassets\TasksTabBarIcon.imageset\TasksTabBarIcon%402x.png" />
     <ImageAsset Include="Resources\Assets.xcassets\Image.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppLogoIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppLogoIcon.imageset\AppIcon180.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -182,6 +182,7 @@
     <Folder Include="Assets.xcassets\ConversationsTabBarIcon.imageset\" />
     <Folder Include="Assets.xcassets\FilesTabBarIcon.imageset\" />
     <Folder Include="Assets.xcassets\TasksTabBarIcon.imageset\" />
+    <Folder Include="Assets.xcassets\AppLogoIcon.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />

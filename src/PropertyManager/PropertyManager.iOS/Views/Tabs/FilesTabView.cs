@@ -34,10 +34,6 @@ namespace PropertyManager.iOS
 			                                                viewModel.AddFileCommand.Execute(null));
 			NavigationItem.RightBarButtonItem = rightNavigationButton;
 
-			// Register collection changed handler.
-			viewModel.FilesChanged += (sender) =>
-				TableView.SetContentOffset(new CGPoint(0, nfloat.MaxValue), true);
-
 			// Create the table view source.
 			var source = new MvxSimpleTableViewSource(TableView, FilesTableViewCell.Key, FilesTableViewCell.Key);
 
