@@ -25,6 +25,8 @@ namespace ExcelFormsTest.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            new FreshEssentials.iOS.AdvancedFrameRendereriOS();
+
             return base.FinishedLaunching(app, options);
         }
     }
