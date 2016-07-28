@@ -44,7 +44,7 @@ namespace PropertyManager.Droid.Services
             TokenCache.DefaultShared.Clear();
 
             // Create the authentication context.
-            var authenticationContext = new AuthenticationContext(Authority);
+            var authenticationContext = new AuthenticationContext(Constants.Authority);
 
             // Create the platform parameters.
             var platformParameters = new PlatformParameters(topActivity);
@@ -71,7 +71,7 @@ namespace PropertyManager.Droid.Services
         public async Task<AuthenticationResult> AcquireTokenSilentAsync()
         {
             // Create the authentication context.
-            var authenticationContext = new AuthenticationContext(Authority);
+            var authenticationContext = new AuthenticationContext(Constants.Authority);
 
             // Try to get a unique user id.
             var uuid = GetCurrentUUID();
