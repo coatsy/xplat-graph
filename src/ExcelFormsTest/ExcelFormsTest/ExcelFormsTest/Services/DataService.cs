@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -502,7 +503,14 @@ namespace ExcelFormsTest.Services
                 throw new NotAuthorisedException("Token must be set");
             }
 
-            answer = await client.GetStringAsync(queryString);
+            try
+            {
+                answer = await client.GetStringAsync(queryString);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error getting string\nURI Called: {queryString}\nException: {ex}\nMessage: {ex.Message}");
+            }
 
             return answer;
         }

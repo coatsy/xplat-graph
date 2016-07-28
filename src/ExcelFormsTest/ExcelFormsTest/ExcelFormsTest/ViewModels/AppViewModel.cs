@@ -64,7 +64,7 @@ namespace ExcelFormsTest.ViewModels
             {
                 AuthResult = await App.ClientApplication.AcquireTokenSilentAsync(App.scopes);
             }
-            catch 
+            catch (Exception ex)
             {
                 DoForceLoginCommand();
             }
